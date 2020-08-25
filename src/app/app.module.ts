@@ -11,6 +11,7 @@ import { AuthGuard } from "./shared/authguard/AuthGuard";
 import { ShowErrorsComponent } from './shared/show-errors/show-errors.component';
 import { RegisterComponent } from './login/register/register.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
     FormsModule,
     CommonModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RecaptchaModule,  //this is the recaptcha main module
+    RecaptchaFormsModule, //this is the module for form incase form validation
   ],
   providers: [LoginService, AuthGuard],
   bootstrap: [AppComponent]

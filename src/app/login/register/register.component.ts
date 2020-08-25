@@ -5,6 +5,7 @@ import { LoginService } from "../loginservice";
 import { SweetAlertService } from "../../shared/alert/sweetalert.service";
 import { User } from '../login.interface';
 import { SharedService } from 'src/app/shared/shared.service';
+import { roleType, SiteKey } from 'src/app/shared/globalConstants';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,9 @@ export class RegisterComponent implements OnInit {
   user: User;
   passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{9,})/;
   emailPattern = /\S+@\S+\.\S+/;
-
+  role: roleType;
+  SITE_KEY = SiteKey;
+  
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -27,6 +30,12 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.user = new User();
+  }
+
+  resolved(captchaResponse: string) {
+    debugger
+    console.log(`Resolved response token: ${captchaResponse}`);
+   
   }
 
   checkEmailExists(email: string): void {

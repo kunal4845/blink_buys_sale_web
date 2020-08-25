@@ -31,4 +31,10 @@ export class LoginService {
       observe: "response"
     });
   }
+
+  getUser(): Observable<HttpResponse<User>> {
+    return this.http.get<User>(`${this.APIURL}`, {
+      observe: "response"
+    });
+  }
 }
