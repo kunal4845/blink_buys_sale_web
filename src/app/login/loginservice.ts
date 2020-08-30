@@ -6,6 +6,7 @@ import { User } from './login.interface';
 @Injectable({ providedIn: 'root' })
 export class LoginService {
   private APIURL: string = "https://localhost:44378/api" + "/account/";
+  private APIURL2: string = "https://localhost:44378/api" + "/user/";
   constructor(private http: HttpClient) { }
 
   checkEmailExists(email: string): Observable<HttpResponse<User>> {
@@ -33,7 +34,7 @@ export class LoginService {
   }
 
   getUser(): Observable<HttpResponse<User>> {
-    return this.http.get<User>(`${this.APIURL}`, {
+    return this.http.get<User>(`${this.APIURL2}`, {
       observe: "response"
     });
   }

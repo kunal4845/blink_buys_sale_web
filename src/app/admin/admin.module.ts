@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminComponent } from './admin.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminService } from './admin.service';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
@@ -14,6 +13,10 @@ import { SharedModule } from '../shared/shared.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Interceptor } from '../shared/interceptor/http.intercepter';
 import { HttpErrorInterceptor } from '../shared/interceptor/http-error.interceptor';
+import { ServiceProviderRequestComponent } from './service-provider/service-provider-request/service-provider-request.component';
+import { DealerRequestComponent } from './dealer/dealer-request/dealer-request.component';
+import { DealerListComponent } from './dealer/dealer-list/dealer-list.component';
+import { ServiceProviderListComponent } from './service-provider/service-provider-list/service-provider-list.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -27,9 +30,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 @NgModule({
   declarations: [
     AdminComponent,
-
-    DashboardComponent
-
+    DashboardComponent,
+    ServiceProviderListComponent,
+    ServiceProviderRequestComponent,
+    DealerRequestComponent,
+    DealerListComponent
   ],
   imports: [
     FormsModule,

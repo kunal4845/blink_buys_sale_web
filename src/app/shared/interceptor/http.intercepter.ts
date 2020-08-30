@@ -14,7 +14,7 @@ export class Interceptor implements HttpInterceptor {
         // add authorization header to request
         debugger;
         //Get Token data from local storage
-        let tokenInfo = localStorage.getItem('userInfo');
+        let tokenInfo = localStorage.getItem('token');
 
         if (tokenInfo) {
             request = request.clone({

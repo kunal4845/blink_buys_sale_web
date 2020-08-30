@@ -12,7 +12,7 @@
             <nav class="navbar navbar-static-top">
                 <div class="nav-top-custom">
                     <!-- Sidebar toggle button-->
-                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <a href="javascript:;" class="sidebar-toggle" data-toggle="push-menu" role="button">
                         <span class="sr-only">Toggle navigation</span>
                     </a>
                     <div class="col-md-12">
@@ -41,32 +41,32 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="treeview">
-                        <a href="#">
+                    <li class="treeview ">
+                        <a href="javascript:;">
                             <i class="fa fa-laptop"></i>
                             <span>Service Providers</span>
                             <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li routerLinkActive="active"><a href="javascript:;"><i class="fa fa-circle-o"></i>  Requests</a></li>
-                            <li routerLinkActive="active"><a href="javascript:;"><i class="fa fa-circle-o"></i>  List</a></li>
+                        <ul class="treeview-menu" style="display: block;">
+                            <li routerLinkActive="active"><a [routerLink]="['./provider-requests']"><i class="fa fa-circle-o"></i>  Requests</a></li>
+                            <li routerLinkActive="active"><a [routerLink]="['./service-providers']"><i class="fa fa-circle-o"></i>  List</a></li>
 
                         </ul>
                     </li>
 
-                    <li class="treeview">
-                        <a href="#">
+                    <li class=" treeview ">
+                        <a href="javascript:;">
                             <i class="fa fa-laptop"></i>
                             <span>Dealers</span>
                             <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                       </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li routerLinkActive="active"><a href="javascript:;"><i class="fa fa-circle-o"></i>  Requests</a></li>
-                            <li routerLinkActive="active"><a href="javascript:;"><i class="fa fa-circle-o"></i>  List</a></li>
+                        <ul class="treeview-menu" style="display: block;">
+                            <li routerLinkActive="active"><a [routerLink]="['./dealer-requests']"><i class="fa fa-circle-o"></i>  Requests</a></li>
+                            <li routerLinkActive="active"><a [routerLink]="['./dealers']"><i class="fa fa-circle-o"></i>  List</a></li>
                         </ul>
                     </li>
 
