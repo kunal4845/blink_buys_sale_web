@@ -27,6 +27,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
   },
+  {
+    path: 'user', loadChildren: () => import('./user/user-routing.module').then(m => m.UserRoutingModule),
+  }
 ];
 
 @NgModule({
