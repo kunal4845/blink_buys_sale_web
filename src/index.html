@@ -8,18 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="./assets/img/logo.png">
 
-    <link href="./assets/user/css/bootstrap.css" id="user-bootstrap" rel="stylesheet" type="text/css" media="all" />
-    <link href="./assets/user/css/style.css" id="user-style" rel="stylesheet" type="text/css" media="all" />
-    <link href="./assets/user/css/menu.css" id="user-menu" rel="stylesheet" type="text/css" media="all" />
-    <link href="./assets/user/css/ken-burns.css" id="user-ken-burns" rel="stylesheet" type="text/css" media="all" />
-    <link href="./assets/user/css/animate.min.css" id="user-animate" rel="stylesheet" type="text/css" media="all" />
-    <link href="./assets/user/css/owl.carousel.css" id="user-owl" rel="stylesheet" type="text/css" media="all">
-    <link href="./assets/user/css/font-awesome.css" id="user-font-awesome" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css' id="user-googleapis">
-    <link href='//fonts.googleapis.com/css?family=Lovers+Quarrel' id="user-Lovers" rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Offside' id="user-family" rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Tangerine:400,700' id="user-Tangerine" rel='stylesheet' type='text/css'>
 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Smart Bazaar Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+    SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
     <link rel="stylesheet" id="admin-bootstrap" href="./assets/css/bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" id="admin-font-awesome" href="./assets/css/bower_components/font-awesome/css/font-awesome.min.css" />
@@ -32,9 +24,33 @@
     <link rel="stylesheet" id="admin-Inn8golf" href="./assets/css/Inn8golf.css" />
     <link rel="stylesheet" id="admin-responsive" href="./assets/css/responsive.css" />
 
-    <script src="./assets/user/js/jquery-2.2.3.min.js"></script>
-    <script src="./assets/user/js/owl.carousel.js"></script>
 
+
+    <link href="./assets/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="./assets/user/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="./assets/user/css/menu.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="./assets/user/css/ken-burns.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="./assets/user/css/animate.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="./assets/user/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+    <link href="./assets/user/css/font-awesome.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css' id="user-googleapis">
+    <link href='//fonts.googleapis.com/css?family=Lovers+Quarrel' id="user-Lovers" rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Offside' id="user-family" rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Tangerine:400,700' id="user-Tangerine" rel='stylesheet' type='text/css'>
+
+
+
+
+    <!-- user -->
+    <!-- <script src="./assets/user/js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./assets/user/js/move-top.js"></script>
+    <script type="text/javascript" src="./assets/user/js/easing.js"></script>
+    <script src="./assets/user/js/owl.carousel.js"></script>
+    <script src="./assets/user/js/main.js"></script>
+    <script src="./assets/user/js/bootstrap.js"></script> -->
+
+
+    <!-- admin -->
     <script src="./assets/css/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./assets/css/bower_components/jquery-ui/jquery-ui.min.js"></script>
     <script src="./assets/css/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -42,17 +58,226 @@
     <script src="./assets/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="./assets/js/adminlte.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyDDSXvz3snrJ1VMfWCwlNW-iMYmEmNxImg&libraries=places"></script>
-
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-
-
 
 </head>
 
 <body class="hold-transition login-page" style="height: auto; min-height: 100%;">
     <app-root></app-root>
 
+
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo").owlCarousel({
+                autoPlay: 3000, //Set AutoPlay to 3 seconds 
+                items: 4,
+                itemsDesktop: [640, 5],
+                itemsDesktopSmall: [480, 2],
+                navigation: true
+
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            // Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
+
+            $('.header-two').scrollToFixed();
+            // previous summary up the page.
+
+            var summaries = $('.summary');
+            summaries.each(function(i) {
+                var summary = $(summaries[i]);
+                var next = summaries[i + 1];
+
+                summary.scrollToFixed({
+                    marginTop: $('.header-two').outerHeight(true) + 10,
+                    zIndex: 999
+                });
+            });
+        });
+    </script>
+    <!-- 
+    <script>
+        $('#myModal88').modal('show');
+    </script> -->
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo1").owlCarousel({
+
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                items: 4,
+                itemsDesktop: [640, 5],
+                itemsDesktopSmall: [414, 4],
+                navigation: true
+
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo2").owlCarousel({
+
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                items: 4,
+                itemsDesktop: [640, 5],
+                itemsDesktopSmall: [414, 4],
+                navigation: true
+
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo3").owlCarousel({
+
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                items: 4,
+                itemsDesktop: [640, 5],
+                itemsDesktopSmall: [414, 4],
+                navigation: true
+
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo4").owlCarousel({
+
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                items: 4,
+                itemsDesktop: [640, 5],
+                itemsDesktopSmall: [414, 4],
+                navigation: true
+
+            });
+        });
+    </script>
+
+
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#countdown1').ClassyCountdown({
+                end: '1388268325',
+                now: '1387999995',
+                labels: true,
+                style: {
+                    element: "",
+                    textResponsive: .5,
+                    days: {
+                        gauge: {
+                            thickness: .10,
+                            bgColor: "rgba(0,0,0,0)",
+                            fgColor: "#1abc9c",
+                            lineCap: 'round'
+                        },
+                        textCSS: 'font-weight:300; color:#fff;'
+                    },
+                    hours: {
+                        gauge: {
+                            thickness: .10,
+                            bgColor: "rgba(0,0,0,0)",
+                            fgColor: "#05BEF6",
+                            lineCap: 'round'
+                        },
+                        textCSS: ' font-weight:300; color:#fff;'
+                    },
+                    minutes: {
+                        gauge: {
+                            thickness: .10,
+                            bgColor: "rgba(0,0,0,0)",
+                            fgColor: "#8e44ad",
+                            lineCap: 'round'
+                        },
+                        textCSS: ' font-weight:300; color:#fff;'
+                    },
+                    seconds: {
+                        gauge: {
+                            thickness: .10,
+                            bgColor: "rgba(0,0,0,0)",
+                            fgColor: "#f39c12",
+                            lineCap: 'round'
+                        },
+                        textCSS: ' font-weight:300; color:#fff;'
+                    }
+
+                },
+                onEndCallback: function() {
+                    console.log("Time out!");
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.marquee').marquee({
+                speed: 13000,
+                gap: 0,
+                delayBeforeStart: 0,
+                direction: 'left',
+                duplicated: true,
+                pauseOnHover: true
+            });
+
+        });
+    </script>
 </body>
 
 </html>

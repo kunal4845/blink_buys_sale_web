@@ -15,17 +15,7 @@ export class AdminComponent implements OnInit {
     private sweetAlertService: SweetAlertService) {
     debugger;
     
-    document.styleSheets[0].disabled = true;
-    document.styleSheets[1].disabled = true;
-    document.styleSheets[2].disabled = true;
-    document.styleSheets[3].disabled = true;
-    document.styleSheets[4].disabled = true;
-    document.styleSheets[5].disabled = true;
-    document.styleSheets[6].disabled = true;
-    document.styleSheets[7].disabled = true;
-    document.styleSheets[8].disabled = true;
-    document.styleSheets[9].disabled = true;
-    document.styleSheets[10].disabled = true;
+  
 
 
     var userinfo = this.sharedService.getLocalStorage("userInfo");
