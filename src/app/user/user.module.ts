@@ -19,14 +19,22 @@ import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 import { BannerComponent } from './banner/banner.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterTopComponent } from './footer/footer-top/footer-top.component';
+import { ProductsComponent } from './products/products.component';
+import { RecommendationsComponent } from './products/recommendations/recommendations.component';
+import { ProductDetailComponent } from './products/product-detail/product-detail.component';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { CoreValuesComponent } from './core-values/core-values.component';
+import { SitemapComponent } from './sitemap/sitemap.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
-  declarations: [UserComponent, DashboardComponent, HeaderComponent, FooterComponent, AboutComponent, ContactComponent, FaqComponent, HelpComponent, LoginComponent, RegisterComponent, ResetPasswordComponent, SubscribeComponent, DealsComponent, ComingSoonComponent, BannerComponent],
+  declarations: [UserComponent, DashboardComponent, HeaderComponent, FooterComponent, AboutComponent, ContactComponent, FaqComponent, HelpComponent, LoginComponent, RegisterComponent, ResetPasswordComponent, SubscribeComponent, DealsComponent, ComingSoonComponent, BannerComponent, FooterTopComponent, ProductsComponent, ProductDetailComponent, RecommendationsComponent, MarketplaceComponent, CoreValuesComponent, SitemapComponent, PrivacyPolicyComponent],
   imports: [
     CommonModule, UserRoutingModule, FormsModule, HttpClientModule
   ],
   exports: [
-    
+
   ]
 })
 export class UserModule { }

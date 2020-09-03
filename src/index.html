@@ -13,6 +13,7 @@
     <meta name="keywords" content="Smart Bazaar Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
     SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
+
     <link rel="stylesheet" id="admin-bootstrap" href="./assets/css/bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" id="admin-font-awesome" href="./assets/css/bower_components/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" id="admin-primeicons" type="text/css" href="./assets/css/bower_components/ng-prime/primeicons.css" />
@@ -28,16 +29,18 @@
 
     <link href="./assets/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="./assets/user/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="./assets/user/css/animate.min.css" rel="stylesheet" type="text/css" media="all" />
+
     <link href="./assets/user/css/menu.css" rel="stylesheet" type="text/css" media="all" />
     <link href="./assets/user/css/ken-burns.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="./assets/user/css/animate.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="./assets/user/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
     <link href="./assets/user/css/font-awesome.css" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css' id="user-googleapis">
-    <link href='//fonts.googleapis.com/css?family=Lovers+Quarrel' id="user-Lovers" rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Offside' id="user-family" rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Tangerine:400,700' id="user-Tangerine" rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="./assets/user/css/flexslider.css" type="text/css" media="screen" />
 
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lovers+Quarrel' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Offside' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'>
 
 
 
@@ -109,14 +112,6 @@
             });
         });
     </script>
-    <!-- 
-    <script>
-        $('#myModal88').modal('show');
-    </script> -->
-
-
-
-
 
     <script>
         $(document).ready(function() {
@@ -180,8 +175,6 @@
             });
         });
     </script>
-
-
 
     <script type="text/javascript">
         jQuery(document).ready(function($) {
@@ -276,6 +269,137 @@
                 pauseOnHover: true
             });
 
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo5").owlCarousel({
+
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                items: 4,
+                itemsDesktop: [640, 5],
+                itemsDesktopSmall: [414, 4],
+                navigation: true
+
+            });
+
+        });
+    </script>
+
+    <script>
+        // Can also be used with $(document).ready()
+
+        $(window).on('load', function() {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
+
+    <script type="text/javascript" id="sourcecode">
+        $(function() {
+            $('.scroll-pane').jScrollPane();
+        });
+    </script>
+
+    <!-- script for tabs -->
+    <script type="text/javascript">
+        $(function() {
+
+            var menu_ul = $('.faq > li > ul'),
+                menu_a = $('.faq > li > a');
+
+            menu_ul.hide();
+
+            menu_a.click(function(e) {
+                e.preventDefault();
+                if (!$(this).hasClass('active')) {
+                    menu_a.removeClass('active');
+                    menu_ul.filter(':visible').slideUp('normal');
+                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                } else {
+                    $(this).removeClass('active');
+                    $(this).next().stop(true, true).slideUp('normal');
+                }
+            });
+
+        });
+    </script>
+    <!-- script for tabs -->
+
+    <!-- script for tabs -->
+    <!-- <script type="text/javascript">
+        $(function() {
+        
+            var menu_ul = $('.faq > li > ul'),
+                   menu_a  = $('.faq > li > a');
+            
+            menu_ul.hide();
+        
+            menu_a.click(function(e) {
+                e.preventDefault();
+                if(!$(this).hasClass('active')) {
+                    menu_a.removeClass('active');
+                    menu_ul.filter(':visible').slideUp('normal');
+                    $(this).addClass('active').next().stop(true,true).slideDown('normal');
+                } else {
+                    $(this).removeClass('active');
+                    $(this).next().stop(true,true).slideUp('normal');
+                }
+            });
+        
+        });
+    </script> -->
+    <!-- script for tabs -->
+
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo5").owlCarousel({
+
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                items: 4,
+                itemsDesktop: [640, 5],
+                itemsDesktopSmall: [414, 4],
+                navigation: true
+
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Add scrollspy to <body>
+            $('body').scrollspy({
+                target: ".sitemap-tabs",
+                offset: 50
+            });
+
+            // Add smooth scrolling on all links inside the navbar
+            $("#myNavbar a").on('click', function(event) {
+                // Make sure this.hash has a value before overriding default behaviour
+                if (this.hash !== "") {
+                    // Prevent default anchor click behaviour
+                    event.preventDefault();
+
+                    // Store hash
+                    var hash = this.hash;
+
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function() {
+
+                        // Add hash (#) to URL when done scrolling (default click behaviour)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
         });
     </script>
 </body>

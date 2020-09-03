@@ -34,20 +34,22 @@
                             "node_modules/datatables.net/js/jquery.dataTables.js",
                             "src/assets/user/js/jquery-2.2.3.min.js",
                             "src/assets/user/js/owl.carousel.js",
+
+                            "src/assets/user/js/jquery.flexslider.js",
+                            "src/assets/user/js/imagezoom.js",
                             "src/assets/user/js/jquery-scrolltofixed-min.js",
                             "src/assets/user/js/move-top.js",
                             "src/assets/user/js/easing.js",
-                            "src/assets/user/js/bootstrap.js",
-
+                            "src/assets/user/js/jquery.jscrollpane.min.js",
+                            "src/assets/user/js/jquery.mousewheel.js",
                             "src/assets/user/js/jquery.marquee.min.js",
                             "src/assets/user/js/custom.js",
-
                             "src/assets/user/js/jquery.knob.js",
                             "src/assets/user/js/jquery.throttle.js",
                             "src/assets/user/js/jquery.classycountdown.js",
-
                             "src/assets/user/js/jquery.menu-aim.js",
-                            "src/assets/user/js/main.js"
+                            "src/assets/user/js/main.js",
+                            "src/assets/user/js/bootstrap.js"
                         ]
                     },
                     "configurations": {
