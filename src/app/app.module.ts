@@ -13,12 +13,12 @@ import { RegisterComponent } from './login/register/register.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { UserModule } from './user/user.module';
+import { CommonComponentModule } from './shared/common/commonComponent.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ShowErrorsComponent,
     RegisterComponent,
     ResetPasswordComponent
   ],
@@ -30,7 +30,8 @@ import { UserModule } from './user/user.module';
     AppRoutingModule,
     RecaptchaModule,  //this is the recaptcha main module
     RecaptchaFormsModule, //this is the module for form incase form validation
-    UserModule
+    UserModule,
+    CommonComponentModule
   ],
   providers: [LoginService, AuthGuard],
   bootstrap: [AppComponent]

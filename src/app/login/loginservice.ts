@@ -38,4 +38,10 @@ export class LoginService {
       observe: "response"
     });
   }
+
+  userRegister(user: User): Observable<HttpResponse<User>> {
+    return this.http.post<User>(`${this.APIURL2}/signUp`, user, {
+      observe: "response"
+    });
+  }
 }

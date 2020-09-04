@@ -2,13 +2,36 @@
     <div class="container">
         <h3 class="w3ls-title w3ls-title1">Create your account</h3>
         <div class="login-body">
-            <form action="#" method="post">
-                <input type="text" class="user" name="name" placeholder="Enter your Name" required="">
-                <input type="text" class="user" name="email" placeholder="Enter your email" required="">
-                <input type="password" name="password" class="lock" placeholder="Password" required="">
-                <input type="submit" value="Sign Up ">
+            <form #registerForm="ngForm" id="registerForm" novalidate>
+                <input type="text" id="name" name="name" placeholder="Full name**" class="user" required #Name="ngModel" [(ngModel)]="user.name" />
+
+                <input type="text" id="email" name="email" placeholder="Email**" class="user" required #Email="ngModel" [(ngModel)]="user.email" [pattern]="emailPattern" />
+
+
+                <input type="password" name="password" placeholder="Password**" class="user" id="Password" required #Password="ngModel" [pattern]="passwordPattern" [(ngModel)]="user.password" />
+
+
+                <input type="password" class="user" #ConfirmPassword="ngModel" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Retype password**" required [pattern]="passwordPattern" />
+
+
+                <ng-container *ngIf="(ConfirmPassword.value != '' && ConfirmPassword.value != Password.value) ||
+                    ConfirmPassword.value?.length > Password.value?.length">
+                    <b style="color: red"> Password doesn't match with Confirm Password </b>
+                </ng-container>
+
+                <ul *ngIf="Password.errors && Password.errors.pattern" class="password-pattern" style=" color: red; margin-top:5px;">
+                    <li>at least <i>8</i> characters</li>
+                    <li>
+                        combination of upper- and lower-case characters and Special Character(*)
+                    </li>
+                    <li>one or more digits(*)</li>
+                </ul>
+
+                <input type="submit" value="Sign Up" [disabled]="registerForm.invalid
+                ||(ConfirmPassword.value != Password.value || user.password == '' ||
+                user.confirmPassword == '')" (click)="register(registerForm)">
+
                 <div class="forgot-grid">
-                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Remember me</label>
                     <div class="forgot">
                         <a href="javascript:;" [routerLink]="['/user/resetPassword']">Forgot Password?</a>
                     </div>

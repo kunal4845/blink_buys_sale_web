@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
-import { RegisterComponent } from './login/register/register.component';
-import { LoginComponent } from './login/login.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { FaqComponent } from './faq/faq.component';
@@ -15,6 +12,9 @@ import { CoreValuesComponent } from './core-values/core-values.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { SitemapComponent } from './sitemap/sitemap.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { UserLoginComponent } from './login/user-login.component';
+import { UserResetPasswordComponent } from './login/reset-password/user-reset-password.component';
+import { UserRegisterComponent } from './login/register/user-register.component';
 
 const routes: Routes = [
   {
@@ -27,9 +27,9 @@ const routes: Routes = [
         redirectTo: 'dashboard'
       },
       { path: "dashboard", component: DashboardComponent },
-      { path: "login", component: LoginComponent },
-      { path: "resetPassword", component: ResetPasswordComponent },
-      { path: "register", component: RegisterComponent },
+      { path: "login", component: UserLoginComponent },
+      { path: "resetPassword", component: UserResetPasswordComponent },
+      { path: "register", component: UserRegisterComponent },
       { path: "contact-us", component: ContactComponent },
       { path: "about-us", component: AboutComponent },
       { path: "faq", component: FaqComponent },

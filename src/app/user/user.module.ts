@@ -10,9 +10,6 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { FaqComponent } from './faq/faq.component';
 import { HelpComponent } from './help/help.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './login/register/register.component';
-import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { DealsComponent } from './deals/deals.component';
 import { ComingSoonComponent } from './coming-soon/coming-soon.component';
@@ -30,11 +27,15 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { CartComponent } from './cart/cart.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { UserLoginComponent } from './login/user-login.component';
+import { UserRegisterComponent } from './login/register/user-register.component';
+import { UserResetPasswordComponent } from './login/reset-password/user-reset-password.component';
+import { CommonComponentModule } from '../shared/common/commonComponent.module';
 
 @NgModule({
-  declarations: [UserComponent, DashboardComponent, HeaderComponent, FooterComponent, AboutComponent, ContactComponent, FaqComponent, HelpComponent, LoginComponent, RegisterComponent, ResetPasswordComponent, SubscribeComponent, DealsComponent, ComingSoonComponent, BannerComponent, FooterTopComponent, ProductsComponent, ProductDetailComponent, RecommendationsComponent, MarketplaceComponent, CoreValuesComponent, SitemapComponent, PrivacyPolicyComponent, CartComponent, WishlistComponent, CheckoutComponent],
+  declarations: [UserComponent, DashboardComponent, HeaderComponent, FooterComponent, AboutComponent, ContactComponent, FaqComponent, HelpComponent, UserLoginComponent, UserRegisterComponent, UserResetPasswordComponent, SubscribeComponent, DealsComponent, ComingSoonComponent, BannerComponent, FooterTopComponent, ProductsComponent, ProductDetailComponent, RecommendationsComponent, MarketplaceComponent, CoreValuesComponent, SitemapComponent, PrivacyPolicyComponent, CartComponent, WishlistComponent, CheckoutComponent],
   imports: [
-    CommonModule, UserRoutingModule, FormsModule, HttpClientModule
+    CommonModule, UserRoutingModule, FormsModule, HttpClientModule,CommonComponentModule
   ],
   exports: [
 
