@@ -27,9 +27,12 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { CoreValuesComponent } from './core-values/core-values.component';
 import { SitemapComponent } from './sitemap/sitemap.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { CartComponent } from './cart/cart.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
-  declarations: [UserComponent, DashboardComponent, HeaderComponent, FooterComponent, AboutComponent, ContactComponent, FaqComponent, HelpComponent, LoginComponent, RegisterComponent, ResetPasswordComponent, SubscribeComponent, DealsComponent, ComingSoonComponent, BannerComponent, FooterTopComponent, ProductsComponent, ProductDetailComponent, RecommendationsComponent, MarketplaceComponent, CoreValuesComponent, SitemapComponent, PrivacyPolicyComponent],
+  declarations: [UserComponent, DashboardComponent, HeaderComponent, FooterComponent, AboutComponent, ContactComponent, FaqComponent, HelpComponent, LoginComponent, RegisterComponent, ResetPasswordComponent, SubscribeComponent, DealsComponent, ComingSoonComponent, BannerComponent, FooterTopComponent, ProductsComponent, ProductDetailComponent, RecommendationsComponent, MarketplaceComponent, CoreValuesComponent, SitemapComponent, PrivacyPolicyComponent, CartComponent, WishlistComponent, CheckoutComponent],
   imports: [
     CommonModule, UserRoutingModule, FormsModule, HttpClientModule
   ],

@@ -9,8 +9,8 @@
                 <li class="dropdown head-dpdn" [ngClass]="isOpen ? 'open' : ''" (click)="clickEvent()">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> My Account<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:;">Login </a></li>
-                        <li><a href="javascript:;">Sign Up</a></li>
+                        <li><a href="javascript:;" [routerLink]="['/user/login']">Login </a></li>
+                        <li><a href="javascript:;" [routerLink]="['/user/register']">Sign Up</a></li>
                         <!-- <li><a href="javascript:;">My Orders</a></li> -->
                         <!-- <li><a href="javascript:;">Wallet</a></li> -->
                     </ul>
@@ -27,7 +27,7 @@
                 </li> -->
 
                 <li class="dropdown head-dpdn">
-                    <a href="javascript:;" class="dropdown-toggle"><i class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
+                    <a href="javascript:;" [routerLink]="['/user/help']" class="dropdown-toggle"><i class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
                 </li>
             </ul>
         </div>
@@ -37,7 +37,7 @@
         <!-- header-two -->
         <div class="container">
             <div class="header-logo">
-                <h1><a href="javascript:;" [routerLink]="['/user/dashboard']"><span>B</span>Blink<i>Buys</i></a></h1>
+                <h1><a href="javascript:;" [routerLink]="['/user/dashboard']"><span>B</span>Blink<i>&Buys</i></a></h1>
                 <h6>Your stores. Your place.</h6>
             </div>
             <div class="header-search">
@@ -72,7 +72,7 @@
                 <div class="cd-dropdown-wrapper">
                     <a class="cd-dropdown-trigger" href="javascript:;">Store Categories</a>
                     <nav class="cd-dropdown">
-                        <a href="#0" class="cd-close">Close</a>
+                        <a href="javascript" class="cd-close">Close</a>
                         <ul class="cd-dropdown-content">
                             <li><a href="javascript:;">Today's Offers</a></li>
                             <li class="has-children">
