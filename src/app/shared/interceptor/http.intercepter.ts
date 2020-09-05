@@ -12,7 +12,7 @@ export class Interceptor implements HttpInterceptor {
     
     intercept(request: HttpRequest<any>, newRequest: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header to request
-        debugger;
+        ;
         //Get Token data from local storage
         let tokenInfo = localStorage.getItem('token');
 

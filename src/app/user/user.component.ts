@@ -8,45 +8,48 @@ declare var $: any;
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  counter: number = 0;
 
   constructor(@Inject(DOCUMENT) private document: Document) {
-    debugger
     this.document.body.classList.remove('hold-transition');
-
     this.document.body.classList.remove('login-page');
 
-      // document.styleSheets[0].disabled = true;
-    // document.styleSheets[1].disabled = true;
-    // document.styleSheets[2].disabled = true;
-    // document.styleSheets[3].disabled = true;
-    // document.styleSheets[4].disabled = true;
-    // document.styleSheets[5].disabled = true;
-    // document.styleSheets[6].disabled = true;
-    // document.styleSheets[7].disabled = true;
-    // document.styleSheets[8].disabled = true;
-    // document.styleSheets[9].disabled = true;
-    // document.styleSheets[10].disabled = true;
-    
-    // document.styleSheets[11].disabled = true;
-    // document.styleSheets[12].disabled = true;
-    // document.styleSheets[13].disabled = true;
-    // document.styleSheets[14].disabled = true;
-    // document.styleSheets[15].disabled = true;
-    // document.styleSheets[16].disabled = true;
-    // document.styleSheets[17].disabled = true;
-    // document.styleSheets[18].disabled = true;
-    // document.styleSheets[19].disabled = true;
-    // document.styleSheets[20].disabled = true;
+    this.incrementAndShowValue();
   }
 
   ngOnInit(): void {
-    $("#owl-demo").owlCarousel({
-      autoPlay: 3000, //Set AutoPlay to 3 seconds 
-      items: 4,
-      itemsDesktop: [640, 5],
-      itemsDesktopSmall: [480, 2],
-      navigation: true
-
-    });
   }
+
+  incrementAndShowValue() {
+    var value = this.getCookie("visitcounter") || 0;
+    var newValue = ("00000" + (Number(value) + 1)).slice(-6);
+    var container = document.getElementById("counterVisitor");
+    String(newValue).split("").forEach(function (item, index) {
+      container.children[index].innerHTML = item;
+    });
+    this.counter++;
+    this.setCookie("visitcounter", this.counter, 15);
+  }
+
+  setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + value + expires + "; path=https://stacksnippets.net/js";
+  }
+
+  getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
 }

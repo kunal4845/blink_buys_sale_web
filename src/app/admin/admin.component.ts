@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared/shared.service';
 import { LoginService } from '../login/loginservice';
 import { SweetAlertService } from '../shared/alert/sweetalert.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
@@ -12,12 +13,11 @@ import { SweetAlertService } from '../shared/alert/sweetalert.service';
 export class AdminComponent implements OnInit {
   name: string = '';
   constructor(private router: Router, private sharedService: SharedService, private loginService: LoginService,
-    private sweetAlertService: SweetAlertService) {
-    debugger;
-    
-  
+    private sweetAlertService: SweetAlertService,
+    @Inject(DOCUMENT) private document: Document) {    
+    document.styleSheets[11].disabled = true;//disable user css for not affecting admin css
 
-
+    //check user logged in
     var userinfo = this.sharedService.getLocalStorage("userInfo");
     if (userinfo != null && userinfo.name != null && userinfo.name != '') {
       this.name = userinfo.name;
@@ -30,10 +30,8 @@ export class AdminComponent implements OnInit {
   }
 
   getUser(): void {
-    debugger;
     this.loginService.getUser().subscribe(
       userResponse => {
-        debugger;
         this.name = userResponse.body.name;
       },
       error => {

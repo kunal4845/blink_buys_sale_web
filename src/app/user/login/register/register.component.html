@@ -13,11 +13,12 @@
 
                 <input type="password" class="user" #ConfirmPassword="ngModel" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Retype password**" required [pattern]="passwordPattern" />
 
-
-                <ng-container *ngIf="(ConfirmPassword.value != '' && ConfirmPassword.value != Password.value) ||
-                    ConfirmPassword.value?.length > Password.value?.length">
-                    <b style="color: red"> Password doesn't match with Confirm Password </b>
-                </ng-container>
+                <ul *ngIf="(ConfirmPassword.value != '' && ConfirmPassword.value != Password.value) ||
+                ConfirmPassword.value?.length > Password.value?.length" class="password-pattern" style=" color: red;">
+                    <li>
+                        Password doesn't match with Confirm Password
+                    </li>
+                </ul>
 
                 <ul *ngIf="Password.errors && Password.errors.pattern" class="password-pattern" style=" color: red; margin-top:5px;">
                     <li>at least <i>8</i> characters</li>

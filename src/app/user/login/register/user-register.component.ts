@@ -25,7 +25,7 @@ export class UserRegisterComponent implements OnInit {
   }
 
   register(registerForm: NgForm): void {
-    debugger;
+    ;
     if (this.user.email != "" && this.user.password != "" && this.user.confirmPassword != "" && this.user.name != "" &&
       this.user.password == this.user.confirmPassword) {
       this.userService.userRegister(this.user).subscribe(

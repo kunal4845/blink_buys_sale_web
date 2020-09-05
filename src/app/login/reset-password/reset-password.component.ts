@@ -26,12 +26,12 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit() { }
 
   recoverPassword(): void {
-    debugger;
+    ;
     this.spinner = true;
     if (this.user.email != "" && this.user.email != null) {
       this.loginService.resetPassword(this.user.email).subscribe(
         response => {
-          debugger;
+          ;
           this.user = new User();
           this.spinner = false;
           this.isPasswordReset = true;

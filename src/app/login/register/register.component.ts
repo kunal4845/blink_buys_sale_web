@@ -33,13 +33,10 @@ export class RegisterComponent implements OnInit {
   }
 
   resolved(captchaResponse: string) {
-    debugger
     console.log(`Resolved response token: ${captchaResponse}`);
-   
   }
 
   checkEmailExists(email: string): void {
-    debugger
     if (email != "") {
       this.loginService.checkEmailExists(email).subscribe(
         (response: any) => {
@@ -55,7 +52,6 @@ export class RegisterComponent implements OnInit {
   }
 
   register(registerForm: NgForm): void {
-    debugger;
     if (!this.isEmailExists) {
       if (this.user.email != "" && this.user.password != "" && this.user.confirmPassword != "" && this.user.name != "" &&
         this.user.password == this.user.confirmPassword) {
@@ -63,7 +59,7 @@ export class RegisterComponent implements OnInit {
         this.loginService.register(this.user).subscribe(
           (userResponse: any) => {
             if (userResponse.status === 200) {
-              debugger;
+              ;
 
               localStorage.setItem("token", userResponse.body.token);
               this.sharedService.setLocalStorage("userInfo", userResponse.body);

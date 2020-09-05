@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,15 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent {
 
   title = '';
-  constructor(private router: Router) { }
+  constructor(private router: Router, @Inject(DOCUMENT) private document: Document) {
+    
+    if (!this.document.body.classList.contains('hold-transition')) {
+      this.document.body.classList.add('hold-transition');
+    }
+    if (!this.document.body.classList.contains('login-page')) {
+      this.document.body.classList.add('login-page');
+    }
+  }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {

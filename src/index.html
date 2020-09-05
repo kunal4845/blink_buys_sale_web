@@ -30,28 +30,15 @@
     <link href="./assets/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="./assets/user/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="./assets/user/css/animate.min.css" rel="stylesheet" type="text/css" media="all" />
-
     <link href="./assets/user/css/menu.css" rel="stylesheet" type="text/css" media="all" />
     <link href="./assets/user/css/ken-burns.css" rel="stylesheet" type="text/css" media="all" />
     <link href="./assets/user/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
     <link href="./assets/user/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/user/css/flexslider.css" type="text/css" media="screen" />
-
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Lovers+Quarrel' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Offside' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'>
-
-
-
-    <!-- user -->
-    <!-- <script src="./assets/user/js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="./assets/user/js/move-top.js"></script>
-    <script type="text/javascript" src="./assets/user/js/easing.js"></script>
-    <script src="./assets/user/js/owl.carousel.js"></script>
-    <script src="./assets/user/js/main.js"></script>
-    <script src="./assets/user/js/bootstrap.js"></script> -->
-
 
     <!-- admin -->
     <script src="./assets/css/bower_components/jquery/dist/jquery.min.js"></script>
@@ -61,14 +48,11 @@
     <script src="./assets/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="./assets/js/adminlte.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyDDSXvz3snrJ1VMfWCwlNW-iMYmEmNxImg&libraries=places"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </head>
 
 <body class="hold-transition login-page" style="height: auto; min-height: 100%;">
     <app-root></app-root>
-
-
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -81,114 +65,18 @@
 
     <script>
         $(document).ready(function() {
-            $("#owl-demo").owlCarousel({
-                autoPlay: 3000, //Set AutoPlay to 3 seconds 
-                items: 4,
-                itemsDesktop: [640, 5],
-                itemsDesktopSmall: [480, 2],
-                navigation: true
-
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-
             // Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
-
             $('.header-two').scrollToFixed();
             // previous summary up the page.
-
             var summaries = $('.summary');
             summaries.each(function(i) {
                 var summary = $(summaries[i]);
                 var next = summaries[i + 1];
-
                 summary.scrollToFixed({
                     marginTop: $('.header-two').outerHeight(true) + 10,
                     zIndex: 999
                 });
             });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $("#owl-demo1").owlCarousel({
-
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                items: 4,
-                itemsDesktop: [640, 5],
-                itemsDesktopSmall: [414, 4],
-                navigation: true
-
-            });
-
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $("#owl-demo2").owlCarousel({
-
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                items: 4,
-                itemsDesktop: [640, 5],
-                itemsDesktopSmall: [414, 4],
-                navigation: true
-
-            });
-
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $("#owl-demo3").owlCarousel({
-
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                items: 4,
-                itemsDesktop: [640, 5],
-                itemsDesktopSmall: [414, 4],
-                navigation: true
-
-            });
-
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $("#owl-demo4").owlCarousel({
-
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                items: 4,
-                itemsDesktop: [640, 5],
-                itemsDesktopSmall: [414, 4],
-                navigation: true
-
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 1000);
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
 
             var defaults = {
                 containerID: 'toTop', // fading element id
@@ -196,70 +84,10 @@
                 scrollSpeed: 1200,
                 easingType: 'linear'
             };
-
             $().UItoTop({
                 easingType: 'easeOutQuart'
             });
 
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#countdown1').ClassyCountdown({
-                end: '1388268325',
-                now: '1387999995',
-                labels: true,
-                style: {
-                    element: "",
-                    textResponsive: .5,
-                    days: {
-                        gauge: {
-                            thickness: .10,
-                            bgColor: "rgba(0,0,0,0)",
-                            fgColor: "#1abc9c",
-                            lineCap: 'round'
-                        },
-                        textCSS: 'font-weight:300; color:#fff;'
-                    },
-                    hours: {
-                        gauge: {
-                            thickness: .10,
-                            bgColor: "rgba(0,0,0,0)",
-                            fgColor: "#05BEF6",
-                            lineCap: 'round'
-                        },
-                        textCSS: ' font-weight:300; color:#fff;'
-                    },
-                    minutes: {
-                        gauge: {
-                            thickness: .10,
-                            bgColor: "rgba(0,0,0,0)",
-                            fgColor: "#8e44ad",
-                            lineCap: 'round'
-                        },
-                        textCSS: ' font-weight:300; color:#fff;'
-                    },
-                    seconds: {
-                        gauge: {
-                            thickness: .10,
-                            bgColor: "rgba(0,0,0,0)",
-                            fgColor: "#f39c12",
-                            lineCap: 'round'
-                        },
-                        textCSS: ' font-weight:300; color:#fff;'
-                    }
-
-                },
-                onEndCallback: function() {
-                    console.log("Time out!");
-                }
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
             $('.marquee').marquee({
                 speed: 13000,
                 gap: 0,
@@ -269,110 +97,6 @@
                 pauseOnHover: true
             });
 
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $("#owl-demo5").owlCarousel({
-
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                items: 4,
-                itemsDesktop: [640, 5],
-                itemsDesktopSmall: [414, 4],
-                navigation: true
-
-            });
-
-        });
-    </script>
-
-    <script>
-        // Can also be used with $(document).ready()
-
-        $(window).on('load', function() {
-            $('.flexslider').flexslider({
-                animation: "slide",
-                controlNav: "thumbnails"
-            });
-        });
-    </script>
-
-    <script type="text/javascript" id="sourcecode">
-        $(function() {
-            $('.scroll-pane').jScrollPane();
-        });
-    </script>
-
-    <!-- script for tabs -->
-    <script type="text/javascript">
-        $(function() {
-
-            var menu_ul = $('.faq > li > ul'),
-                menu_a = $('.faq > li > a');
-
-            menu_ul.hide();
-
-            menu_a.click(function(e) {
-                e.preventDefault();
-                if (!$(this).hasClass('active')) {
-                    menu_a.removeClass('active');
-                    menu_ul.filter(':visible').slideUp('normal');
-                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
-                } else {
-                    $(this).removeClass('active');
-                    $(this).next().stop(true, true).slideUp('normal');
-                }
-            });
-
-        });
-    </script>
-    <!-- script for tabs -->
-
-    <!-- script for tabs -->
-    <!-- <script type="text/javascript">
-        $(function() {
-        
-            var menu_ul = $('.faq > li > ul'),
-                   menu_a  = $('.faq > li > a');
-            
-            menu_ul.hide();
-        
-            menu_a.click(function(e) {
-                e.preventDefault();
-                if(!$(this).hasClass('active')) {
-                    menu_a.removeClass('active');
-                    menu_ul.filter(':visible').slideUp('normal');
-                    $(this).addClass('active').next().stop(true,true).slideDown('normal');
-                } else {
-                    $(this).removeClass('active');
-                    $(this).next().stop(true,true).slideUp('normal');
-                }
-            });
-        
-        });
-    </script> -->
-    <!-- script for tabs -->
-
-    <script>
-        $(document).ready(function() {
-            $("#owl-demo5").owlCarousel({
-
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                items: 4,
-                itemsDesktop: [640, 5],
-                itemsDesktopSmall: [414, 4],
-                navigation: true
-
-            });
-
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
             // Add scrollspy to <body>
             $('body').scrollspy({
                 target: ".sitemap-tabs",
@@ -399,6 +123,53 @@
                         window.location.hash = hash;
                     });
                 } // End if
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+
+
+    <script>
+        // Can also be used with $(document).ready()
+        $(window).on('load', function() {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
+
+    <script type="text/javascript" id="sourcecode">
+        $(function() {
+            $('.scroll-pane').jScrollPane();
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+            var menu_ul = $('.faq > li > ul'),
+                menu_a = $('.faq > li > a');
+            menu_ul.hide();
+            menu_a.click(function(e) {
+                e.preventDefault();
+                if (!$(this).hasClass('active')) {
+                    menu_a.removeClass('active');
+                    menu_ul.filter(':visible').slideUp('normal');
+                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                } else {
+                    $(this).removeClass('active');
+                    $(this).next().stop(true, true).slideUp('normal');
+                }
             });
         });
     </script>

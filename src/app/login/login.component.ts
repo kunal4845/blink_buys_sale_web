@@ -29,20 +29,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { }
 
   signIn(): void {
-    debugger;
     if (this.user.email != "" && this.user.password != "") {
       this.loginService.login(this.user).subscribe(
         userResponse => {
-          debugger
           if (
             userResponse.body != null &&
             userResponse.body.token != null &&
             userResponse.body.token != ""
           ) {
-            debugger;
             localStorage.setItem("token", userResponse.body.token);
             this.sharedService.setLocalStorage("userInfo", userResponse.body);
-
             this.router.navigateByUrl("/admin/dashboard");
           }
         },
