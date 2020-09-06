@@ -22,6 +22,8 @@ export class User {
     newPassword: string;
     confirmPassword: string;
     token?: string;
+    companyName: string;
+    createdDt: Date;
     constructor() {
         this.id = 0;
         this.roleId = null;
@@ -31,5 +33,7 @@ export class User {
         this.token = "";
         this.confirmPassword = "";
         this.newPassword = "";
+        this.companyName = "";
+        this.createdDt = null;
     }
 }

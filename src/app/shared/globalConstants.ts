@@ -11,7 +11,7 @@ export const secret = "6LcA88IZAAAAAAkXbG3yx4TSeKqje3j4WqPIk6nc";
 
 // local
 export const LocalHost = "http://localhost:4200/";
-export const APIURL = "https://localhost:44389/api";
+export const APIURL = "https://localhost:44378/api/";
 export const ClientId =
     "ASJype4AiuDfJ47dL8VfjoQbvQF1JMMrHeiNJi18Px7ClFjLHbMblc3V7u1lx3qozRJpp7FRc-5_xFtV";
 

@@ -7,11 +7,20 @@
         <p class="login-box-msg">Register a new membership</p>
 
         <form #registerForm="ngForm" id="registerForm" novalidate>
-            <div class="form-group has-feedback">
+            <!-- <div class="form-group has-feedback">
                 <input type="radio" [(ngModel)]="user.roleId" required name="dealer" value="role.Dealer"> Dealer<br>
                 <input type="radio" [(ngModel)]="user.roleId" required name="serviceProvider" value="role.ServiceProvider"> Service Provider
 
+            </div> -->
+
+            <div class="form-group has-feedback">
+
+                <input type="text" id="companyName" name="companyName" placeholder="Company name" class="form-control" required #CompanyName="ngModel" [(ngModel)]="user.companyName" />
+
+
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
+            <show-errors [control]="CompanyName" [name]="'CompanyName'"></show-errors>
 
 
             <div class="form-group has-feedback">
@@ -55,15 +64,12 @@
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
 
-            <ng-container *ngIf="
-            (ConfirmPassword.value != '' &&
-              ConfirmPassword.value != Password.value)||
-              ConfirmPassword.value?.length > Password.value?.length
-          ">
-                <b style="color: red">
-            Password doesn't match with Confirm Password
-          </b>
-            </ng-container>
+            <ul *ngIf="(ConfirmPassword.value != '' && ConfirmPassword.value != Password.value) ||
+            ConfirmPassword.value?.length > Password.value?.length" class="password-pattern" style=" color: red;">
+                <li>
+                    Password doesn't match with Confirm Password
+                </li>
+            </ul>
             <ul *ngIf="Password.errors && Password.errors.pattern && Password.value?.length < 8" style=" color: red; margin-top:5px;">
                 <li>at least <i>8</i> characters</li>
                 <li>

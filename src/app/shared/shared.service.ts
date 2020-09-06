@@ -1,12 +1,10 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 @Injectable({
     providedIn: "root"
 })
 export class SharedService {
-    private APIURL: string = "https://localhost:44389/api" + "/shared/";
-
     constructor(private http: HttpClient) { }
 
     setLocalStorage(key: string, data: any): void {

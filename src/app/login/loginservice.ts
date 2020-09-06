@@ -2,45 +2,45 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { User } from './login.interface';
+import { APIURL } from '../shared/globalConstants'
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
-  private APIURL: string = "https://localhost:44378/api" + "/account/";
-  private APIURL2: string = "https://localhost:44378/api" + "/user/";
+
   constructor(private http: HttpClient) { }
 
   checkEmailExists(email: string): Observable<HttpResponse<User>> {
-    return this.http.get<User>(`${this.APIURL}/email-exists/${email}`, {
+    return this.http.get<User>(`${APIURL}/account/email-exists/${email}`, {
       observe: "response"
     });
   }
 
   register(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<User>(`${this.APIURL}/signUp`, user, {
+    return this.http.post<User>(`${APIURL}/account/signUp`, user, {
       observe: "response"
     });
   }
 
   login(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<User>(`${this.APIURL}/signIn`, user, {
+    return this.http.post<User>(`${APIURL}/account/signIn`, user, {
       observe: "response"
     });
   }
 
   resetPassword(email: string): Observable<HttpResponse<User>> {
-    return this.http.get<User>(`${this.APIURL}/resetPassword/${email}`, {
+    return this.http.get<User>(`${APIURL}/account/resetPassword/${email}`, {
       observe: "response"
     });
   }
 
   getUser(): Observable<HttpResponse<User>> {
-    return this.http.get<User>(`${this.APIURL2}`, {
+    return this.http.get<User>(`${APIURL}/user`, {
       observe: "response"
     });
   }
 
   userRegister(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<User>(`${this.APIURL2}/signUp`, user, {
+    return this.http.post<User>(`${APIURL}/user/signUp`, user, {
       observe: "response"
     });
   }
