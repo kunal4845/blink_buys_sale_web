@@ -20,8 +20,12 @@ export class User {
     accountNumber: string;
     accountHolderName: string;
     ifscCode: string;
-    uploadCheque: string;
-    uploadIdProof: string;
+    
+    isNumberVerified:boolean;
+    isActive:boolean;
+    isAccountVerified:boolean;
+    idProofPath: string;
+    cancelledChequePath: string;
     //
 
     createdDt: Date;
