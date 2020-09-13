@@ -1,18 +1,3 @@
-export interface UserInfo {
-    uId?: string;
-    userId?: string;
-    userName: string;
-    email: string;
-    userType: string;
-    date: Date;
-    active: boolean;
-    approvalStatus: string;
-    approvalBy: string;
-    approvalDate: Date;
-    imageURL: string;
-    password?: string;
-    check?: boolean;
-}
 export class User {
     id: number;
     roleId?: number;
@@ -23,6 +8,22 @@ export class User {
     confirmPassword: string;
     token?: string;
     companyName: string;
+    contactNumber: string;
+
+    //
+    address: string;
+    streetAddress: string;
+    zipCode: string;
+    productCategoryId: string;
+    isGstAvailable: string;
+    gstNumber: string;
+    accountNumber: string;
+    accountHolderName: string;
+    ifscCode: string;
+    uploadCheque: string;
+    uploadIdProof: string;
+    //
+
     createdDt: Date;
     constructor() {
         this.id = 0;
@@ -34,6 +35,16 @@ export class User {
         this.confirmPassword = "";
         this.newPassword = "";
         this.companyName = "";
+        this.contactNumber = '';
         this.createdDt = null;
+        this.address = '';
+        this.streetAddress = '';
+        this.zipCode = '';
+        this.productCategoryId = '0';
+        this.isGstAvailable = '';
+        this.gstNumber = '';
+        this.accountNumber = '';
+        this.accountHolderName = '';
+        this.ifscCode = '';
     }
 }

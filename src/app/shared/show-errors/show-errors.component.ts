@@ -6,7 +6,7 @@ import { AbstractControlDirective, AbstractControl } from '@angular/forms';
     template: `
     <span *ngIf="shouldShowErrors()">
       <span
-        class="text-danger"
+        style="color: red;"
         *ngFor="let error of listOfErrors()"
         >{{ error }}</span
       >
@@ -25,7 +25,7 @@ export class ShowErrorsComponent {
             'The min number of characters is ' + params.requiredLength,
         maxlength: params =>
             'The max allowed number of characters is ' + params.requiredLength,
-        pattern: (params, fileName) => fileName +' is not valid',
+        pattern: (params, fileName) => fileName + ' is not valid',
         years: params => params.message,
         countryCity: params => params.message,
         uniqueName: params => params.message,

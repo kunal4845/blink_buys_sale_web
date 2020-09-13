@@ -48,7 +48,7 @@ export class DealerRequestComponent implements OnInit {
   verifyDealer(dealer: User) {
     this.ngxService.start();
     this.dealerService.verifyDealer(dealer.id).subscribe(res => {
-      debugger
+      
       if (res.body) {
         this.sweetAlertService.sweetAlert('Success', "Verified Successfully!", 'success', false);
       } else {
@@ -64,7 +64,7 @@ export class DealerRequestComponent implements OnInit {
   deleteDealer(dealer: User) {
     this.ngxService.start();
     this.dealerService.deleteDealer(dealer.id).subscribe(res => {
-      debugger
+      
       if (res.body) {
         this.sweetAlertService.sweetAlert('Success', "Deleted Successfully!", 'success', false);
       } else {
@@ -80,7 +80,7 @@ export class DealerRequestComponent implements OnInit {
   blockDealer(dealer: User) {
     this.ngxService.start();
     this.dealerService.blockDealer(dealer.id).subscribe(res => {
-      debugger
+      
       if (res.body) {
         this.sweetAlertService.sweetAlert('Success', "Blocked Successfully!", 'success', false);
       } else {

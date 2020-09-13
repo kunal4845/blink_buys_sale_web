@@ -41,7 +41,7 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="treeview ">
+                    <!-- <li class="treeview ">
                         <a href="javascript:;">
                             <i class="fa fa-laptop"></i>
                             <span>Service Providers</span>
@@ -54,9 +54,9 @@
                             <li routerLinkActive="active"><a [routerLink]="['./service-providers']"><i class="fa fa-circle-o"></i>  List</a></li>
 
                         </ul>
-                    </li>
+                    </li> -->
 
-                    <li class=" treeview ">
+                    <!-- <li class=" treeview ">
                         <a href="javascript:;">
                             <i class="fa fa-laptop"></i>
                             <span>Dealers</span>
@@ -68,6 +68,53 @@
                             <li routerLinkActive="active"><a [routerLink]="['./dealer-requests']"><i class="fa fa-circle-o"></i>  Requests</a></li>
                             <li routerLinkActive="active"><a [routerLink]="['./dealers']"><i class="fa fa-circle-o"></i>  List</a></li>
                         </ul>
+                    </li> -->
+
+                    <li class="treeview" routerLinkActive="active">
+                        <a href="javascript:;" [routerLink]="['./dealer-requests']">
+                            <i class="fa fa-th"></i> <span>Dealer Requests</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active">
+                        <a href="javascript:;" [routerLink]="['./dealers']">
+                            <i class="fa fa-th"></i> <span>Dealer List</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active">
+                        <a href="javascript:;" [routerLink]="['/admin/products']">
+                            <i class="fa fa-th"></i> <span>Add Service Provider</span>
+                        </a>
+                    </li>
+                    <li class="treeview" routerLinkActive="active">
+                        <a href="javascript:;" [routerLink]="['/admin/products']">
+                            <i class="fa fa-th"></i> <span>Service Provider List</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active">
+                        <a href="javascript:;" [routerLink]="['/admin/products']">
+                            <i class="fa fa-th"></i> <span>Products</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active">
+                        <a href="javascript:;" [routerLink]="['/admin/add-product']">
+                            <i class="fa fa-th"></i> <span>Add Product</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active">
+                        <a href="javascript:;" [routerLink]="['/admin/product-detail']">
+                            <i class="fa fa-th"></i> <span>Product sale detail</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active">
+                        <a href="javascript:;" [routerLink]="['/admin/product-invoice']">
+                            <i class="fa fa-th"></i> <span>Product invoices</span>
+                        </a>
                     </li>
 
                     <li class="treeview" routerLinkActive="active">

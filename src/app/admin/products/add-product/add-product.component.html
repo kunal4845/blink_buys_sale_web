@@ -1,0 +1,142 @@
+<section class="content-header">
+    <h1>
+        Add Product
+    </h1>
+</section>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Add New Product</h3>
+        </div>
+        <form #productForm="ngForm" id="productForm" novalidate>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Product Title <span class="check-required">*</span></label>
+
+                            <input type="text" id="productTitle" name="productTitle" placeholder="Product Title" class="form-control" required #productTitle="ngModel" [(ngModel)]="product.productTitle" />
+
+                        </div>
+                        <div class="form-group">
+                            <label for="">Product Name <span class="check-required">*</span></label>
+
+                            <input type="text" id="productName" name="productName" placeholder="Product Name" class="form-control" required #productName="ngModel" [(ngModel)]="product.productName" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Currency <span class="check-required">*</span></label>
+                            <select class="form-control custom-select" id="currency" name="currency" required #currency="ngModel" [(ngModel)]="product.currency">
+                                <option selected value="">-- Select currency --</option>
+                                <option value="$">US Dollar</option>
+                                <option value="INR">Indian Rupees</option>
+                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Short Description </label>
+
+                            <textarea type="text" id="shortDescription" name="shortDescription" placeholder="Short Description" class="form-control" #shortDescription="ngModel" [(ngModel)]="product.shortDescription"> </textarea
+                            >
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Long Description <span class="check-required">*</span></label>
+
+                            <textarea type="text" id="longDescription" name="longDescription" placeholder="Long Description" class="form-control" required #longDescription="ngModel" [(ngModel)]="product.longDescription"> </textarea
+                              >
+                        </div>
+                        <div class="form-group">
+                            <label for=""> Note</label>
+
+                            <textarea type="text" id="note" name="note" placeholder="Note" class="form-control"  #note="ngModel" [(ngModel)]="product.note"> </textarea
+                              >
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Unit <span class="check-required">*</span></label>
+                            <select class="form-control custom-select" id="unit" name="unit"  required #unit="ngModel" [(ngModel)]="product.unit">
+                                <option selected value="">-- Select Product Unit --</option>
+                              <option value="ml">milligram</option>
+                              <option value="g">gram</option>
+                              <option value="kg">kilogram</option>
+                              <option value="ml">mililiter</option>
+                              <option value="lt">liter</option>
+                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">No Of Product </label>
+                                <input type="number" id="noOfProducts" name="noOfProducts" placeholder="No Of Product" class="form-control"  #noOfProducts="ngModel" [(ngModel)]="product.noOfProducts"/>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-12">
+                        <label for="">Images </label>
+                        <div class="card-body p-0">
+                          <div class="form-group">
+                            <label for="exampleInputFile" class="file-input">File input <span class="check-required">*</span></label>
+                            <div class="input-group">
+                              <div class="custom-file">
+                                <input type="file" multiple="multiple" class="custom-file-input" id="exampleInputFile" (change)="onFileChange($event)">
+                                <label class="custom-file-label" for="exampleInputFile"  >Choose file</label>
+                              </div>
+                            </div>
+                          </div>
+                            <table class="table" *ngIf="product.productImages?.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th>File Name</th>
+                                        <th>Master Image</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor= "let pImage of  product.productImages;let i = index">
+                                        <td>{{pImage.name}}</td>
+
+                                        <td><input type="checkbox" [checked]="pImage.isPrimaryImage" (click)="disableOther(pImage)"  /></td>
+
+                                        <td class="text-right py-0 align-middle">
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="javascript:;"  data-toggle="modal" data-target="#modal-default" class="btn btn-info" (click)="preview(pImage)"><i class="fas fa-eye"></i
+                      ></a>
+                                                <a href="javascript:;" class="btn btn-danger" (click)="removeProductImage(i)"><i class="fas fa-trash"></i
+                      ></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div class="modal fade" id="modal-default">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Product Image</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <img src="{{previewUrl}}">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6"></div>
+                    
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid" (click)="submit()" >Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

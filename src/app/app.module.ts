@@ -14,6 +14,16 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { UserModule } from './user/user.module';
 import { CommonComponentModule } from './shared/common/commonComponent.module';
+import { NgxUiLoaderConfig, POSITION, SPINNER, PB_DIRECTION, NgxUiLoaderModule } from 'ngx-ui-loader';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: 'red',
+  bgsPosition: POSITION.bottomCenter,
+  bgsSize: 40,
+  bgsType: SPINNER.rectangleBounce,
+  pbDirection: PB_DIRECTION.leftToRight, // progress bar direction
+  pbThickness: 5, // progress bar thickness
+};
 
 @NgModule({
   declarations: [
@@ -31,7 +41,9 @@ import { CommonComponentModule } from './shared/common/commonComponent.module';
     RecaptchaModule,  //this is the recaptcha main module
     RecaptchaFormsModule, //this is the module for form incase form validation
     UserModule,
-    CommonComponentModule
+    CommonComponentModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+
   ],
   providers: [LoginService, AuthGuard],
   bootstrap: [AppComponent]

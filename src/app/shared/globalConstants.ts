@@ -6,7 +6,6 @@ export enum roleType {
 }
 
 export const SiteKey = "6LcA88IZAAAAAJmEeYL81Qx2Pc9yuozXIf2TyfVd";
-
 export const secret = "6LcA88IZAAAAAAkXbG3yx4TSeKqje3j4WqPIk6nc";
 
 // local

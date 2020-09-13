@@ -17,6 +17,8 @@ import { ServiceProviderRequestComponent } from './service-provider/service-prov
 import { DealerRequestComponent } from './dealer/dealer-request/dealer-request.component';
 import { DealerListComponent } from './dealer/dealer-list/dealer-list.component';
 import { ServiceProviderListComponent } from './service-provider/service-provider-list/service-provider-list.component';
+import { ProductsComponent } from './products/products.component';
+import { AddProductComponent } from './products/add-product/add-product.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -34,7 +36,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ServiceProviderListComponent,
     ServiceProviderRequestComponent,
     DealerRequestComponent,
-    DealerListComponent
+    DealerListComponent,
+    ProductsComponent,
+    AddProductComponent
   ],
   imports: [
     FormsModule,
