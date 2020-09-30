@@ -51,9 +51,6 @@
                                     </ng-container>
                                 </td>
 
-                                <!-- <td>
-                                    <option *ngFor="let category of categoryList" [selected]="category.id == dealer.productCategoryId">{{category.name}}</option>
-                                </td> -->
 
                                 <td>{{dealer.isGstAvailable}}</td>
                                 <td>{{dealer.gstNumber}}</td>
@@ -64,20 +61,20 @@
                                 <td>{{dealer.isActive}}</td>
                                 <td>{{dealer.isAccountVerified}}</td>
                                 <td>
-                                    <a href="javascript:;" data-toggle="modal" data-target="#modal-default" class="btn btn-info" (click)="preview(dealer.idProofPath)"><i class="fas fa-eye"></i
+                                    <a href="javascript:;" data-toggle="modal" data-target="#modal-default" class="btn btn-info" (click)="preview(dealer.idProofPath,'Id Proof Preview')"><i class="fa fa-eye"></i
                                         ></a>
-                                    <!-- <img src="{{dealer.idProofPath}}" alt=””> -->
                                 </td>
                                 <td>
-                                    <a href="javascript:;" data-toggle="modal" data-target="#modal-default" class="btn btn-info" (click)="preview(dealer.cancelledChequePath)"><i class="fas fa-eye"></i
+                                    <a href="javascript:;" data-toggle="modal" data-target="#modal-default" class="btn btn-info" (click)="preview(dealer.cancelledChequePath,'Cancelled Cheque Preview')"><i class="fa fa-eye"></i
                                         ></a>
-                                    <!-- <img src="{{dealer.cancelledChequePath}}" alt=””> -->
                                 </td>
 
                                 <td>{{dealer.createdDt | date: 'dd-MMM-yyyy'}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-space btn-info margin-right" data-widget="Verify Dealer" data-toggle="tooltip" title="Verify Dealer" (click)="verifyDealer(dealer)"><i class="fa fa-check"></i></button> &nbsp;&nbsp;
+                                        <button type="button" *ngIf="!dealer.isAccountVerified" class="btn btn-space btn-info margin-right" data-widget="Verify Dealer" data-toggle="tooltip" title="Verify Dealer" (click)="verifyDealer(dealer)"><i class="fa fa-check"></i></button>
+
+                                        <button type="button" *ngIf="dealer.isAccountVerified" class="btn btn-space btn-info margin-right disabled" data-widget="Verified Dealer" data-toggle="tooltip" title="Verified Dealer"><i class="fa fa-check"></i></button>                                        &nbsp;
 
                                         <button type="button" (click)="deleteDealer(dealer)" class="btn btn-danger btn-space" title="Remove Dealer"><i class="fa fa-trash"></i></button> &nbsp;
 
@@ -86,7 +83,7 @@
                                 </td>
                             </tr>
                             <tr *ngIf="dealers?.length < 1">
-                                <td colspan="6">No record found</td>
+                                <td colspan="18">No record found</td>
                             </tr>
                         </tbody>
                     </table>
@@ -100,13 +97,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"></h4>
+                <h4 class="modal-title">{{title}}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
             </div>
             <div class="modal-body">
-                <img [src]="sanitizeImageUrl(previewUrl)">
+                <img [src]="previewUrl" style="width: 100%;" alt="No image preview">
+                <!-- <a href="javascript:;" class="btn class" target="_self" (click)="downloadImage(previewUrl)"> Download</a> -->
             </div>
         </div>
     </div>

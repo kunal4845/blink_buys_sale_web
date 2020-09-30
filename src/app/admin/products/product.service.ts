@@ -5,7 +5,6 @@ import { APIURL } from "../../shared/globalConstants";
 import { Product } from './product.model';
 import { ProductCategory } from './productCategory.model';
 
-
 @Injectable({
     providedIn: "root"
 })
@@ -40,15 +39,25 @@ export class ProductService {
         });
     }
 
-    deleteProduct(productId: number): Observable<HttpResponse<Product>> {
-        return this.http.delete<Product>(`${this.APIURL}/${productId}`, {
-            observe: "response"
-        });
-    }
 
     getProductCategory(): Observable<HttpResponse<ProductCategory[]>> {
         return this.http.get<ProductCategory[]>(`${this.APIURL}/category`, {
             observe: "response"
         });
     }
+
+    verifyProduct(productId: number): Observable<HttpResponse<Product>> {
+        debugger;
+        return this.http.get<Product>(`${this.APIURL}/verify/${productId}`, {
+            observe: "response"
+        });
+    }
+
+    deleteProduct(productId: number): Observable<HttpResponse<Product>> {
+        debugger;
+        return this.http.delete<Product>(`${this.APIURL}/delete/${productId}`, {
+            observe: "response"
+        });
+    }
+
 }

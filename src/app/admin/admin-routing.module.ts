@@ -7,6 +7,8 @@ import { ServiceProviderRequestComponent } from './service-provider/service-prov
 import { DealerListComponent } from './dealer/dealer-list/dealer-list.component';
 import { DealerRequestComponent } from './dealer/dealer-request/dealer-request.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
+import { ProductsComponent } from './products/products.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 
 
@@ -20,6 +22,8 @@ const routes: Routes = [
             { path: 'dealers', component: DealerListComponent },
             { path: 'dealer-requests', component: DealerRequestComponent },
             { path: 'add-product', component: AddProductComponent },
+            { path: 'products', component: ProductsComponent },
+            { path: 'profile', component: AdminProfileComponent },
 
         ]
     }

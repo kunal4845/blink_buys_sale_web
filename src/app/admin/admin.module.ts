@@ -5,7 +5,6 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AdminService } from './admin.service';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 import { DataTablesModule } from 'angular-datatables';
 import { NgxUiLoaderModule, NgxUiLoaderConfig, SPINNER, POSITION, PB_DIRECTION } from 'ngx-ui-loader';
@@ -19,6 +18,9 @@ import { DealerListComponent } from './dealer/dealer-list/dealer-list.component'
 import { ServiceProviderListComponent } from './service-provider/service-provider-list/service-provider-list.component';
 import { ProductsComponent } from './products/products.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
+import { DealerService } from './dealer/dealer.service';
+import { ProductService } from './products/product.service';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -38,7 +40,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     DealerRequestComponent,
     DealerListComponent,
     ProductsComponent,
-    AddProductComponent
+    AddProductComponent,
+    AdminProfileComponent
   ],
   imports: [
     FormsModule,
@@ -51,7 +54,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SharedModule,
     NgSelectModule
   ],
-  providers: [AdminService,
+  providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
@@ -61,6 +64,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
-    }]
+    }
+  ]
 })
 export class AdminModule { }

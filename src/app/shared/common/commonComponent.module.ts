@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ShowErrorsComponent } from '../show-errors/show-errors.component';
 
 @NgModule({
-  declarations: [ShowErrorsComponent],
+  declarations: [
+    ShowErrorsComponent
+  ],
   imports: [
     CommonModule
-  ], exports: [ShowErrorsComponent]
+  ], exports: [
+    ShowErrorsComponent
+  ]
 })
 export class CommonComponentModule { }

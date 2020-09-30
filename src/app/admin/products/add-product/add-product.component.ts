@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Product, ProductQuantity, ProductImage } from '../product.model'
+import { Product, ProductImage } from '../product.model'
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../product.service';
+import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ProductCategory } from '../productCategory.model';
 
 @Component({
   selector: 'app-add-product',
@@ -11,69 +14,60 @@ import { ProductService } from '../product.service';
   styleUrls: ['./add-product.component.scss']
 })
 export class AddProductComponent implements OnInit {
-
   @ViewChild('productForm', { read: NgForm, static: false }) productForm: any;
   productId: number;
   myFiles: File[] = [];
   previewUrl: any = null;
   product: Product;
-  spinner: boolean = false;
+  categorList: ProductCategory[] = [];
 
-  constructor(private productService: ProductService, private _DomSanitizationService: DomSanitizer, private route: ActivatedRoute,
-    private router: Router) {
+  constructor(private productService: ProductService,
+    private _DomSanitizationService: DomSanitizer,
+    private route: ActivatedRoute,
+    private router: Router,
+    private ngxService: NgxUiLoaderService,
+    private sweetAlertService: SweetAlertService) {
     this.product = new Product();
-    this.product.productQuantities.push(new ProductQuantity());
+    this.getProductCategory();
+
   }
 
   ngOnInit() {
-    this.spinner = true;
-    this.route.params
-      // (+) converts string 'id' to a number
-      .subscribe((params: Params) => {
-        
-        this.productService.getProductById(+params['id']).subscribe(
-          res => {
-            this.product = res.body;
-            this.spinner = false;
-          },
-          error => {
-            this.spinner = false;
-          }
-        );
-      });
+    // this.ngxService.start();
 
-
-    this.getCuisineType();
-    this.getFoodCategory();
-    this.getProductCategory();
-    this.getProductSubCategory();
-  }
-
-  calculateDiscount(index: number) {
-    var obj = this.product.productQuantities[index];
-    if (obj.newPrice != null && obj.oldPrice != null) {
-      obj.discount = ~~(((obj.oldPrice - obj.newPrice) * 100) / obj.oldPrice);
-    }
-  }
-
-  getProductCategory() {
+    // this.route.params.subscribe((params: Params) => {
+    //   this.productService.getProductById(+params['id']).subscribe(
+    //     res => {
+    //       this.product = res.body;
+    //       this.ngxService.stop();
+    //     },
+    //     error => {
+    //       this.ngxService.stop();
+    //     },
+    //   );
+    // });
 
   }
 
-  getProductSubCategory() {
 
-  }
+  getProductCategory(): void {    this.ngxService.start();
 
-  getCuisineType() {
+    this.productService.getProductCategory().subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.categorList = response.body;
+        }        this.ngxService.stop();
 
-  }
+      },
+      (error) => {        this.ngxService.stop();
 
-  getFoodCategory() {
-
+        this.sweetAlertService.sweetAlert('Error', error, 'error', false);
+      }
+    );
   }
 
   onFileChange(event) {
-    
+
     for (var i = 0; i < event.target.files.length; i++) {
       this.myFiles.push(event.target.files[i]);
 
@@ -107,71 +101,55 @@ export class AddProductComponent implements OnInit {
   }
 
   submit() {
+    debugger
     if (this.productForm.invalid) {
       return;
     }
 
     if (this.product.productImages.length === 0) {
-      this.showAlert('Please upload product image!', "warn", "Required");
+      this.sweetAlertService.sweetAlert('Required', "Please upload product image!", 'warn', false);
       return;
     }
 
     let isMasterImageSelected = this.product.productImages.filter(x => x.isPrimaryImage);
     if (isMasterImageSelected.length === 0) {
-      this.showAlert('Please select the product master image!', "warn", "Required");
+      this.sweetAlertService.sweetAlert('Required', "Please select the product master image!", 'warn', false);
       return;
     }
 
-    this.spinner = true;
+    this.ngxService.start();
     this.productService.post(this.product).subscribe(
       (res: any) => {
+        debugger
         this.uploadProductImages(res.body);
       },
       error => {
-        this.spinner = false;
-        this.showAlert(error.message, "error", "Error");
+        this.ngxService.stop();
+        this.sweetAlertService.sweetAlert('Error', error.message, 'error', false);
       }
     );
   }
+
 
   uploadProductImages(productId: number) {
     this.productService.uploadProductImages(this.myFiles, productId, this.product.masterImage).subscribe(
       res => {
-        this.spinner = false;
-        this.showAlert('Product Added Successfully!', "success", "Success");
+        debugger;
+        this.ngxService.stop();
+        this.sweetAlertService.sweetAlert('Success', "Product Added Successfully!", 'success', false);
         this.product = new Product();
         this.myFiles = [];
-
-        //default add a product quantity block.
-        this.product.productQuantities.push(new ProductQuantity());
       },
       error => {
-        this.spinner = false;
-        this.showAlert(error.message, "error", "Error");
+        this.ngxService.stop();
+        this.sweetAlertService.sweetAlert('Error', error.message, 'error', false);
       }
     );
   }
 
-  addNewQuantity() {
-    var lastIndex = this.product.productQuantities[this.product.productQuantities.length - 1];
-    if (lastIndex.newPrice === null || lastIndex.oldPrice === null || lastIndex.quantity === null) {
-      this.showAlert('Please fill the required fields!', "warn", "Required");
-    } else {
-      this.product.productQuantities.push({
-        id: this.product.productQuantities.length + 1,
-        quantity: null,
-        discount: 0,
-        oldPrice: null,
-        newPrice: null,
-        isFreeDelivery: false,
-        isAvailable: false,
-        productId: 0
-      });
-    }
-  }
 
   disableOther(image: any) {
-    ;
+    debugger;
     this.product.productImages.forEach(x => {
       if (x.name === image.name) {
         x.isPrimaryImage = !x.isPrimaryImage;
@@ -182,15 +160,14 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  removeProductQuantity(i: number) {
-    if (this.product.productQuantities.length === 1) {
-      this.showAlert('Atleast One Quantity and price are mandatory!', "warn", "Required");
-    } else {
-      this.product.productQuantities.splice(i, 1);
-    }
-  }
-
   removeProductImage(i: number) {
+    debugger
+    this.sweetAlertService.sweetAlertConfirm('Comfirm removal', 'Are you sure you want to delete?', 'error', false,).then(result => {
+      debugger
+    }).catch(err => {
+      debugger
+    });
+
     // this.confirmationService.confirm({
     //   message: 'Are you sure that you want to remove this image?',
     //   accept: () => {
@@ -199,31 +176,4 @@ export class AddProductComponent implements OnInit {
     //   }
     // });
   }
-
-  resetForm() {
-    if (this.productForm.valid) {
-      // this.confirmationService.confirm({
-      //   message: 'Are you sure that you want clear the form?',
-      //   accept: () => {
-      //     this.product = new Product();
-      //     this.productForm.reset();
-      //   }, reject: () => {
-      //   }
-      // });
-    } else {
-      this.product = new Product();
-      this.productForm.reset();
-      this.product.productQuantities.push(new ProductQuantity());
-    }
-  }
-
-  private showAlert(message, severity, summary) {
-    // this.messageService.add({
-    //   key: "productKey",
-    //   severity: severity,
-    //   summary: summary,
-    //   detail: message
-    // });
-  }
-
 }

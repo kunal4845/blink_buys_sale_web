@@ -14,22 +14,22 @@ export class UserComponent implements OnInit {
     this.document.body.classList.remove('hold-transition');
     this.document.body.classList.remove('login-page');
 
-    this.incrementAndShowValue();
+    // this.incrementAndShowValue();
   }
 
   ngOnInit(): void {
   }
 
-  incrementAndShowValue() {
-    var value = this.getCookie("visitcounter") || 0;
-    var newValue = ("00000" + (Number(value) + 1)).slice(-6);
-    var container = document.getElementById("counterVisitor");
-    String(newValue).split("").forEach(function (item, index) {
-      container.children[index].innerHTML = item;
-    });
-    this.counter++;
-    this.setCookie("visitcounter", this.counter, 15);
-  }
+  // incrementAndShowValue() {
+  //   var value = this.getCookie("visitcounter") || 0;
+  //   var newValue = ("00000" + (Number(value) + 1)).slice(-6);
+  //   var container = document.getElementById("counterVisitor");
+  //   String(newValue).split("").forEach(function (item, index) {
+  //     container.children[index].innerHTML = item;
+  //   });
+  //   this.counter++;
+  //   this.setCookie("visitcounter", this.counter, 15);
+  // }
 
   setCookie(name, value, days) {
     var expires = "";

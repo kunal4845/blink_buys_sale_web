@@ -20,15 +20,16 @@ export class User {
     accountNumber: string;
     accountHolderName: string;
     ifscCode: string;
-    
-    isNumberVerified:boolean;
-    isActive:boolean;
-    isAccountVerified:boolean;
+
+    isNumberVerified: boolean;
+    isActive: boolean;
+    isAccountVerified: boolean;
     idProofPath: string;
     cancelledChequePath: string;
     //
-
     createdDt: Date;
+    isDeleted: boolean;
+
     constructor() {
         this.id = 0;
         this.roleId = null;

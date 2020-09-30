@@ -2,69 +2,35 @@ export class Product {
     id: number;
     productTitle: string;
     productName: string;
-    shortDescription: string;
-    longDescription: string;
+    description: string;
     note: string;
-    currency: string;
-    unit: string;
-    noOfProducts: number;
-    isSpecialDeal: boolean;
-    isSpecialOffer: boolean;
-    productCategoryId: number;
-    productSubCategoryId: number;
-    foodCategoryId: number;
-    cuisineId: number;
-    isReturnable: boolean;
+    specification: string;
+    price: number;
+    size: string;
     isActive: boolean;
+    isDeleted: boolean;
     createdDt: Date;
     masterImage: string;
-    productQuantities: ProductQuantity[] = [];
     productImages: ProductImage[] = [];
+    productCategoryId: number;
+    isVerified: boolean;
 
     constructor() {
         this.id = 0;
         this.productTitle = '';
         this.productName = '';
-        this.shortDescription = '';
-        this.longDescription = '';
+        this.description = '';
         this.note = '';
-        this.currency = '';
-        this.unit = '';
-        this.noOfProducts = 0;
-        this.isSpecialDeal = false;
-        this.isSpecialOffer = false;
-        this.productCategoryId = 0;
-        this.productSubCategoryId = 0;
-        this.foodCategoryId = 0;
-        this.cuisineId = 0;
-        this.isReturnable = false;
+        this.specification = '';
+        this.price = 0;
+        this.size = '';
         this.isActive = false;
+        this.isDeleted = false;
         this.createdDt = new Date();
         this.masterImage = '';
-        this.productQuantities = [];
         this.productImages = [];
-    }
-}
-
-export class ProductQuantity {
-    id: number;
-    quantity: number;
-    discount: number;
-    oldPrice: number;
-    newPrice: number;
-    isFreeDelivery: boolean;
-    isAvailable: boolean;
-    productId: number;
-
-    constructor() {
-        this.id = 0;
-        this.quantity = null;
-        this.discount = 0;
-        this.oldPrice = null;
-        this.newPrice = null;
-        this.isFreeDelivery = false;
-        this.isAvailable = false;
-        this.productId = 0;
+        this.productCategoryId = 0;
+        this.isVerified = false;
     }
 }
 

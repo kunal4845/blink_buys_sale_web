@@ -1,1 +1,65 @@
-<p>products works!</p>
+<section class="content-header">
+    <h1>
+        Product List
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Product List</h3>
+                </div>
+                <div class="box-body table-responsive">
+                    <table id="tblBuilding" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="table table-bordered table-striped table-level">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Product Title</th>
+                                <th>Product Name</th>
+                                <th>Size</th>
+                                <th>Product Category</th>
+                                <th>Price</th>
+                                <th>Created date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of productList; let i = index;">
+                                <td>{{i+1}}</td>
+                                <td>{{product.productTitle}}</td>
+                                <td>{{product.productName}}</td>
+                                <td>{{product.size}}</td>
+                                <td>
+                                    <ng-container *ngFor="let category of categoryList;">
+                                        <ng-container *ngIf="category.id == product.productCategoryId">
+                                            {{category.name}}
+                                        </ng-container>
+                                    </ng-container>
+                                </td>
+                                <td>{{product.price}}</td>
+                                <td>{{product.createdDt | date: 'dd-MMM-yyyy'}}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" *ngIf="!product.isVerified" class="btn btn-space btn-info margin-right " data-widget="Verify and publish to website" data-toggle="tooltip" title="Verify and publish to website" (click)="verifyProduct(product)"><i class="fa fa-check"></i></button>                                        &nbsp;
+
+                                        <button type="button" *ngIf="product.isVerified" class="btn btn-space btn-info margin-right disabled" data-widget="Verified and published to website" data-toggle="tooltip" title="Verified and published to website" (click)="verifyProduct(product)"><i class="fa fa-check"></i></button>                                        &nbsp;
+
+                                        <button type="button" (click)="deleteProduct(product)" class="btn btn-danger btn-space" title="Remove product"><i class="fa fa-trash"></i></button> &nbsp;
+
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="productList?.length < 1">
+                                <td colspan="8">No record found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<ngx-ui-loader></ngx-ui-loader>

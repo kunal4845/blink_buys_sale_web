@@ -6,7 +6,6 @@ import { SweetAlertService } from "../../shared/alert/sweetalert.service";
 import { User } from '../login.interface';
 import { SharedService } from 'src/app/shared/shared.service';
 import { roleType, SiteKey } from 'src/app/shared/globalConstants';
-import { ProductService } from 'src/app/admin/products/product.service';
 import { ProductCategory } from 'src/app/admin/products/productCategory.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
@@ -34,7 +33,6 @@ export class RegisterComponent implements OnInit {
     private loginService: LoginService,
     private sweetAlertService: SweetAlertService,
     private sharedService: SharedService,
-    private productService: ProductService,
     private ngxService: NgxUiLoaderService
   ) { }
 
@@ -46,7 +44,7 @@ export class RegisterComponent implements OnInit {
   getProductCategory(): void {
     this.ngxService.start();
 
-    this.productService.getProductCategory().subscribe(
+    this.sharedService.getProductCategory().subscribe(
       (response: any) => {
 
         if (response.status === 200) {

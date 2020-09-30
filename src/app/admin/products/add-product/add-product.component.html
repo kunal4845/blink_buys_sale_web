@@ -11,70 +11,78 @@
         <form #productForm="ngForm" id="productForm" novalidate>
             <div class="box-body">
                 <div class="row">
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Product Title <span class="check-required">*</span></label>
 
-                            <input type="text" id="productTitle" name="productTitle" placeholder="Product Title" class="form-control" required #productTitle="ngModel" [(ngModel)]="product.productTitle" />
+                            <input type="text" id="productTitle" name="productTitle" placeholder="Enter Product Title" class="form-control" required #productTitle="ngModel" [(ngModel)]="product.productTitle" />
 
                         </div>
                         <div class="form-group">
                             <label for="">Product Name <span class="check-required">*</span></label>
 
-                            <input type="text" id="productName" name="productName" placeholder="Product Name" class="form-control" required #productName="ngModel" [(ngModel)]="product.productName" />
+                            <input type="text" id="productName" name="productName" placeholder="Enter Product Name" class="form-control" required #productName="ngModel" [(ngModel)]="product.productName" />
 
                         </div>
                     </div>
+
+
+
                     <div class="col-md-6">
+
+
                         <div class="form-group">
-                            <label for="">Currency <span class="check-required">*</span></label>
-                            <select class="form-control custom-select" id="currency" name="currency" required #currency="ngModel" [(ngModel)]="product.currency">
-                                <option selected value="">-- Select currency --</option>
-                                <option value="$">US Dollar</option>
-                                <option value="INR">Indian Rupees</option>
+                            <label for=""> Size </label>
+
+                            <input type="text" id="size" name="size" placeholder="Enter Product size" class="form-control" #size="ngModel" [(ngModel)]="product.size">
+                        </div>
+
+                        <div class="form-group">
+                            <label for=""> Product Category </label>
+                            <select class="form-control" id="productCategory" name="productCategory" required #ProductCategory="ngModel" [(ngModel)]="product.productCategoryId">
+                                <option selected value="">-- Select product category** --</option>
+                                <option *ngFor="let category of categorList;" value="{{category.id}}">{{category.name}}</option>
                              </select>
                         </div>
-                        <div class="form-group">
-                            <label for="">Short Description </label>
-
-                            <textarea type="text" id="shortDescription" name="shortDescription" placeholder="Short Description" class="form-control" #shortDescription="ngModel" [(ngModel)]="product.shortDescription"> </textarea
-                            >
-                        </div>
                     </div>
 
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="">Long Description <span class="check-required">*</span></label>
 
-                            <textarea type="text" id="longDescription" name="longDescription" placeholder="Long Description" class="form-control" required #longDescription="ngModel" [(ngModel)]="product.longDescription"> </textarea
-                              >
+                        <div class="form-group">
+                            <label for=""> Description </label>
+
+                            <textarea type="text" id="description" name="description" placeholder="Enter Product description" class="form-control" #description="ngModel" [(ngModel)]="product.description"> </textarea
+                            >
                         </div>
+
                         <div class="form-group">
                             <label for=""> Note</label>
 
-                            <textarea type="text" id="note" name="note" placeholder="Note" class="form-control"  #note="ngModel" [(ngModel)]="product.note"> </textarea
+                            <textarea type="text" id="note" name="note" placeholder="Enter Note" class="form-control"  #note="ngModel" [(ngModel)]="product.note"> </textarea
                               >
                         </div>
                     </div>
-
                     <div class="col-md-6">
+
                         <div class="form-group">
-                            <label for="">Unit <span class="check-required">*</span></label>
-                            <select class="form-control custom-select" id="unit" name="unit"  required #unit="ngModel" [(ngModel)]="product.unit">
-                                <option selected value="">-- Select Product Unit --</option>
-                              <option value="ml">milligram</option>
-                              <option value="g">gram</option>
-                              <option value="kg">kilogram</option>
-                              <option value="ml">mililiter</option>
-                              <option value="lt">liter</option>
-                             </select>
+                            <label for=""> Specification </label>
+
+                            <textarea type="text" id="specification" name="specification" placeholder="Enter Product specification" class="form-control" #specification="ngModel" [(ngModel)]="product.specification"> </textarea
+                            >
                         </div>
+
                         <div class="form-group">
-                            <label for="">No Of Product </label>
-                                <input type="number" id="noOfProducts" name="noOfProducts" placeholder="No Of Product" class="form-control"  #noOfProducts="ngModel" [(ngModel)]="product.noOfProducts"/>
+                            <label for=""> Price</label>
+
+                            <input type="text" id="price" name="price" placeholder="Enter Product price" class="form-control" #price="ngModel" [(ngModel)]="product.price">
                         </div>
+
                     </div>
-                   
+
+                 
+
+                  
                     <div class="col-md-12">
                         <label for="">Images </label>
                         <div class="card-body p-0">
@@ -83,7 +91,7 @@
                             <div class="input-group">
                               <div class="custom-file">
                                 <input type="file" multiple="multiple" class="custom-file-input" id="exampleInputFile" (change)="onFileChange($event)">
-                                <label class="custom-file-label" for="exampleInputFile"  >Choose file</label>
+                                <label class="custom-file-label" for="exampleInputFile"  ></label>
                               </div>
                             </div>
                           </div>
@@ -103,9 +111,9 @@
 
                                         <td class="text-right py-0 align-middle">
                                             <div class="btn-group btn-group-sm">
-                                                <a href="javascript:;"  data-toggle="modal" data-target="#modal-default" class="btn btn-info" (click)="preview(pImage)"><i class="fas fa-eye"></i
+                                                <a href="javascript:;"  data-toggle="modal" data-target="#modal-default" class="btn btn-info" (click)="preview(pImage)"><i class="fa fa-eye"></i
                       ></a>
-                                                <a href="javascript:;" class="btn btn-danger" (click)="removeProductImage(i)"><i class="fas fa-trash"></i
+                                                <a href="javascript:;" class="btn btn-danger" (click)="removeProductImage(i)"><i class="fa fa-trash"></i
                       ></a>
                                             </div>
                                         </td>
@@ -130,13 +138,17 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-6"></div>
                     
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid" (click)="submit()" >Submit</button>
-                    </div>
+                    
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid" (click)="submit()" >Submit</button>
                 </div>
             </div>
         </form>
     </div>
 </section>
+
+<ngx-ui-loader></ngx-ui-loader>
