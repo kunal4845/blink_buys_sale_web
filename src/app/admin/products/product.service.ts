@@ -33,8 +33,14 @@ export class ProductService {
         });
     }
 
+    getRecommendedProducts(): Observable<HttpResponse<Product[]>> {
+        return this.http.get<Product[]>(`${this.APIURL}/list/recommended`, {
+            observe: "response"
+        });
+    }
+
     getProductById(productId: number): Observable<HttpResponse<Product>> {
-        return this.http.get<Product>(`${this.APIURL}/${productId}`, {
+        return this.http.get<Product>(`${this.APIURL}/list/${productId}`, {
             observe: "response"
         });
     }

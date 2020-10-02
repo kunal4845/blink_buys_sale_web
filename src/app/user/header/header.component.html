@@ -43,11 +43,12 @@
                     <a href="javascript:;" [routerLink]="['/user/contact-us']"><i class="fa fa-map-marker" aria-hidden="true"></i> CONTACT US</a>
                 </div>
                 <div class="cart">
-                    <form action="#" method="post" class="last">
-                        <input type="hidden" name="cmd" value="_cart" />
-                        <input type="hidden" name="display" value="1" />
-                        <button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-                    </form>
+
+
+                    <button class="w3view-cart" (click)="openCart()">
+                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                    </button>
+
                 </div>
                 <div class="clearfix"> </div>
             </div>
@@ -286,3 +287,5 @@
         </div>
     </div>
 </div>
+
+<app-cart [list]="itemsSubject"></app-cart>

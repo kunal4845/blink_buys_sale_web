@@ -35,24 +35,27 @@ export class Product {
 }
 
 export class ProductImage {
+    id: number;
     name: string;
-    path: string;
-    type: string
+    imagePath: string;
+    type: string;
     productId: number;
     isPrimaryImage: boolean;
     lastModified: number;
     lastModifiedDate: Date;
     size: number;
+    isDeleted: boolean;
 
     constructor() {
         this.name = '';
-        this.path = '';
+        this.imagePath = '';
         this.type = '';
         this.productId = 0;
         this.isPrimaryImage = false;
         this.lastModified = null;
         this.lastModifiedDate = new Date();
         this.size = null;
+        this.isDeleted = false;
     }
 }
 

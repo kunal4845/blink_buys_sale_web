@@ -1,7 +1,7 @@
 <div class="container">
     <ol class="breadcrumb breadcrumb1">
-        <li><a href="index.html">Home</a></li>
-        <li class="active">Single Page</li>
+        <li><a [routerLink]="['./']">Home</a></li>
+        <li class="active">{{product.productTitle}}</li>
     </ol>
     <div class="clearfix"> </div>
 </div>
@@ -13,21 +13,21 @@
                 <div class="col-md-6 single-top-left">
                     <div class="flexslider">
                         <ul class="slides">
-                            <li data-thumb="../../../../assets/user/images/s1.jpg">
-                                <div class="thumb-image detail_images"> <img src="../../../../assets/user/images/s1.jpg" data-imagezoom="true" class="img-responsive" alt=""> </div>
-                            </li>
-                            <li data-thumb="../../../../assets/user/images/s2.jpg">
-                                <div class="thumb-image"> <img src="../../../../assets/user/images/s2.jpg" data-imagezoom="true" class="img-responsive" alt=""> </div>
-                            </li>
-                            <li data-thumb="../../../../assets/user/images/s3.jpg">
-                                <div class="thumb-image"> <img src="../../../../assets/user/images/s3.jpg" data-imagezoom="true" class="img-responsive" alt=""> </div>
-                            </li>
+
+                            <ng-container *ngFor="let image of product.productImages">
+                                <li [attr.data-thumb]="transform(image.imagePath)">
+                                    <div class="thumb-image detail_images">
+                                        <img [src]="transform(image.imagePath)" data-imagezoom="true" class="img-responsive" alt="">
+                                    </div>
+                                </li>
+                            </ng-container>
+
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-6 single-top-right">
-                    <h3 class="item_name">Electric Snow Blower</h3>
-                    <p>Processing Time: Item will be shipped out within 2-3 working days. </p>
+                    <h3 class="item_name">{{product.productTitle}}</h3>
+                    <p>{{product.productName}} </p>
                     <div class="single-rating">
                         <ul>
                             <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
@@ -36,26 +36,30 @@
                             <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
                             <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
                             <li class="rating">20 reviews</li>
-                            <li><a href="#">Add your review</a></li>
+                            <li><a href="javascript:;">Add your review</a></li>
                         </ul>
                     </div>
                     <div class="single-price">
                         <ul>
-                            <li>$540</li>
-                            <li><del>$600</del></li>
-                            <li><span class="w3off">10% OFF</span></li>
+                            <li>{{product.price}}</li>
+                            <!-- <li><del>$600</del></li>
+                            <li><span class="w3off">10% OFF</span></li> -->
                             <!-- <li>Ends on: June,5th</li> -->
                             <!-- <li><a href="#"><i class="fa fa-gift" aria-hidden="true"></i> Coupon</a></li> -->
                         </ul>
                     </div>
-                    <p class="single-price-text">Fusce a egestas nibh, eget ornare erat. Proin placerat, urna et consequat efficitur, sem odio blandit enim, sit amet euismod turpis est mattis lectus. Vestibulum maximus quam et quam egestas imperdiet. In dignissim auctor viverra.
+
+                    <!-- <p class="single-price-text">{{product.description}}
+                    </p> -->
+                    <p class="single-price-text">{{product.specification}}
                     </p>
-                    <form action="#" method="post">
-                        <input type="hidden" name="cmd" value="_cart" />
-                        <input type="hidden" name="add" value="1" />
-                        <input type="hidden" name="w3ls_item" value="Snow Blower" />
-                        <input type="hidden" name="amount" value="540.00" />
-                        <button type="submit" class="w3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
+                    <!-- <p class="single-price-text">{{product.note}}
+                    </p> -->
+
+                    <form>
+                        <button type="submit" class="w3ls-cart" (click)="addToCart(product);">
+                            <i class="fa fa-cart-plus" aria-hidden="true"></i> 
+                            Add to cart</button>
                     </form>
                     <!-- <button class="w3ls-cart w3ls-cart-like"><i class="fa fa-heart-o" aria-hidden="true"></i> Add to Wishlist</button> -->
                 </div>
@@ -77,9 +81,7 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                            on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                            beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            {{product.description}}
                         </div>
                     </div>
                 </div>
@@ -93,9 +95,7 @@
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                            on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                            beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            {{product.note}}
                         </div>
                     </div>
                 </div>
@@ -109,25 +109,7 @@
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                         <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                            on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                            beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFour">
-                        <h4 class="panel-title">
-                            <a class="collapsed pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                <i class="fa fa-question-circle fa-icon" aria-hidden="true"></i> help <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                        <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                            on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                            beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+
                         </div>
                     </div>
                 </div>
@@ -140,3 +122,6 @@
 
     </div>
 </div>
+
+<app-cart [model]="cartProduct"></app-cart>
+<ngx-ui-loader></ngx-ui-loader>

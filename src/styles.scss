@@ -2,3 +2,7 @@
 
 //@import "angular2-multiselect-dropdown/themes/default.theme.css";
 @import "~@ng-select/ng-select/themes/default.theme.css";
+.fix-hieght {
+    overflow-y: scroll;
+    max-height: 311px;
+}

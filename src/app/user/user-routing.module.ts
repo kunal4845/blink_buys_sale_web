@@ -35,7 +35,7 @@ const routes: Routes = [
       { path: "faq", component: FaqComponent },
       { path: "help", component: HelpComponent },
       { path: "products", component: ProductsComponent },
-      { path: "product-detail", component: ProductDetailComponent },
+      { path: "product-detail/:id", component: ProductDetailComponent },
       { path: "core-values", component: CoreValuesComponent },
       { path: "marketplace", component: MarketplaceComponent },
       { path: "sitemap", component: SitemapComponent },

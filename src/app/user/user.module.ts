@@ -32,11 +32,23 @@ import { UserRegisterComponent } from './login/register/user-register.component'
 import { UserResetPasswordComponent } from './login/reset-password/user-reset-password.component';
 import { CommonComponentModule } from '../shared/common/commonComponent.module';
 import { LocationComponent } from './location/location.component';
+import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: 'red',
+  bgsPosition: POSITION.bottomCenter,
+  bgsSize: 40,
+  bgsType: SPINNER.rectangleBounce,
+  pbDirection: PB_DIRECTION.leftToRight, // progress bar direction
+  pbThickness: 5, // progress bar thickness
+};
+
 
 @NgModule({
   declarations: [UserComponent, DashboardComponent, HeaderComponent, FooterComponent, AboutComponent, ContactComponent, FaqComponent, HelpComponent, UserLoginComponent, UserRegisterComponent, UserResetPasswordComponent, SubscribeComponent, DealsComponent, ComingSoonComponent, BannerComponent, FooterTopComponent, ProductsComponent, ProductDetailComponent, RecommendationsComponent, MarketplaceComponent, CoreValuesComponent, SitemapComponent, PrivacyPolicyComponent, CartComponent, WishlistComponent, CheckoutComponent, LocationComponent],
   imports: [
-    CommonModule, UserRoutingModule, FormsModule, HttpClientModule,CommonComponentModule
+    CommonModule, UserRoutingModule, FormsModule, HttpClientModule, CommonComponentModule, NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+
   ],
   exports: [
 
