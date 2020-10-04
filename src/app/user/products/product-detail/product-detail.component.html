@@ -123,5 +123,6 @@
     </div>
 </div>
 
-<app-cart [model]="cartProduct"></app-cart>
+<app-cart [events]="eventsSubject.asObservable()"></app-cart>
+<!-- <app-cart [model]="cartProduct"></app-cart> -->
 <ngx-ui-loader></ngx-ui-loader>

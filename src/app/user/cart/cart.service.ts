@@ -24,10 +24,29 @@ export class CartService {
         debugger
         try {
             this.items$.pipe(
-                take(1),
-                map((products) => {
-                    products.push(product);
-                    localStorage.setItem('products', JSON.stringify(products));
+                map(() => {
+                    debugger
+                    let productList = JSON.parse(localStorage.getItem("products"));
+                    if (productList) {
+                        productList.forEach(element => {
+                            if (element.id !== product.id) {
+                                productList.push(product);
+                            } else {
+                                product.quantity = product.quantity + 1;
+                                let updateItem = productList.find(this.findIndexToUpdate, product.id);
+                                let index = productList.indexOf(updateItem);
+                                productList[index] = product;
+                            }
+                        });
+                    }
+
+                    if (productList === null) {
+                        productList = [];
+                        productList.push(product);
+                    }
+
+                    localStorage.removeItem("products");
+                    localStorage.setItem('products', JSON.stringify(productList));
                 }),
             ).subscribe();
         }
@@ -36,5 +55,9 @@ export class CartService {
             // fires When localstorage gets full
             // you can handle error here or empty the local storage
         }
+    }
+
+    findIndexToUpdate(newItem) {
+        return newItem.id === this;
     }
 }

@@ -2,12 +2,21 @@
     <div class="container">
         <h3 class="w3ls-title w3ls-title1">Login to your account</h3>
         <div class="login-body">
-            <form action="#" method="post">
-                <input type="text" class="user" name="email" placeholder="Enter your email" required="">
-                <input type="password" name="password" class="lock" placeholder="Password" required="">
-                <input type="submit" value="Login">
+            <form #loginForm="ngForm" id="loginForm" novalidate>
+
+                <input type="text" id="email" name="email" placeholder="Enter your email" class="user" #Email="ngModel" [(ngModel)]="user.email" />
+
+
+
+                <!-- <input type="text" class="user" name="email" placeholder="Enter your email" required=""> -->
+                <!-- <input type="password" name="password" class="lock" placeholder="Password" required=""> -->
+
+                <input type="password" name="password" placeholder="Password" class="lock" id="Password" #Password="ngModel" [(ngModel)]="user.password" />
+
+                <input type="submit" value="Login" [disabled]="loginForm.invalid" (click)="signIn()">
+
                 <div class="forgot-grid">
-                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Remember me</label>
+                    <!-- <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Remember me</label> -->
                     <div class="forgot">
                         <a href="javascript:;" [routerLink]="['/user/resetPassword']">Forgot Password?</a>
                     </div>
@@ -18,3 +27,5 @@
         <h6> Not a Member? <a href="javascript:;" [routerLink]="['/user/register']">Sign Up Now »</a> </h6>
     </div>
 </div>
+
+<ngx-ui-loader></ngx-ui-loader>

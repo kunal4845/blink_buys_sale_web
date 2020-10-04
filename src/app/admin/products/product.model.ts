@@ -14,7 +14,8 @@ export class Product {
     productImages: ProductImage[] = [];
     productCategoryId: number;
     isVerified: boolean;
-
+    quantity: number;
+    
     constructor() {
         this.id = 0;
         this.productTitle = '';
@@ -31,6 +32,7 @@ export class Product {
         this.productImages = [];
         this.productCategoryId = 0;
         this.isVerified = false;
+        this.quantity = 0;
     }
 }
 

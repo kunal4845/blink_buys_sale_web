@@ -2,6 +2,7 @@ import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subject } from 'rxjs';
 import { Product } from 'src/app/admin/products/product.model';
 import { ProductService } from 'src/app/admin/products/product.service';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
@@ -15,9 +16,8 @@ declare var $: any;
 })
 export class ProductDetailComponent implements OnInit {
   product: Product;
-  cartProduct: Product;
-
   productId: number;
+  eventsSubject: Subject<void> = new Subject<void>();
 
   constructor(private productService: ProductService,
     private route: ActivatedRoute,
@@ -39,7 +39,6 @@ export class ProductDetailComponent implements OnInit {
       animation: "slide",
       controlNav: "thumbnails"
     });
-
     $('.flexslider ol').addClass('fix-hieght')
   }
 
@@ -48,8 +47,9 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(product: Product) {
     debugger
-    this.cartProduct = product;
+    product.quantity = 1;
     this.cartService.addToCart(product);
+    this.eventsSubject.next();
     $('#cartModal').modal('show');
   }
 

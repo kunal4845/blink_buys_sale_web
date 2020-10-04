@@ -9,35 +9,30 @@
                 <table id="classTable" class="table table-bordered">
                     <thead>
                         <td>Product Name</td>
-
                         <td>Price</td>
-
                         <td>Quantity</td>
-
                         <td>Action</td>
-
                     </thead>
                     <tbody class="table">
                         <tr *ngFor="let product of productList;let i = index">
                             <td>{{product.productName}}</td>
                             <td>{{product.price}}</td>
-                            <td>Quantity</td>
-
+                            <td>1</td>
                             <td>
                                 <div class="btn-group">
+                                    <button type="button" (click)="addMore()" class="btn btn-danger btn-space" title="add more"><i class="fa fa-plus"></i></button> &nbsp;
 
-                                    <button type="button" (click)="addMore()" class="btn btn-danger btn-space" title="Remove Dealer"><i class="fa fa-trash"></i></button> &nbsp;
+                                    <button type="button" (click)="addLess()" class="btn btn-danger btn-space" title="add less"><i class="fa fa-minus"></i></button> &nbsp;
 
-                                    <button type="button" (click)="delete()" class="btn btn-warning btn-space" title="Block Dealer"><i class="fa fa-trash"></i>
+                                    <button type="button" (click)="delete()" class="btn btn-warning btn-space" title="Remove"><i class="fa fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
-
                         </tr>
                     </tbody>
                 </table>
                 <br>
-                <button type="button" class="close2" data-dismiss="modal" aria-hidden="true"> Checkout</button>
+                <button type="button" class="close2" data-dismiss="modal" aria-hidden="true" (click)="checkout()"> Checkout</button>
             </div>
         </div>
     </div>

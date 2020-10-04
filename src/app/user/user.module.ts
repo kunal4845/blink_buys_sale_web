@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserRoutingModule } from './user-routing.module';
+
 import { UserComponent } from './user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
@@ -32,7 +32,9 @@ import { UserRegisterComponent } from './login/register/user-register.component'
 import { UserResetPasswordComponent } from './login/reset-password/user-reset-password.component';
 import { CommonComponentModule } from '../shared/common/commonComponent.module';
 import { LocationComponent } from './location/location.component';
+
 import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
+import { SharedModule } from '../shared/shared.module';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -43,15 +45,44 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   pbThickness: 5, // progress bar thickness
 };
 
-
 @NgModule({
-  declarations: [UserComponent, DashboardComponent, HeaderComponent, FooterComponent, AboutComponent, ContactComponent, FaqComponent, HelpComponent, UserLoginComponent, UserRegisterComponent, UserResetPasswordComponent, SubscribeComponent, DealsComponent, ComingSoonComponent, BannerComponent, FooterTopComponent, ProductsComponent, ProductDetailComponent, RecommendationsComponent, MarketplaceComponent, CoreValuesComponent, SitemapComponent, PrivacyPolicyComponent, CartComponent, WishlistComponent, CheckoutComponent, LocationComponent],
+  declarations: [
+    UserComponent,
+    DashboardComponent,
+    HeaderComponent,
+    FooterComponent,
+    AboutComponent,
+    ContactComponent,
+    FaqComponent,
+    HelpComponent,
+    UserLoginComponent,
+    UserRegisterComponent,
+    UserResetPasswordComponent,
+    SubscribeComponent,
+    DealsComponent,
+    ComingSoonComponent,
+    BannerComponent,
+    FooterTopComponent,
+    ProductsComponent,
+    ProductDetailComponent,
+    RecommendationsComponent,
+    MarketplaceComponent,
+    CoreValuesComponent,
+    SitemapComponent,
+    PrivacyPolicyComponent,
+    CartComponent,
+    WishlistComponent,
+    CheckoutComponent,
+    LocationComponent],
   imports: [
-    CommonModule, UserRoutingModule, FormsModule, HttpClientModule, CommonComponentModule, NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
-
+    CommonModule,
+    UserRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    CommonComponentModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    SharedModule
   ],
-  exports: [
-
-  ]
+  exports: []
 })
 export class UserModule { }

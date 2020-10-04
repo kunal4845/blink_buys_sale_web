@@ -7,6 +7,8 @@
 
                 <input type="text" id="email" name="email" placeholder="Email**" class="user" required #Email="ngModel" [(ngModel)]="user.email" [pattern]="emailPattern" />
 
+                <input type="text" id="contactNumber" name="contactNumber" placeholder="Contact Number**" class="user" required #ContactNumber="ngModel" [(ngModel)]="user.contactNumber" />
+
 
                 <input type="password" name="password" placeholder="Password**" class="user" id="Password" required #Password="ngModel" [pattern]="passwordPattern" [(ngModel)]="user.password" />
 
@@ -43,3 +45,4 @@
         <h6>Already have an account? <a href="javascript:;" [routerLink]="['/user/login']">Login Now »</a> </h6>
     </div>
 </div>
+<ngx-ui-loader></ngx-ui-loader>

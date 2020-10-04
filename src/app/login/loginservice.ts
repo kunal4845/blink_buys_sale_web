@@ -59,7 +59,13 @@ export class LoginService {
   }
 
   userRegister(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<User>(`${APIURL}/user/signUp`, user, {
+    return this.http.post<User>(`${APIURL}/account/user-register`, user, {
+      observe: "response"
+    });
+  }
+
+  getUserByUserName(email: string): Observable<HttpResponse<User>> {
+    return this.http.get<User>(`${APIURL}/account/getUserByUserName/${email}`, {
       observe: "response"
     });
   }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChange } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Product } from 'src/app/admin/products/product.model';
 
 @Component({
@@ -7,28 +8,46 @@ import { Product } from 'src/app/admin/products/product.model';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  @Input() model: any;   // instead of any, specify your type
+  private eventsSubscription: Subscription;
+  @Input() events: Observable<void>;
   productList: Product[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    debugger
-    let product = JSON.parse(localStorage.getItem("products"));
-    this.productList.push(product);
+    this.eventsSubscription = this.events.subscribe(() => {
+      this.initializeCart()
+    });
   }
 
-  ngOnChanges(changes: SimpleChange) {
-    debugger
-    // code here
-    if (changes.currentValue !== undefined) {
-      this.productList.push(changes.currentValue);
+  initializeCart() {
+    let products = JSON.parse(localStorage.getItem("products"));
+    if (products) {
+      this.productList = [];
+      products.forEach(element => {
+        this.productList.push(element);
+      });
     }
+    console.log(this.productList);
   }
 
-  addMore() { }
+  addMore() {
 
-  delete() { }
+  }
 
+  addLess() {
+
+  }
+
+  delete() {
+
+  }
+
+  checkout() {
+
+  }
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
+  }
 }
