@@ -15,12 +15,10 @@ export class SharedService {
     private APIURL: string = APIURL + "/product/";
 
     getValue(): Observable<boolean> {
-        debugger
         return this.isLoggedIn$.asObservable();
     }
 
     setValue(isLoggedIn: boolean) {
-        debugger
         this.isLoggedIn$.next(isLoggedIn);
     }
 
@@ -38,7 +36,6 @@ export class SharedService {
             return media.split(":")[1].split("/")[0];
         }
     }
-
 
     getProductCategory(): Observable<HttpResponse<ProductCategory[]>> {
         return this.http.get<ProductCategory[]>(`${this.APIURL}/category`, {

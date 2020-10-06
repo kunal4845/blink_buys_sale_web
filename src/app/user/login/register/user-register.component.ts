@@ -7,6 +7,11 @@ import { LoginService } from 'src/app/login/loginservice';
 import { EMAIL_PATTERN, PASSWORD_PATTERN, roleType } from '../../../shared/globalConstants';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { CartService } from '../../cart/cart.service';
+import { Subject } from 'rxjs';
+import { UserCart } from '../../cart/userCart.model';
+declare var $: any;
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -16,15 +21,19 @@ export class UserRegisterComponent implements OnInit {
   user: User;
   emailPattern = EMAIL_PATTERN;
   passwordPattern = PASSWORD_PATTERN;
+  eventsSubject: Subject<void> = new Subject<void>();
+  userCart: UserCart;
 
   constructor(
     private sharedService: SharedService,
     private router: Router,
     private userService: LoginService,
     private ngxService: NgxUiLoaderService,
-    private sweetAlertService: SweetAlertService
+    private sweetAlertService: SweetAlertService,
+    private cartService: CartService
   ) {
     this.user = new User();
+    this.userCart = new UserCart();
   }
 
   ngOnInit(): void {
@@ -44,8 +53,9 @@ export class UserRegisterComponent implements OnInit {
             this.sharedService.setLocalStorage("userInfo", userResponse.body);
             registerForm.reset();
             this.sharedService.setValue(true);
-            this.router.navigateByUrl("/user/dashboard");
+
             this.sweetAlertService.sweetAlert('', "Thank you for registering with us!", 'success', false);
+            this.router.navigateByUrl("/user/dashboard");
           }
         },
         error => {

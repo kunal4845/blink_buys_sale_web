@@ -5,7 +5,6 @@
     </ol>
     <div class="clearfix"> </div>
 </div>
-
 <div class="products">
     <div class="container">
         <div class="single-page">
@@ -13,7 +12,6 @@
                 <div class="col-md-6 single-top-left">
                     <div class="flexslider">
                         <ul class="slides">
-
                             <ng-container *ngFor="let image of product.productImages">
                                 <li [attr.data-thumb]="transform(image.imagePath)">
                                     <div class="thumb-image detail_images">
@@ -21,7 +19,6 @@
                                     </div>
                                 </li>
                             </ng-container>
-
                         </ul>
                     </div>
                 </div>
@@ -41,21 +38,15 @@
                     </div>
                     <div class="single-price">
                         <ul>
-                            <li>{{product.price}}</li>
+                            <li>{{product.price}} INR</li>
                             <!-- <li><del>$600</del></li>
                             <li><span class="w3off">10% OFF</span></li> -->
                             <!-- <li>Ends on: June,5th</li> -->
                             <!-- <li><a href="#"><i class="fa fa-gift" aria-hidden="true"></i> Coupon</a></li> -->
                         </ul>
                     </div>
-
-                    <!-- <p class="single-price-text">{{product.description}}
-                    </p> -->
                     <p class="single-price-text">{{product.specification}}
                     </p>
-                    <!-- <p class="single-price-text">{{product.note}}
-                    </p> -->
-
                     <form>
                         <button type="submit" class="w3ls-cart" (click)="addToCart(product);">
                             <i class="fa fa-cart-plus" aria-hidden="true"></i> 
@@ -115,14 +106,10 @@
                 </div>
             </div>
         </div>
-
         <!-- recommendations -->
         <app-recommendations></app-recommendations>
         <!-- //recommendations -->
-
     </div>
 </div>
-
 <app-cart [events]="eventsSubject.asObservable()"></app-cart>
-<!-- <app-cart [model]="cartProduct"></app-cart> -->
 <ngx-ui-loader></ngx-ui-loader>

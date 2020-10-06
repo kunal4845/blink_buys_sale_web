@@ -25,10 +25,8 @@ export class HeaderComponent implements OnInit {
     private userService: LoginService,
     private router: Router,
     private sweetAlertService: SweetAlertService,) {
-    debugger
     this.user = new User();
     if (this.sharedService.getLocalStorage("userInfo")) {
-      debugger
       this.user = this.sharedService.getLocalStorage("userInfo");
       this.getUser(this.user.email);
     };
@@ -39,14 +37,12 @@ export class HeaderComponent implements OnInit {
     this.userService.getUserByUserName(email).subscribe(
       userResponse => {
         this.isLoggedIn = true;
-        debugger
       }
     );
   }
 
   ngOnInit(): void {
     this.sharedService.getValue().subscribe((res: any) => {
-      debugger;
       if (res !== undefined || res !== null) {
         if (res) {
           this.user = this.sharedService.getLocalStorage("userInfo");

@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subject } from 'rxjs';
+import { Product } from 'src/app/admin/products/product.model';
 import { User } from 'src/app/login/login.interface';
 import { LoginService } from 'src/app/login/loginservice';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
 import { roleType } from 'src/app/shared/globalConstants';
 import { SharedService } from 'src/app/shared/shared.service';
+import { CartService } from '../cart/cart.service';
+import { UserCart } from '../cart/userCart.model';
+declare var $: any;
 
 @Component({
   selector: 'app-login',
@@ -15,15 +20,19 @@ import { SharedService } from 'src/app/shared/shared.service';
 export class UserLoginComponent implements OnInit {
   user: User;
   invalidUser: boolean = false;
+  eventsSubject: Subject<void> = new Subject<void>();
+  userCart: UserCart;
 
   constructor(private router: Router,
     private loginService: LoginService,
     private sweetAlertService: SweetAlertService,
     private sharedService: SharedService,
-    private ngxService: NgxUiLoaderService) { }
+    private ngxService: NgxUiLoaderService,
+    private cartService: CartService) { }
 
   ngOnInit(): void {
     this.user = new User();
+    this.userCart = new UserCart();
   }
 
   signIn(): void {
