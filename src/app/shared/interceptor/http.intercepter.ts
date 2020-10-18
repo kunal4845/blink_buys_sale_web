@@ -19,8 +19,7 @@ export class Interceptor implements HttpInterceptor {
         if (tokenInfo) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${tokenInfo}`,
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                    Authorization: `Bearer ${tokenInfo}`
                 }
             });
         }

@@ -5,13 +5,13 @@ import { LoginService } from '../loginservice';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { roleType } from 'src/app/shared/globalConstants';
-
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  selector: 'app-service-provider-reset-password',
+  templateUrl: './service-provider-reset-password.component.html',
+  styleUrls: ['./service-provider-reset-password.component.scss']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ServiceProviderResetPasswordComponent implements OnInit {
+
   user: User;
   spinner: boolean = false;
   isPasswordReset: boolean = false;
@@ -30,7 +30,7 @@ export class ResetPasswordComponent implements OnInit {
     this.spinner = true;
     if (this.user.email != "" && this.user.email != null) {
       this.user.roleId = roleType.ServiceProvider;
-      this.loginService.resetPassword(this.user.email, roleType.Dealer).subscribe(
+      this.loginService.resetPassword(this.user.email, roleType.ServiceProvider).subscribe(
         response => {
           this.user = new User();
           this.spinner = false;

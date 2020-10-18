@@ -1,0 +1,186 @@
+<div class="register-box">
+    <div class="register-logo">
+        <a href="javascript:;"><b>Blink and Buys</b></a>
+    </div>
+
+    <div class="register-box-body">
+        <p class="login-box-msg">Register a new membership</p>
+
+        <form #registerForm="ngForm" id="registerForm" novalidate>
+
+            <show-errors [control]="State" [name]="'**State'"></show-errors>
+            <div class="form-group has-feedback">
+                <select class="form-control" data-country="IN" id="state" name="state" required #State="ngModel"
+                    [(ngModel)]="user.stateId" (change)="select($event.target.value)">
+                    <option selected value="0">-- Please select state --</option>
+                    <option *ngFor="let state of states" value={{state.id}}>{{state.stateName}}</option>
+                </select>
+            </div>
+
+
+            <show-errors [control]="City" [name]="'**City'"></show-errors>
+            <div class="form-group has-feedback">
+                <select class="form-control" [(ngModel)]="user.cityId" id="city" name="city" required #City="ngModel">
+                    <option selected value="0">-- Please select city --</option>
+                    <option *ngFor="let city of cities " value={{city.id}}>{{city.cityName}}</option>
+                </select>
+            </div>
+
+
+            <show-errors [control]="Name" [name]="'**Service provider name'"></show-errors>
+            <div class="form-group has-feedback">
+                <input type="text" id="name" name="name" placeholder="Service provider name**" class="form-control"
+                    required #Name="ngModel" [(ngModel)]="user.name" />
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+
+
+            <show-errors [control]="FatherName" [name]="'**Company/shop Name'"></show-errors>
+            <div class="form-group has-feedback">
+                <input type="text" id="fatherName" name="fatherName" placeholder="Father name**" class="form-control"
+                    required #FatherName="ngModel" [(ngModel)]="user.fatherName" />
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+
+            <show-errors [control]="Gender" [name]="'**Gender'"></show-errors>
+            <div class="form-group has-feedback">
+                <select class="form-control" id="gender" name="gender" required #Gender="ngModel"
+                    [(ngModel)]="user.gender">
+                    <option selected value="">-- Please select --</option>
+                    <option *ngFor="let gender of genderList" value={{gender.value}}>{{gender.text}}</option>
+                </select>
+            </div>
+
+
+            <show-errors [control]="ContactNumber" [name]="'**Contact Number'"></show-errors>
+            <div class="form-group has-feedback">
+                <input type="text" id="contactNumber" name="contactNumber" placeholder="Contact Number**"
+                    class="form-control" required #ContactNumber="ngModel" [(ngModel)]="user.contactNumber" />
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+
+            <show-errors [control]="Email" [name]="'**Email'"></show-errors>
+            <div class="form-group has-feedback">
+                <input type="email" id="email" name="email" placeholder="Email**" class="form-control" required
+                    #Email="ngModel" [(ngModel)]="user.email" [pattern]="emailPattern"
+                    (blur)="checkEmailExists(user.email)" />
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+
+            <ng-container *ngIf="isEmailExists">
+                <b class="text-danger">
+                    Email already registered with the system.
+                </b>
+            </ng-container>
+
+
+            <show-errors [control]="Address" [name]="'**Permanent Full Address'"></show-errors>
+            <div class="form-group has-feedback">
+                <textarea type="text" id="address" name="address" placeholder="Permanent Full Address**"
+                    class="form-control" required #Address="ngModel" [(ngModel)]="user.address"></textarea>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+
+
+            <show-errors [control]="Qualification" [name]="'**Qualification'"></show-errors>
+            <div class="form-group has-feedback">
+                <textarea type="text" id="qualification" name="qualification" required placeholder="Qualification**"
+                    class="form-control" #Qualification="ngModel" [(ngModel)]="user.qualification"></textarea>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+
+            <show-errors [control]="Service" [name]="'**Service'"></show-errors>
+            <div class="form-group has-feedback">
+                <select class="form-control" id="service" name="service" required #Service="ngModel"
+                    [(ngModel)]="user.serviceId">
+                    <option selected value="">-- Select Main Service** --</option>
+                    <option *ngFor="let service of serviceList;" value="{{service.id}}">{{service.serviceName}}</option>
+                </select>
+            </div>
+
+            <show-errors [control]="ServiceSubCategory" [name]="'**Service Sub Category'"></show-errors>
+            <div class="form-group has-feedback">
+                <select class="form-control" id="serviceSubCategory" name="serviceSubCategory" required
+                    #ServiceSubCategory="ngModel" [(ngModel)]="user.serviceSubCategoryId">
+                    <option selected value="">-- Select Service Sub Category** --</option>
+                    <option *ngFor="let category of categorList;" value="{{category.id}}">{{category.categoryName}}
+                    </option>
+                </select>
+            </div>
+
+
+            <div class="form-group has-feedback">
+                <label>Upload Profile Image**</label>
+                <input type="file" (change)="uploadImage($event)">
+            </div>
+
+            <div class="form-group has-feedback">
+                <label>ID Proof**</label>
+                <input type="file" (change)="uploadId($event)">
+            </div>
+
+            <div class="form-group has-feedback">
+                <ng-container *ngIf="previewUrl1">
+                    <img id="blah" [src]="previewUrl1" alt="img"
+                        style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
+                </ng-container>
+
+                <ng-container *ngIf="previewUrl2">
+                    <img id="blah" [src]="previewUrl2" alt="img"
+                        style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
+                </ng-container>
+            </div>
+
+            <div class="form-group has-feedback">
+                <input type="password" name="password" placeholder="Password" class="form-control" id="Password"
+                    required #Password="ngModel" [pattern]="passwordPattern" [(ngModel)]="user.password" />
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" #ConfirmPassword="ngModel" name="confirmPassword"
+                    [(ngModel)]="user.confirmPassword" placeholder="Retype password" required
+                    [pattern]="passwordPattern" />
+                <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            </div>
+
+
+            <ul *ngIf="(ConfirmPassword.value != '' && ConfirmPassword.value != Password.value) ||
+            ConfirmPassword.value?.length > Password.value?.length" class="password-pattern" style=" color: red;">
+                <li>
+                    Password doesn't match with Confirm Password
+                </li>
+            </ul>
+
+
+            <ul *ngIf="Password.errors && Password.errors.pattern && Password.value?.length < 8"
+                style="text-align: left; color: red; margin-top:5px;">
+                <li>At least <i>8</i> characters</li>
+                <li>
+                    Combination of upper- and lower-case characters and Special Character(*)
+                </li>
+                <li>One or more digits(*)</li>
+            </ul>
+
+
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat" [disabled]="registerForm.invalid
+                ||(isEmailExists)
+                    ||(ConfirmPassword.value != Password.value || user.password == '' ||
+                    user.confirmPassword == '')" (click)="register(registerForm)">
+                        Register
+                    </button>
+                </div>
+            </div>
+        </form>
+        <a [routerLink]="['/'] " class="text-center">I already have a membership</a>
+    </div>
+</div>
+<ngx-ui-loader></ngx-ui-loader>

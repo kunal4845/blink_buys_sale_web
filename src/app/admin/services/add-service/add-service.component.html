@@ -1,0 +1,89 @@
+<section class="content-header">
+    <h1>
+        Services
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-primary" (click)="add()">Add Service</button>
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Services</h3>
+                </div>
+                <div class="box-body table-responsive">
+                    <table id="tblBuilding" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                        class="table table-bordered table-striped table-level">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let service of serviceList let i = index;">
+                                <td>{{i+1}}</td>
+                                <td>
+                                    <a (click)="edit(service)" href="javascript:;">{{service.serviceName}}</a>
+                                </td>
+                                <td>{{service.description}}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info margin-right"
+                                            data-widget="Edit service" (click)="edit(service)" data-toggle="tooltip"
+                                            title="Edit service"><i class="fa fa-pencil"></i></button>
+                                        <button type="button" (click)="delete(service)" class="btn btn-danger"
+                                            title="Delete"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="serviceList?.length < 1">
+                                <td colspan="6">No record found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                     <form #form="ngForm" (ngSubmit)="create();" novalidate>
+                    <div class="form-group">
+                        <label for="">Service Name:<span>*</span></label>
+                        <input class="form-control" type="text" name="name" #Name="ngModel" placeholder="Enter Name"
+                            [(ngModel)]="serviceName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Description:<span>*</span></label>
+                        <textarea class="form-control" type="text" name="description" #Description="ngModel"
+                            placeholder="Enter description" [(ngModel)]="description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Icon:<span>*</span></label>
+                        <input #myInput type="file" placeholder="File Name" name="filename" (change)="upload($event)">
+                    </div>
+
+                    <div class="form-group" *ngIf="previewUrl">
+                        <img id="blah" [src]="previewUrl" alt="img"
+                            style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
+                    </div>
+
+
+                    <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Submit</button>
+                     <button type="button" class="btn btn-primary" (click)="onCloseHandled(form)">Close</button>
+                </form>
+                     </div>
+        </div>
+    </div>
+</div>
+<ngx-ui-loader></ngx-ui-loader>

@@ -51,6 +51,7 @@
                         <button type="submit" class="w3ls-cart" (click)="addToCart(product);">
                             <i class="fa fa-cart-plus" aria-hidden="true"></i> 
                             Add to cart</button>
+
                     </form>
                     <!-- <button class="w3ls-cart w3ls-cart-like"><i class="fa fa-heart-o" aria-hidden="true"></i> Add to Wishlist</button> -->
                 </div>
@@ -111,5 +112,5 @@
         <!-- //recommendations -->
     </div>
 </div>
-<app-cart [events]="eventsSubject.asObservable()"></app-cart>
 <ngx-ui-loader></ngx-ui-loader>
+<p-toast position="center" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'2s'"></p-toast>

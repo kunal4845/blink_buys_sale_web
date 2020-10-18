@@ -35,6 +35,8 @@ import { LocationComponent } from './location/location.component';
 
 import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
 import { SharedModule } from '../shared/shared.module';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -81,8 +83,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     HttpClientModule,
     CommonComponentModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
-    SharedModule
+    SharedModule,
+    ToastModule,
   ],
-  exports: []
+  exports: [],
+  providers: [MessageService]
 })
 export class UserModule { }

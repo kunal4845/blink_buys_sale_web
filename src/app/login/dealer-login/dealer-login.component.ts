@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from './login.interface';
-import { LoginService } from './loginservice';
-import { SweetAlertService } from '../shared/alert/sweetalert.service';
-import { SharedService } from '../shared/shared.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { roleType } from '../shared/globalConstants';
-
+import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
+import { roleType } from 'src/app/shared/globalConstants';
+import { SharedService } from 'src/app/shared/shared.service';
+import { User } from '../login.interface';
+import { LoginService } from '../loginservice';
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-dealer-login',
+  templateUrl: './dealer-login.component.html',
+  styleUrls: ['./dealer-login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class DealerLoginComponent implements OnInit {
   login: FormGroup;
   emailPattern = /\S+@\S+\.\S+/;
   passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{9,})/;
@@ -34,11 +33,9 @@ export class LoginComponent implements OnInit {
   signIn(): void {
     if (this.user.email != "" && this.user.password != "") {
       this.ngxService.start();
-      this.user.roleId = roleType.Admin;
+      this.user.roleId = roleType.Dealer;
       this.loginService.login(this.user).subscribe(
         userResponse => {
-          this.ngxService.stop();
-
           if (
             userResponse.body != null &&
             userResponse.body.token != null &&
@@ -47,7 +44,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("token", userResponse.body.token);
             this.sharedService.setLocalStorage("userInfo", userResponse.body);
             this.router.navigateByUrl("/admin/dashboard");
-          }
+          };
+          this.ngxService.stop();
         },
         error => {
           this.ngxService.stop();

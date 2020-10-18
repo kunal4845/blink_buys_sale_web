@@ -9,33 +9,32 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  checkEmailExists(email: string): Observable<HttpResponse<User>> {
-    return this.http.get<User>(`${APIURL}/account/email-exists/${email}`, {
+  checkEmailExists(email: string, roleId: number): Observable<HttpResponse<User>> {
+    return this.http.get<User>(`${APIURL}/account/email-exists/${email}/${roleId}`, {
       observe: "response"
     });
   }
 
-  register(user: User, selectedIdFile, selectedChequeFile): Observable<HttpResponse<User>> {
-
+  register(user: User, selectedIdFile, selectedImageFile): Observable<HttpResponse<User>> {
+    debugger
     const formData = new FormData();
+    formData.append('StateId', user.stateId.toString());
+    formData.append('CityId', user.cityId.toString());
     formData.append('Name', user.name);
-    formData.append('Email', user.email);
-    formData.append('Password', user.password);
-    formData.append('CompanyName', user.companyName);
+    formData.append('FatherName', user.fatherName);
+    formData.append('Gender', user.gender);
     formData.append('ContactNumber', user.contactNumber);
+    formData.append('Email', user.email);
     formData.append('Address', user.address);
-    formData.append('StreetAddress', user.streetAddress);
-    formData.append('ZipCode', user.zipCode);
-    formData.append('ProductCategoryId', user.productCategoryId);
-    formData.append('IsGstAvailable', user.isGstAvailable);
-    formData.append('GstNumber', user.gstNumber);
-    formData.append('AccountHolderName', user.accountHolderName);
-    formData.append('AccountNumber', user.accountNumber);
-    formData.append('IfscCode', user.ifscCode);
-    formData.append('IdProof', selectedIdFile);
-    formData.append('CancelledCheque', selectedChequeFile);
+    formData.append('Qualification', user.qualification);
+    formData.append('ServiceId', user.serviceId.toString());
+    formData.append('ServiceSubCategoryId', user.serviceSubCategoryId.toString());
+    formData.append('RoleId', user.roleId.toString());
+    formData.append('Password', user.password);
+    formData.append('IdProofPath', selectedIdFile);
+    formData.append('Image', selectedImageFile);
 
-    return this.http.post<User>(`${APIURL}/account/signUp`, formData, {
+    return this.http.post<User>(`${APIURL}/account/service-provider-register`, formData, {
       observe: "response"
     });
   }
@@ -46,8 +45,8 @@ export class LoginService {
     });
   }
 
-  resetPassword(email: string): Observable<HttpResponse<User>> {
-    return this.http.get<User>(`${APIURL}/account/resetPassword/${email}`, {
+  resetPassword(email: string, roleId: number): Observable<HttpResponse<User>> {
+    return this.http.get<User>(`${APIURL}/account/resetPassword/${email}/${roleId}`, {
       observe: "response"
     });
   }
@@ -64,8 +63,8 @@ export class LoginService {
     });
   }
 
-  getUserByUserName(email: string): Observable<HttpResponse<User>> {
-    return this.http.get<User>(`${APIURL}/account/getUserByUserName/${email}`, {
+  getUserByUserName(email: string, roleId: number): Observable<HttpResponse<User>> {
+    return this.http.get<User>(`${APIURL}/account/getUserByUserName/${email}/${roleId}`, {
       observe: "response"
     });
   }

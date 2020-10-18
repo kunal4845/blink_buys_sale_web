@@ -6,6 +6,7 @@ import { LoginService } from 'src/app/login/loginservice';
 import { SharedService } from 'src/app/shared/shared.service';
 import { CartService } from './cart.service';
 import { UserCart } from './userCart.model';
+declare var $: any;
 
 @Component({
   selector: 'app-cart',
@@ -30,11 +31,11 @@ export class CartComponent implements OnInit {
     debugger
 
     this.eventsSubscription = this.events.subscribe(() => {
+      $('#cartModal').modal('show');
       this.getCartDetails();
     });
   }
 
-  customTB(index, cart) { debugger; return `${index}-${cart.id}`; }
 
 
   getCartDetails() {
@@ -74,7 +75,6 @@ export class CartComponent implements OnInit {
   }
 
   delete(cart: UserCart) {
-    debugger
     this.cartService.deleteCart(cart.id).subscribe(
       (res) => {
         debugger
@@ -83,7 +83,6 @@ export class CartComponent implements OnInit {
   }
 
   checkout() {
-
   }
 
   ngOnDestroy() {

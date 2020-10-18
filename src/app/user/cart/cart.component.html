@@ -14,7 +14,7 @@
                         <th>Action</th>
                     </thead>
                     <tbody class="table">
-                        <tr *ngFor="let cart of userCart;let i = index;trackBy: customTB">
+                        <tr *ngFor="let cart of userCart;let i = index;">
                             <td>{{cart.product.productName}}</td>
                             <td>{{cart.product.price}}</td>
                             <td>{{cart.quantity}}</td>

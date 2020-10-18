@@ -9,7 +9,6 @@ export class User {
     token?: string;
     companyName: string;
     contactNumber: string;
-
     //
     address: string;
     streetAddress: string;
@@ -20,7 +19,6 @@ export class User {
     accountNumber: string;
     accountHolderName: string;
     ifscCode: string;
-
     isNumberVerified: boolean;
     isActive: boolean;
     isAccountVerified: boolean;
@@ -29,6 +27,14 @@ export class User {
     //
     createdDt: Date;
     isDeleted: boolean;
+    //
+    cityId: number;
+    stateId: number;
+    fatherName: string;
+    gender: string;
+    qualification: string;
+    serviceId: number;
+    serviceSubCategoryId: number;
 
     constructor() {
         this.id = 0;
@@ -51,5 +57,12 @@ export class User {
         this.accountNumber = '';
         this.accountHolderName = '';
         this.ifscCode = '';
+        this.cityId = 0;
+        this.stateId = 0;
+        this.fatherName = '';
+        this.gender = '';
+        this.qualification = '';
+        this.serviceId = 0;
+        this.serviceSubCategoryId = 0;
     }
 }

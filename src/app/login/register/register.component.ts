@@ -69,7 +69,6 @@ export class RegisterComponent implements OnInit {
 
   uploadCheque(fileInput: any) {
     this.selectedChequeFile = <File>fileInput.target.files[0];
-
   }
 
   uploadId(fileInput: any) {
@@ -78,24 +77,19 @@ export class RegisterComponent implements OnInit {
 
 
   checkEmailExists(email: string): void {
-
     if (email != "" && this.registerForm.controls.email.status == "VALID") {
       this.ngxService.start();
-
-      this.loginService.checkEmailExists(email).subscribe(
+      this.loginService.checkEmailExists(email, roleType.Dealer).subscribe(
         (response: any) => {
-
           if (response.status === 200 && response.body != null) {
             this.isEmailExists = true;
           } else {
             this.isEmailExists = false;
           }
           this.ngxService.stop();
-
         },
         (error) => {
           this.ngxService.stop();
-
           this.sweetAlertService.sweetAlert('Error', error, 'error', false);
         }
       );
@@ -119,17 +113,14 @@ export class RegisterComponent implements OnInit {
       if (this.user.email != "" && this.user.password != "" && this.user.confirmPassword != "" && this.user.name != "" &&
         this.user.password == this.user.confirmPassword) {
         this.ngxService.start();
-
+        this.user.roleId = roleType.Dealer;
+        
         this.loginService.register(this.user, this.selectedIdFile, this.selectedChequeFile).subscribe(
           (userResponse: any) => {
             if (userResponse.status === 200) {
-              ;
-
               localStorage.setItem("token", userResponse.body.token);
               this.sharedService.setLocalStorage("userInfo", userResponse.body);
-
               registerForm.reset();
-
               this.router.navigateByUrl("/admin/dashboard");
               this.sweetAlertService.sweetAlert('Success', "Registered successfully", 'success', false);
             }
@@ -142,7 +133,6 @@ export class RegisterComponent implements OnInit {
         );
       } else {
         this.ngxService.stop();
-
         this.sweetAlertService.sweetAlert('Warning', "Enter a different email!!", 'warn', false);
       }
     } else {

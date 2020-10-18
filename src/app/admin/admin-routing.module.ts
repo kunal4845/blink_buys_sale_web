@@ -9,6 +9,8 @@ import { DealerRequestComponent } from './dealer/dealer-request/dealer-request.c
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { ProductsComponent } from './products/products.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { AddServiceComponent } from './services/add-service/add-service.component';
+import { CategoryComponent } from './category/category.component';
 
 
 
@@ -24,7 +26,8 @@ const routes: Routes = [
             { path: 'add-product', component: AddProductComponent },
             { path: 'products', component: ProductsComponent },
             { path: 'profile', component: AdminProfileComponent },
-
+            { path: 'services', component: AddServiceComponent },
+            { path: 'category', component: CategoryComponent },
         ]
     }
 ];

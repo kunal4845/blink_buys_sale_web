@@ -2,6 +2,7 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductCategory } from '../admin/products/productCategory.model';
+import { ServiceModel } from '../admin/services/admin-services.model';
 import { User } from '../login/login.interface';
 import { APIURL } from './globalConstants';
 
@@ -10,9 +11,7 @@ import { APIURL } from './globalConstants';
 })
 export class SharedService {
     private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(null);
-
     constructor(private http: HttpClient) { }
-    private APIURL: string = APIURL + "/product/";
 
     getValue(): Observable<boolean> {
         return this.isLoggedIn$.asObservable();
@@ -38,13 +37,19 @@ export class SharedService {
     }
 
     getProductCategory(): Observable<HttpResponse<ProductCategory[]>> {
-        return this.http.get<ProductCategory[]>(`${this.APIURL}/category`, {
+        return this.http.get<ProductCategory[]>(`${APIURL}/category`, {
             observe: "response"
         });
     }
 
     getUser(): Observable<HttpResponse<User>> {
         return this.http.get<User>(`${APIURL}/user`, {
+            observe: "response"
+        });
+    }
+
+    getServices(serviceId: string): Observable<HttpResponse<ServiceModel[]>> {
+        return this.http.get<ServiceModel[]>(`${APIURL}/service/${serviceId}`, {
             observe: "response"
         });
     }

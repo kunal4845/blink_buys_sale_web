@@ -1,7 +1,8 @@
 export enum roleType {
     Admin = 1,
     Dealer = 2,
-    User = 3
+    User = 3,
+    ServiceProvider = 4
 }
 
 export const SiteKey = "6LcA88IZAAAAAJmEeYL81Qx2Pc9yuozXIf2TyfVd";
