@@ -29,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
   recoverPassword(): void {
     this.spinner = true;
     if (this.user.email != "" && this.user.email != null) {
-      this.user.roleId = roleType.ServiceProvider;
+      this.user.roleId = roleType.Dealer;
       this.loginService.resetPassword(this.user.email, roleType.Dealer).subscribe(
         response => {
           this.user = new User();

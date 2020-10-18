@@ -86,7 +86,7 @@ export class ServiceProviderRegisterComponent implements OnInit {
 
   getProductCategory(): void {
     this.ngxService.start();
-    this.sharedService.getProductCategory().subscribe(
+    this.sharedService.getCategoryList('').subscribe(
       (response: any) => {
         this.categorList = response.body.filter(x => x.isDeleted == false);
         this.ngxService.stop();

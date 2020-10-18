@@ -1,17 +1,12 @@
 <div class="skin-blue sidebar-mini">
     <div class="wrapper" style="height: 100vh; min-height: 100%;">
         <header class="main-header">
-            <!-- Logo -->
             <a href="javascript:;" routerLink="/admin/dashboard" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>Blink and Buys</b></span>
-                <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg"><b>Blink and Buys </b></span>
             </a>
-            <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
                 <div class="nav-top-custom">
-                    <!-- Sidebar toggle button-->
                     <a href="javascript:;" class="sidebar-toggle" data-toggle="push-menu" role="button">
                         <span class="sr-only">Toggle navigation</span>
                     </a>
@@ -20,9 +15,10 @@
                             <div class="row">
                                 <div class="col-sm-8"></div>
                                 <div class="col-sm-4 text-right">
-                                    <span class="user-name">{{name}}<span class="mobile-user">{{name}}</span></span>
-                                    <a href="javascript:;" (click)="logoutUser()" class="sign-btn">Sign out<span><i class="fa fa-sign-out"
-                              aria-hidden="true"></i></span></a>
+                                    <span class="user-name">{{role}}: {{name}}<span class="mobile-user">{{role}}:
+                                            {{name}}</span></span>
+                                    <a href="javascript:;" (click)="logoutUser()" class="sign-btn">Sign out<span><i
+                                                class="fa fa-sign-out" aria-hidden="true"></i></span></a>
                                 </div>
                             </div>
                         </div>
@@ -31,9 +27,7 @@
             </nav>
         </header>
         <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-                <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">Blink and Buys Section</li>
                     <li class="treeview" routerLinkActive="active">
@@ -41,34 +35,6 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
-                    <!-- <li class="treeview ">
-                        <a href="javascript:;">
-                            <i class="fa fa-laptop"></i>
-                            <span>Service Providers</span>
-                            <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                        </a>
-                        <ul class="treeview-menu" style="display: block;">
-                            <li routerLinkActive="active"><a [routerLink]="['./provider-requests']"><i class="fa fa-circle-o"></i>  Requests</a></li>
-                            <li routerLinkActive="active"><a [routerLink]="['./service-providers']"><i class="fa fa-circle-o"></i>  List</a></li>
-
-                        </ul>
-                    </li> -->
-
-                    <!-- <li class=" treeview ">
-                        <a href="javascript:;">
-                            <i class="fa fa-laptop"></i>
-                            <span>Dealers</span>
-                            <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                        </a>
-                        <ul class="treeview-menu" style="display: block;">
-                            <li routerLinkActive="active"><a [routerLink]="['./dealer-requests']"><i class="fa fa-circle-o"></i>  Requests</a></li>
-                            <li routerLinkActive="active"><a [routerLink]="['./dealers']"><i class="fa fa-circle-o"></i>  List</a></li>
-                        </ul>
-                    </li> -->
 
                     <li class="treeview" routerLinkActive="active">
                         <a href="javascript:;" [routerLink]="['./dealer-requests']">
@@ -81,7 +47,7 @@
                             <i class="fa fa-th"></i> <span>Dealer List</span>
                         </a>
                     </li>
-                    
+
                     <li class="treeview" routerLinkActive="active">
                         <a href="javascript:;" [routerLink]="['./services']">
                             <i class="fa fa-th"></i> <span>Add Service </span>
@@ -93,7 +59,7 @@
                             <i class="fa fa-th"></i> <span>Add Category </span>
                         </a>
                     </li>
-                    
+
                     <li class="treeview" routerLinkActive="active">
                         <a href="javascript:;" [routerLink]="['./products']">
                             <i class="fa fa-th"></i> <span>Products</span>
@@ -136,7 +102,6 @@
                     </li>
                 </ul>
             </section>
-            <!-- /.sidebar -->
         </aside>
 
         <div class="content-wrapper" style="overflow: hidden;min-height: 100%;">

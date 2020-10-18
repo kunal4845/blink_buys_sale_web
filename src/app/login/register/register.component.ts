@@ -8,6 +8,7 @@ import { SharedService } from 'src/app/shared/shared.service';
 import { roleType, SiteKey } from 'src/app/shared/globalConstants';
 import { ProductCategory } from 'src/app/admin/products/productCategory.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { CategoryModel } from 'src/app/admin/category/category.model';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
   emailPattern = /\S+@\S+\.\S+/;
   role: roleType;
   SITE_KEY = SiteKey;
-  categorList: ProductCategory[] = [];
+  categoryList: CategoryModel[] = [];
   isGst: boolean = false;
   selectedChequeFile: File = null;
   selectedIdFile: File = null;
@@ -44,11 +45,11 @@ export class RegisterComponent implements OnInit {
   getProductCategory(): void {
     this.ngxService.start();
 
-    this.sharedService.getProductCategory().subscribe(
+    this.sharedService.getCategoryList('').subscribe(
       (response: any) => {
-
+        debugger
         if (response.status === 200) {
-          this.categorList = response.body;
+          this.categoryList = response.body.filter(x => x.isDeleted == false);
         }
         this.ngxService.stop();
       },
@@ -114,7 +115,7 @@ export class RegisterComponent implements OnInit {
         this.user.password == this.user.confirmPassword) {
         this.ngxService.start();
         this.user.roleId = roleType.Dealer;
-        
+
         this.loginService.register(this.user, this.selectedIdFile, this.selectedChequeFile).subscribe(
           (userResponse: any) => {
             if (userResponse.status === 200) {

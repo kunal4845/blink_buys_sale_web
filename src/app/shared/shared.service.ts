@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from 'rxjs';
+import { CategoryModel } from '../admin/category/category.model';
 import { ProductCategory } from '../admin/products/productCategory.model';
 import { ServiceModel } from '../admin/services/admin-services.model';
 import { User } from '../login/login.interface';
@@ -36,11 +37,17 @@ export class SharedService {
         }
     }
 
-    getProductCategory(): Observable<HttpResponse<ProductCategory[]>> {
-        return this.http.get<ProductCategory[]>(`${APIURL}/category`, {
-            observe: "response"
+    // getProductCategory(): Observable<HttpResponse<ProductCategory[]>> {
+    //     return this.http.get<ProductCategory[]>(`${APIURL}/category`, {
+    //         observe: "response"
+    //     });
+    // }
+
+    getCategoryList(categoryId: string): Observable<HttpResponse<CategoryModel[]>> {
+        return this.http.get<CategoryModel[]>(`${APIURL}/category/${categoryId}`, {
+          observe: "response"
         });
-    }
+      }
 
     getUser(): Observable<HttpResponse<User>> {
         return this.http.get<User>(`${APIURL}/user`, {

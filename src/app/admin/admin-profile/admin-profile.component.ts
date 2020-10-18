@@ -1,11 +1,9 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from 'src/app/login/login.interface';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
-import { SharedService } from 'src/app/shared/shared.service';
-import { LoginService } from '../../login/loginservice';
+import { AdminService } from '../admin.service';
 import { ProductService } from '../products/product.service';
 import { ProductCategory } from '../products/productCategory.model';
 
@@ -17,11 +15,20 @@ import { ProductCategory } from '../products/productCategory.model';
 export class AdminProfileComponent implements OnInit {
   user: User;
   categoryList: ProductCategory[] = [];
-  ID: any;
-  cheque: any;
+  previewUrl_image: any = null;
+  previewUrl_idProof: any = null;
+  passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{9,})/;
+  password: string = '';
+  newPassword: string = '';
+  confirmPassword: string = '';
 
-  constructor(private router: Router, private sharedService: SharedService,
-    private sweetAlertService: SweetAlertService, private ngxService: NgxUiLoaderService, private productService: ProductService, public _DomSanitizationService: DomSanitizer) {
+  constructor(
+    private sweetAlertService: SweetAlertService,
+    private ngxService: NgxUiLoaderService,
+    private productService: ProductService,
+    private adminService: AdminService,
+    public _DomSanitizationService: DomSanitizer
+  ) {
     this.user = new User();
     this.getProductCategory();
   }
@@ -34,41 +41,56 @@ export class AdminProfileComponent implements OnInit {
     this.ngxService.start();
     this.productService.getProductCategory().subscribe(
       (response: any) => {
-        debugger
-        if (response.status === 200) {
-          this.categoryList = response.body;
-        }
+        this.categoryList = response.body;
         this.ngxService.stop();
       },
       (error) => {
         this.ngxService.stop();
-        this.sweetAlertService.sweetAlert('Error', error, 'error', false);
+        this.sweetAlertService.sweetAlert('', error, 'error', false);
       }
     );
   }
-  getUser(): void {
-    debugger
-    this.ngxService.start();
 
-    this.sharedService.getUser().subscribe(
+  getUser(): void {
+    this.ngxService.start();
+    this.adminService.getUser().subscribe(
       userResponse => {
         debugger
         this.user = userResponse.body;
+        this.previewUrl_image = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.user.image) as any).changingThisBreaksApplicationSecurity;
+        this.previewUrl_idProof = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.user.idProofPath) as any).changingThisBreaksApplicationSecurity;
         this.ngxService.stop();
       },
       error => {
         this.ngxService.stop();
-        this.sweetAlertService.sweetAlert('Error', error.statusText, 'error', false);
+        this.sweetAlertService.sweetAlert('', error.statusText, 'error', false);
       }
     );
   }
 
+  onSubmit(): void {
+    this.ngxService.start();
+    let userObj = new User();
+    userObj.password = this.password;
+    userObj.confirmPassword = this.confirmPassword;
+    userObj.newPassword = this.newPassword;
 
-  openCheque(oldURL: string): string {
-    return this._DomSanitizationService.sanitize(SecurityContext.URL, oldURL);
-  }
-
-  openId(oldURL: string): string {
-    return this._DomSanitizationService.sanitize(SecurityContext.URL, oldURL);
+    this.adminService.updatePassword(userObj).subscribe(
+      userResponse => {
+        if (userResponse.body) {
+          this.password = '';
+          this.newPassword = '';
+          this.confirmPassword = '';
+          this.sweetAlertService.sweetAlert('Success', "Password updated successfully!", 'success', false);
+        } else {
+          this.sweetAlertService.sweetAlert('Error', "Something went wrong!", 'error', false);
+        }
+        this.ngxService.stop();
+      },
+      error => {
+        this.ngxService.stop();
+        this.sweetAlertService.sweetAlert('', error.statusText, 'error', false);
+      }
+    );
   }
 }

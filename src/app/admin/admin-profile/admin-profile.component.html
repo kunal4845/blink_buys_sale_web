@@ -1,155 +1,220 @@
 <section class="content-header">
     <h1>
-        User Profile
+        Profile
     </h1>
     <ol class="breadcrumb">
         <li><a href="javascript:;"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="javascript:;">User</a></li>
         <li class="active">User profile</li>
     </ol>
 </section>
 
 <section class="content">
     <div class="row">
+
         <div class="col-md-3">
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="../../../assets/img/logo.png" alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle" [src]="previewUrl_image"
+                        alt="User profile picture">
                     <h3 class="profile-username text-center">{{user.name}}</h3>
                     <p class="text-muted text-center"></p>
                 </div>
             </div>
         </div>
+
         <div class="col-md-9">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-
                     <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li>
+                    <li><a href="#password" data-toggle="tab">Update Password</a></li>
+
                 </ul>
                 <div class="tab-content">
-
-
                     <div class="active tab-pane" id="settings">
                         <form class="form-horizontal">
                             <div class="form-group">
                                 <label for="inputName" class="col-sm-2 control-label">Name</label>
-
                                 <div class="col-sm-10">
-                                    <input type="text" disabled name="name" class="form-control" [(ngModel)]="user.name" id="inputName" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
-                                <div class="col-sm-10">
-                                    <input type="text" disabled name="email" [(ngModel)]="user.email" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="text" disabled name="name" class="form-control" [(ngModel)]="user.name"
+                                        id="inputName" placeholder="Name">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Company Name</label>
-
+                                <label for="" class="col-sm-2 control-label">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="text" disabled name="companyName" [(ngModel)]="user.companyName" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="text" disabled name="email" [(ngModel)]="user.email"
+                                        class="form-control" id="email">
+                                </div>
+                            </div>
+
+                            <div class="form-group" *ngIf="user.roleId == 2">
+                                <label for="" class="col-sm-2 control-label">Company Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" disabled name="companyName" [(ngModel)]="user.companyName"
+                                        class="form-control" id="companyName">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Contact Number</label>
-
+                                <label for="" class="col-sm-2 control-label">Contact Number</label>
                                 <div class="col-sm-10">
-                                    <input type="text" disabled name="contactNumber" [(ngModel)]="user.contactNumber" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="text" disabled name="contactNumber" [(ngModel)]="user.contactNumber"
+                                        class="form-control" id="contactNumber">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Address</label>
-
+                                <label for="" class="col-sm-2 control-label">Address</label>
                                 <div class="col-sm-10">
-                                    <input type="text" disabled name="address" [(ngModel)]="user.address" class="form-control" id="inputEmail" placeholder="Email">
+                                    <textarea type="text" disabled name="address" [(ngModel)]="user.address"
+                                        class="form-control" id="address"></textarea>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Street Address</label>
-
+                            <div class="form-group" *ngIf="user.roleId == 2">
+                                <label for="" class="col-sm-2 control-label">Street Address</label>
                                 <div class="col-sm-10">
-                                    <input type="text" disabled name="streetAddress" [(ngModel)]="user.streetAddress" class="form-control" id="inputEmail" placeholder="Email">
+                                    <textarea type="text" disabled name="streetAddress" [(ngModel)]="user.streetAddress"
+                                        class="form-control" id="streetAddress"></textarea>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Zip Code</label>
-
+                            <div class="form-group" *ngIf="user.roleId == 2">
+                                <label for="" class="col-sm-2 control-label">Zip Code</label>
                                 <div class="col-sm-10">
-                                    <input type="text" disabled name="zipCode" [(ngModel)]="user.zipCode" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="text" disabled name="zipCode" [(ngModel)]="user.zipCode"
+                                        class="form-control" id="zipCode">
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Product Category</label>
-
+                            <div class="form-group" *ngIf="user.roleId == 2">
+                                <label for="" class="col-sm-2 control-label">GST Number</label>
                                 <div class="col-sm-10">
-
-                                    <ng-container *ngFor="let category of categoryList;">
-                                        <ng-container *ngIf="category.id == user.productCategoryId">
-                                            {{category.name}}
-                                        </ng-container>
-                                    </ng-container>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">GST Number</label>
-
-                                <div class="col-sm-10">
-                                    <input type="text" disabled name="gstNumber" [(ngModel)]="user.gstNumber" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="text" disabled name="gstNumber" [(ngModel)]="user.gstNumber"
+                                        class="form-control" id="gstNumber">
                                 </div>
                             </div>
 
 
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Account Number</label>
-
+                            <div class="form-group" *ngIf="user.roleId == 2">
+                                <label for="" class="col-sm-2 control-label">Account Number</label>
                                 <div class="col-sm-10">
-                                    <input type="text" disabled name="accountNumber" [(ngModel)]="user.accountNumber" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="text" disabled name="accountNumber" [(ngModel)]="user.accountNumber"
+                                        class="form-control" id="accountNumber">
                                 </div>
                             </div>
 
 
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Account Holder Name</label>
-
+                            <div class="form-group" *ngIf="user.roleId == 2">
+                                <label for="" class="col-sm-2 control-label">Account Holder Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" disabled name="accountHolderName" [(ngModel)]="user.accountHolderName" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="text" disabled name="accountHolderName"
+                                        [(ngModel)]="user.accountHolderName" class="form-control"
+                                        id="accountHolderName">
+                                </div>
+                            </div>
+
+                            <div class="form-group" *ngIf="user.roleId == 2">
+                                <label for="" class="col-sm-2 control-label">IFSC Code</label>
+                                <div class="col-sm-10">
+                                    <input type="text" disabled name="ifscCode" [(ngModel)]="user.ifscCode"
+                                        class="form-control" id="">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">IFSC Code</label>
-
+                                <label for="" class="col-sm-2 control-label">Id Proof</label>
                                 <div class="col-sm-10">
-                                    <input type="text" disabled name="ifscCode" [(ngModel)]="user.ifscCode" class="form-control" id="inputEmail" placeholder="Email">
+                                    <img [src]="previewUrl_idProof"
+                                        style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Id Proof</label>
+                            <div class="form-group" *ngIf="user.roleId == 4">
+                                <label for="" class="col-sm-2 control-label">Profile Image</label>
                                 <div class="col-sm-10">
-                                    <img [src]="user.idProofPath" />
+                                    <img [src]="previewUrl_image"
+                                        style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Cancelled Cheque</label>
+                            <!-- 
+
+                            <div class="form-group" *ngIf="previewUrl">
+                                <img id="blah" [src]="previewUrl" alt="img"
+                                    style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
+                            </div> -->
+
+
+                            <div class="form-group" *ngIf="user.roleId == 2">
+                                <label for="" class="col-sm-2 control-label">Cancelled Cheque</label>
                                 <div class="col-sm-10"> <img [src]="user.cancelledChequePath" />
                                 </div>
                             </div>
-
+                            <!-- 
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-danger">Update Profile</button>
+                                </div>
+                            </div> -->
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="password">
+
+                        <form #forgotPWForm="ngForm" id="forgotPWForm" novalidate class="form-horizontal">
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">Current Password</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="password" class="form-control" [(ngModel)]="password"
+                                        id="inputName" placeholder="Current Password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">New Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" name="password1" placeholder="New Password"
+                                        class="form-control" id="Password" required #Password="ngModel"
+                                        [pattern]="passwordPattern" [(ngModel)]="newPassword" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">Confirm Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" #ConfirmPassword="ngModel"
+                                        name="confirmPassword" [(ngModel)]="confirmPassword"
+                                        placeholder="Retype password" required [pattern]="passwordPattern" />
+
+                                </div>
+                            </div>
+
+
+                            <ul *ngIf="(ConfirmPassword.value != '' && ConfirmPassword.value != Password.value) ||
+                            ConfirmPassword.value?.length > Password.value?.length" class="password-pattern"
+                                style=" color: red;">
+                                <li>
+                                    Password doesn't match with Confirm Password
+                                </li>
+                            </ul>
+
+                            <ul *ngIf="Password.errors && Password.errors.pattern && Password.value?.length < 8"
+                                style="text-align: left; color: red; margin-top:5px;">
+                                <li>At least <i>8</i> characters</li>
+                                <li>
+                                    Combination of upper- and lower-case characters and Special Character(*)
+                                </li>
+                                <li>One or more digits(*)</li>
+                            </ul>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-danger" (click)="onSubmit()">Update
+                                        Password</button>
                                 </div>
                             </div>
                         </form>
@@ -158,6 +223,5 @@
             </div>
         </div>
     </div>
-
 </section>
 <ngx-ui-loader></ngx-ui-loader>

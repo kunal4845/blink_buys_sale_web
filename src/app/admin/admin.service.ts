@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { APIURL } from '../shared/globalConstants'
 import { ServiceModel } from './services/admin-services.model';
 import { CategoryModel } from './category/category.model';
+import { User } from '../login/login.interface';
 
 @Injectable({ providedIn: "root" })
 export class AdminService {
@@ -57,4 +58,18 @@ export class AdminService {
       observe: "response"
     });
   }
+
+  getUser(): Observable<HttpResponse<User>> {
+    return this.http.get<User>(`${APIURL}/user`, {
+      observe: "response"
+    });
+  }
+
+
+  updatePassword(userObj: User): Observable<HttpResponse<boolean>> {
+    return this.http.post<boolean>(`${APIURL}/user/update-password`, userObj, {
+      observe: "response"
+    });
+  }
+
 }

@@ -66,17 +66,13 @@
             <div class="form-group has-feedback">
                 <select class="form-control" id="productCategory" name="productCategory" required #ProductCategory="ngModel" [(ngModel)]="user.productCategoryId">
                     <option selected value="">-- Select product category** --</option>
-                    <option *ngFor="let category of categorList;" value="{{category.id}}">{{category.name}}</option>
+                    <option *ngFor="let category of categoryList;" value="{{category.id}}">{{category.categoryName}}</option>
                  </select>
             </div>
             <show-errors [control]="ProductCategory" [name]="'Product Category'"></show-errors>
 
-
             <div class="form-group has-feedback">
-
                 <label>Is GST number available?</label>
-
-
                 <input type="radio" [(ngModel)]="user.isGstAvailable" (click)="isGstAvailable()" required name="gst" value="Yes"> Yes<br>
                 <input type="radio" [(ngModel)]="user.isGstAvailable" (click)="isGstNotAvailable()" required name="gst" value="In Process"> In Process
                 <br>
@@ -163,7 +159,7 @@
                 </div>
             </div>
         </form>
-        <a [routerLink]="['/'] " class="text-center">I already have a membership</a>
+        <a [routerLink]="['/dealer-login'] " class="text-center">I already have a membership</a>
     </div>
 </div>
 <ngx-ui-loader></ngx-ui-loader>

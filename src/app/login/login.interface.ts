@@ -35,7 +35,7 @@ export class User {
     qualification: string;
     serviceId: number;
     serviceSubCategoryId: number;
-
+    image: string;
     constructor() {
         this.id = 0;
         this.roleId = null;
