@@ -2,9 +2,9 @@ import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/cor
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { CategoryModel } from 'src/app/admin/category/category.model';
 import { Product } from 'src/app/admin/products/product.model';
 import { ProductService } from 'src/app/admin/products/product.service';
-import { ProductCategory } from 'src/app/admin/products/productCategory.model';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
 declare var $: any;
 
@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit, AfterContentInit {
   productList: Product[] = [];
-  categoryList: ProductCategory[] = [];
+  categoryList: CategoryModel[] = [];
 
   constructor(private productService: ProductService,
     private route: ActivatedRoute,
@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   }
 
   getProductCategory(): void {
-    this.productService.getProductCategory().subscribe(
+    this.productService.getProductCategory('').subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.categoryList = response.body;

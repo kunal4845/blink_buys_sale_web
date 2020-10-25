@@ -4,8 +4,8 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from 'src/app/login/login.interface';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
 import { AdminService } from '../admin.service';
+import { CategoryModel } from '../category/category.model';
 import { ProductService } from '../products/product.service';
-import { ProductCategory } from '../products/productCategory.model';
 
 @Component({
   selector: 'app-admin-profile',
@@ -14,7 +14,7 @@ import { ProductCategory } from '../products/productCategory.model';
 })
 export class AdminProfileComponent implements OnInit {
   user: User;
-  categoryList: ProductCategory[] = [];
+  categoryList: CategoryModel[] = [];
   previewUrl_image: any = null;
   previewUrl_idProof: any = null;
   passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{9,})/;
@@ -39,7 +39,7 @@ export class AdminProfileComponent implements OnInit {
 
   getProductCategory(): void {
     this.ngxService.start();
-    this.productService.getProductCategory().subscribe(
+    this.productService.getProductCategory('').subscribe(
       (response: any) => {
         this.categoryList = response.body;
         this.ngxService.stop();

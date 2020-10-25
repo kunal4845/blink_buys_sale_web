@@ -17,3 +17,27 @@ export class ServiceModel {
         this.createdDt = new Date();
     }
 }
+
+
+export class BookedServiceModel {
+    bookedServiceId: number;
+    serviceProviderId: number;
+    serviceId: number;
+    userId: number;
+    isActive: boolean;
+    isDeleted: boolean;
+    createdDt: Date;
+    cityId: number;
+    isRejected: boolean;
+    isCancelled: boolean;
+    constructor() {
+        this.bookedServiceId = 0;
+        this.serviceProviderId = 0;
+        this.serviceId = 0;
+        this.userId = 0;
+        this.isActive = false;
+        this.isDeleted = false;
+        this.createdDt = new Date();
+        this.cityId = 0;
+    }
+}

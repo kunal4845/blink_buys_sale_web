@@ -15,86 +15,81 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Product Title <span class="check-required">*</span></label>
-
-                            <input type="text" id="productTitle" name="productTitle" placeholder="Enter Product Title" class="form-control" required #productTitle="ngModel" [(ngModel)]="product.productTitle" />
-
+                            <input type="text" id="productTitle" name="productTitle" placeholder="Enter Product Title"
+                                class="form-control" required #productTitle="ngModel"
+                                [(ngModel)]="product.productTitle" />
                         </div>
+
                         <div class="form-group">
                             <label for="">Product Name <span class="check-required">*</span></label>
-
-                            <input type="text" id="productName" name="productName" placeholder="Enter Product Name" class="form-control" required #productName="ngModel" [(ngModel)]="product.productName" />
-
+                            <input type="text" id="productName" name="productName" placeholder="Enter Product Name"
+                                class="form-control" required #productName="ngModel"
+                                [(ngModel)]="product.productName" />
                         </div>
                     </div>
 
-
-
                     <div class="col-md-6">
-
-
                         <div class="form-group">
                             <label for=""> Size </label>
 
-                            <input type="text" id="size" name="size" placeholder="Enter Product size" class="form-control" #size="ngModel" [(ngModel)]="product.size">
+                            <input type="text" id="size" name="size" placeholder="Enter Product size"
+                                class="form-control" #size="ngModel" [(ngModel)]="product.size">
                         </div>
 
                         <div class="form-group">
                             <label for=""> Product Category </label>
-                            <select class="form-control" id="productCategory" name="productCategory" required #ProductCategory="ngModel" [(ngModel)]="product.productCategoryId">
+                            <select class="form-control" id="productCategory" name="productCategory" required
+                                #ProductCategory="ngModel" [(ngModel)]="product.productCategoryId">
                                 <option selected value="">-- Select product category** --</option>
-                                <option *ngFor="let category of categorList;" value="{{category.id}}">{{category.name}}</option>
-                             </select>
+                                <option *ngFor="let category of categorList;" value="{{category.id}}">
+                                    {{category.categoryName}}</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="col-md-6">
-
                         <div class="form-group">
                             <label for=""> Description </label>
-
-                            <textarea type="text" id="description" name="description" placeholder="Enter Product description" class="form-control" #description="ngModel" [(ngModel)]="product.description"> </textarea
-                            >
+                            <textarea type="text" id="description" name="description"
+                                placeholder="Enter Product description" class="form-control" #description="ngModel"
+                                [(ngModel)]="product.description"> </textarea>
                         </div>
 
                         <div class="form-group">
                             <label for=""> Note</label>
-
-                            <textarea type="text" id="note" name="note" placeholder="Enter Note" class="form-control"  #note="ngModel" [(ngModel)]="product.note"> </textarea
-                              >
+                            <textarea type="text" id="note" name="note" placeholder="Enter Note" class="form-control"
+                                #note="ngModel" [(ngModel)]="product.note"> </textarea>
                         </div>
                     </div>
-                    <div class="col-md-6">
 
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for=""> Specification </label>
-
-                            <textarea type="text" id="specification" name="specification" placeholder="Enter Product specification" class="form-control" #specification="ngModel" [(ngModel)]="product.specification"> </textarea
-                            >
+                            <textarea type="text" id="specification" name="specification"
+                                placeholder="Enter Product specification" class="form-control" #specification="ngModel"
+                                [(ngModel)]="product.specification"> </textarea>
                         </div>
 
                         <div class="form-group">
                             <label for=""> Price</label>
-
-                            <input type="text" id="price" name="price" placeholder="Enter Product price" class="form-control" #price="ngModel" [(ngModel)]="product.price">
+                            <input type="text" id="price" name="price" placeholder="Enter Product price"
+                                class="form-control" #price="ngModel" [(ngModel)]="product.price">
                         </div>
-
                     </div>
 
-                 
-
-                  
                     <div class="col-md-12">
-                        <label for="">Images </label>
+                        <label for="">Product Images </label>
                         <div class="card-body p-0">
-                          <div class="form-group">
-                            <label for="exampleInputFile" class="file-input">File input <span class="check-required">*</span></label>
-                            <div class="input-group">
-                              <div class="custom-file">
-                                <input type="file" multiple="multiple" class="custom-file-input" id="exampleInputFile" (change)="onFileChange($event)">
-                                <label class="custom-file-label" for="exampleInputFile"  ></label>
-                              </div>
+                            <div class="form-group">
+                                <!-- <label for="exampleInputFile" class="file-input">File input <span class="check-required">*</span></label> -->
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" multiple="multiple" class="custom-file-input"
+                                            id="exampleInputFile" (change)="onFileChange($event)">
+                                        <label class="custom-file-label" for="exampleInputFile"></label>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                             <table class="table" *ngIf="product.productImages?.length > 0">
                                 <thead>
                                     <tr>
@@ -104,48 +99,45 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor= "let pImage of  product.productImages;let i = index">
+                                    <tr *ngFor="let pImage of  product.productImages;let i = index">
                                         <td>{{pImage.name}}</td>
-
-                                        <td><input type="checkbox" [checked]="pImage.isPrimaryImage" (click)="disableOther(pImage)"  /></td>
-
+                                        <td><input type="checkbox" [checked]="pImage.isPrimaryImage"
+                                                (click)="disableOther(pImage)" /></td>
                                         <td class="text-right py-0 align-middle">
                                             <div class="btn-group btn-group-sm">
-                                                <a href="javascript:;"  data-toggle="modal" data-target="#modal-default" class="btn btn-info" (click)="preview(pImage)"><i class="fa fa-eye"></i
-                      ></a>
-                                                <a href="javascript:;" class="btn btn-danger" (click)="removeProductImage(i)"><i class="fa fa-trash"></i
-                      ></a>
+                                                <a href="javascript:;" data-toggle="modal" data-target="#modal-default"
+                                                    class="btn btn-info" (click)="preview(pImage)"><i
+                                                        class="fa fa-eye"></i></a>
+                                                <a href="javascript:;" class="btn btn-danger"
+                                                    (click)="removeProductImage(i)"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            
+
                             <div class="modal fade" id="modal-default">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h4 class="modal-title">Product Image</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <img src="{{previewUrl}}">
-                                  </div>
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Product Image</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="{{previewUrl}}">
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
-                            
                         </div>
                     </div>
-
                     <div class="col-md-6"></div>
-                    
-                    
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid" (click)="submit()" >Submit</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid"
+                        (click)="submit()">Submit</button>
                 </div>
             </div>
         </form>

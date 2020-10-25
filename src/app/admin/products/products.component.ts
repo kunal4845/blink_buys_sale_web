@@ -5,9 +5,9 @@ import { DataTableDirective } from 'angular-datatables';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject } from 'rxjs';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
+import { CategoryModel } from '../category/category.model';
 import { Product } from './product.model';
 import { ProductService } from './product.service';
-import { ProductCategory } from './productCategory.model';
 
 @Component({
   selector: 'app-products',
@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit {
 
 
   productList: Product[] = [];
-  categoryList: ProductCategory[] = [];
+  categoryList: CategoryModel[] = [];
 
   constructor(private productService: ProductService,
     private _DomSanitizationService: DomSanitizer,
@@ -44,7 +44,7 @@ export class ProductsComponent implements OnInit {
   getProductCategory(): void {
     this.ngxService.start();
 
-    this.productService.getProductCategory().subscribe(
+    this.productService.getProductCategory('').subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.categoryList = response.body;

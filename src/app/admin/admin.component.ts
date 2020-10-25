@@ -16,6 +16,7 @@ export class AdminComponent {
   name: string = '';
   user = new User();
   role: string = '';
+
   constructor(private router: Router, private sharedService: SharedService, private loginService: LoginService,
     private sweetAlertService: SweetAlertService,
     @Inject(DOCUMENT) private document: Document) {
@@ -56,6 +57,14 @@ export class AdminComponent {
   logoutUser() {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("token");
-    this.router.navigateByUrl("/admin-login");
+    if (this.role = 'Dealer') {
+      this.router.navigateByUrl("/dealer-login");
+    }
+    else if (this.role = 'Service Provider') {
+      this.router.navigateByUrl("/service-provider-login");
+    }
+    else if (this.role = 'Admin') {
+      this.router.navigateByUrl("/admin-login");
+    }
   }
 }

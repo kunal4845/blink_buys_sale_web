@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Observable, Subject, Subscription } from 'rxjs';
 import { Product } from '../../../admin/products/product.model';
 import { ProductService } from '../../../admin/products/product.service';
 import { User } from '../../../login/login.interface';
@@ -37,11 +36,9 @@ export class ProductDetailComponent implements OnInit {
     private sharedService: SharedService,
     private userService: LoginService,
     private messageService: MessageService) {
-
     this.product = new Product();
     this.user = new User();
     this.userCart = new UserCart();
-
     this.route.params.subscribe(params => {
       this.productId = params['id'];
       this.getProductDetail();
@@ -82,9 +79,6 @@ export class ProductDetailComponent implements OnInit {
       this.userCart.userId = this.user.id;
       this.cartService.addToCart(this.userCart).subscribe(
         res => {
-          debugger
-          // this.eventsSubject.next();
-          // this.sendDataToParent.emit();
           this.ngxService.stop();
           this.messageService.add({ severity: 'success', summary: 'Cart', detail: 'Added to cart successfully!' });
         },
@@ -119,5 +113,4 @@ export class ProductDetailComponent implements OnInit {
   clear() {
     this.messageService.clear();
   }
-
 }

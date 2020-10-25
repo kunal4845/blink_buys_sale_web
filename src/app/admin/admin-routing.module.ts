@@ -11,6 +11,9 @@ import { ProductsComponent } from './products/products.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { AddServiceComponent } from './services/add-service/add-service.component';
 import { CategoryComponent } from './category/category.component';
+import { DealerComponent } from './dealer/dealer.component';
+import { ServiceProviderComponent } from './service-provider/service-provider.component';
+import { BookedServicesComponent } from './services/booked-services/booked-services.component';
 
 
 
@@ -28,6 +31,11 @@ const routes: Routes = [
             { path: 'profile', component: AdminProfileComponent },
             { path: 'services', component: AddServiceComponent },
             { path: 'category', component: CategoryComponent },
+            { path: 'dealer-detail/:id', component: DealerComponent },
+            { path: 'dealer-detail/:id', component: DealerComponent },
+            { path: 'serviceProvider-detail/:id', component: ServiceProviderComponent },
+            { path: 'booked-services', component: BookedServicesComponent },
+
         ]
     }
 ];

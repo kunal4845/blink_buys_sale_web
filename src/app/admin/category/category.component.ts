@@ -17,14 +17,13 @@ export class CategoryComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-
   ////////////
   display = 'none';
   isEdit: boolean = false;
   category: CategoryModel;
   categoryList: CategoryModel[];
   ////////////
-  categoryId: string;
+  categoryId: string = '';
   categoryName: string = '';
   description: string = '';
 
@@ -91,7 +90,6 @@ export class CategoryComponent implements OnInit {
         this.adminService.deleteCategory(category.id).subscribe(status => {
           this.sweetAlertService.sweetAlert('Success', 'Deleted Successfully', 'success', false);
           this.getCategoryList();
-          this.ngxService.stop();
         }, error => {
           this.ngxService.stop();
         })
@@ -107,7 +105,11 @@ export class CategoryComponent implements OnInit {
     this.isEdit = true;
 
     this.adminService.postCategory(this.category).subscribe(j => {
-      this.sweetAlertService.sweetAlert('Success', 'Updated Successfully', 'success', false);
+      if (this.categoryId != '') {
+        this.sweetAlertService.sweetAlert('Success', 'Updated Successfully', 'success', false);
+      } else {
+        this.sweetAlertService.sweetAlert('Success', 'Added Successfully', 'success', false);
+      }
       this.getCategoryList();
       this.display = 'none';
     }, error => {
@@ -125,7 +127,7 @@ export class CategoryComponent implements OnInit {
       responsive: true,
       lengthMenu: [5, 10, 15, 20, 25],
       columnDefs: [
-        { orderable: false, targets: 3 }
+        { orderable: false, targets: 5 }
       ]
     };
   }

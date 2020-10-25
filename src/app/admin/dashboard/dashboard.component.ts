@@ -21,17 +21,20 @@ export class DashboardComponent implements OnInit {
     private sweetAlertService: SweetAlertService) {
   }
 
-
   ngOnInit(): void {
     this.getUsers();
   }
 
   getUsers() {
+    this.ngxService.start();
     this.dealerService.getDealers().subscribe(list => {
-      debugger
+      this.ngxService.stop();
       this.dealers = list.body.filter(i => i.roleId === roleType.Dealer && !i.isDeleted).length;
       this.serviceProviders = list.body.filter(i => i.roleId === roleType.ServiceProvider && !i.isDeleted).length;
       this.customers = list.body.filter(i => i.roleId === roleType.User && !i.isDeleted).length;
+    }, error => {
+      this.ngxService.stop();
     });
+
   }
 }

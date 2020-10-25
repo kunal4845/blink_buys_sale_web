@@ -7,103 +7,140 @@
         <p class="login-box-msg">Register a new membership</p>
 
         <form #registerForm="ngForm" id="registerForm" novalidate>
+
+            <show-errors [control]="State" [name]="'**State'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="name" name="name" placeholder="Business Owner Full name**" class="form-control" required #Name="ngModel" [(ngModel)]="user.name" />
+                <select class="form-control" data-country="IN" id="state" name="state" required #State="ngModel"
+                    [(ngModel)]="user.stateId" (change)="select($event.target.value)">
+                    <option selected value="0">-- Please select state --</option>
+                    <option *ngFor="let state of states" value={{state.id}}>{{state.stateName}}</option>
+                </select>
+            </div>
+
+
+            <show-errors [control]="City" [name]="'**City'"></show-errors>
+            <div class="form-group has-feedback">
+                <select class="form-control" [(ngModel)]="user.cityId" id="city" name="city" required #City="ngModel">
+                    <option selected value="0">-- Please select city --</option>
+                    <option *ngFor="let city of cities " value={{city.id}}>{{city.cityName}}</option>
+                </select>
+            </div>
+            
+            <show-errors [control]="Name" [name]="'**Owner Name'"></show-errors>
+            <div class="form-group has-feedback">
+                <input type="text" id="name" name="name" placeholder="Business Owner Full name**" class="form-control"
+                    required #Name="ngModel" [(ngModel)]="user.name" />
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
-            <show-errors [control]="Name" [name]="'Owner Name'"></show-errors>
 
-
+            <show-errors [control]="CompanyName" [name]="'**Company/shop Name'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="companyName" name="companyName" placeholder="Company/shop name**" class="form-control" required #CompanyName="ngModel" [(ngModel)]="user.companyName" />
+                <input type="text" id="companyName" name="companyName" placeholder="Company/shop name**"
+                    class="form-control" required #CompanyName="ngModel" [(ngModel)]="user.companyName" />
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
-            <show-errors [control]="CompanyName" [name]="'Company/shop Name'"></show-errors>
 
-
-
+            <show-errors [control]="ContactNumber" [name]="'**Contact Number'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="contactNumber" name="contactNumber" placeholder="Contact Number**" class="form-control" required #ContactNumber="ngModel" [(ngModel)]="user.contactNumber" />
+                <input type="text" id="contactNumber" name="contactNumber" placeholder="Contact Number**"
+                    [pattern]="mobNumberPattern" class="form-control" required #ContactNumber="ngModel"
+                    [(ngModel)]="user.contactNumber" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-            <show-errors [control]="ContactNumber" [name]="'Contact Number'"></show-errors>
 
-
+            <show-errors [control]="Email" [name]="'**Email'"></show-errors>
+            <ul *ngIf="isEmailExists" style="text-align: left; color: red;">
+                <li>
+                    Email already registered with the system.
+                </li>
+            </ul>
             <div class="form-group has-feedback">
-                <input type="text" id="email" name="email" placeholder="Email**" class="form-control" required #Email="ngModel" [(ngModel)]="user.email" [pattern]="emailPattern" (blur)="checkEmailExists(user.email)" />
+                <input type="text" id="email" name="email" placeholder="Email**" class="form-control" required
+                    #Email="ngModel" [(ngModel)]="user.email" [pattern]="emailPattern"
+                    (blur)="checkEmailExists(user.email)" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-            <show-errors [control]="Email" [name]="'Email'"></show-errors>
 
-
-            <ng-container *ngIf="isEmailExists">
+            <!-- <ng-container *ngIf="isEmailExists">
                 <b class="text-danger">
-                  Email already registered with the system.
+                    Email already registered with the system.
                 </b>
             </ng-container>
+ -->
 
-
+            <show-errors [control]="Address" [name]="'**Address'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="address" name="address" placeholder="Address**" class="form-control" required #Address="ngModel" [(ngModel)]="user.address" />
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <show-errors [control]="Address" [name]="'Address'"></show-errors>
-
-
-            <div class="form-group has-feedback">
-                <input type="text" id="streetAddress" name="streetAddress" placeholder="Street Address" class="form-control" #StreetAddress="ngModel" [(ngModel)]="user.streetAddress" />
+                <input type="text" id="address" name="address" placeholder="Address**" class="form-control" required
+                    #Address="ngModel" [(ngModel)]="user.address" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
 
             <div class="form-group has-feedback">
-                <input type="text" id="zipCode" name="zipCode" placeholder="Zip Code**" class="form-control" required #ZipCode="ngModel" [(ngModel)]="user.zipCode" />
+                <input type="text" id="streetAddress" name="streetAddress" placeholder="Street Address"
+                    class="form-control" #StreetAddress="ngModel" [(ngModel)]="user.streetAddress" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-            <show-errors [control]="ZipCode" [name]="'zip Code'"></show-errors>
 
-
+            <show-errors [control]="ZipCode" [name]="'**Zip Code'"></show-errors>
             <div class="form-group has-feedback">
-                <select class="form-control" id="productCategory" name="productCategory" required #ProductCategory="ngModel" [(ngModel)]="user.productCategoryId">
-                    <option selected value="">-- Select product category** --</option>
-                    <option *ngFor="let category of categoryList;" value="{{category.id}}">{{category.categoryName}}</option>
-                 </select>
+                <input type="text" id="zipCode" name="zipCode" placeholder="Zip Code**" class="form-control" required
+                    #ZipCode="ngModel" [(ngModel)]="user.zipCode" />
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-            <show-errors [control]="ProductCategory" [name]="'Product Category'"></show-errors>
+
+
+            <show-errors [control]="ProductCategory" [name]="'**Product Category'"></show-errors>
+            <div class="form-group has-feedback">
+                <select class="form-control" id="productCategory" name="productCategory" required
+                    #ProductCategory="ngModel" [(ngModel)]="user.productCategoryId">
+                    <option selected value="0">-- Select product category** --</option>
+                    <option *ngFor="let category of categoryList;" value="{{category.id}}">{{category.categoryName}}
+                    </option>
+                </select>
+            </div>
+
+
+            <label>Is GST number available?</label><br />
+            <input type="radio" [(ngModel)]="user.isGstAvailable" (click)="isGstAvailable()" required name="gst"
+                value="Yes"> Yes<br>
+            <input type="radio" [(ngModel)]="user.isGstAvailable" (click)="isGstNotAvailable()" required name="gst"
+                value="In Process"> In Process
+            <br>
+            <input type="radio" [(ngModel)]="user.isGstAvailable" (click)="isGstNotAvailable()" required name="gst"
+                value="Not Available"> Not Available
 
             <div class="form-group has-feedback">
-                <label>Is GST number available?</label>
-                <input type="radio" [(ngModel)]="user.isGstAvailable" (click)="isGstAvailable()" required name="gst" value="Yes"> Yes<br>
-                <input type="radio" [(ngModel)]="user.isGstAvailable" (click)="isGstNotAvailable()" required name="gst" value="In Process"> In Process
-                <br>
-                <input type="radio" [(ngModel)]="user.isGstAvailable" (click)="isGstNotAvailable()" required name="gst" value="Not Available"> Not Available
-
                 <ng-container *ngIf="isGst">
-                    <input type="text" id="gstNumber" name="gstNumber" placeholder="GST Number**" class="form-control" #GstNumber="ngModel" [(ngModel)]="user.gstNumber" />
+                    <input type="text" id="gstNumber" name="gstNumber" placeholder="GST Number**" class="form-control"
+                        #GstNumber="ngModel" [(ngModel)]="user.gstNumber" />
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </ng-container>
             </div>
 
-
+            <show-errors [control]="AccountNumber" [name]="'**Account Number'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="accountNumber" name="accountNumber" placeholder="Account Number**" class="form-control" #AccountNumber="ngModel" [(ngModel)]="user.accountNumber" />
+                <input type="text" id="accountNumber" name="accountNumber" placeholder="Account Number**"
+                    class="form-control" #AccountNumber="ngModel" [(ngModel)]="user.accountNumber" required />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-            <show-errors [control]="AccountNumber" [name]="'Account Number'"></show-errors>
 
 
+            <show-errors [control]="AccountHolderName" [name]="'**Account Holder Name'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="accountHolderName" name="accountHolderName" placeholder="Account Holder Name**" class="form-control" #AccountHolderName="ngModel" [(ngModel)]="user.accountHolderName" />
+                <input type="text" id="accountHolderName" name="accountHolderName" placeholder="Account Holder Name**"
+                    class="form-control" #AccountHolderName="ngModel" [(ngModel)]="user.accountHolderName" required />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-            <show-errors [control]="AccountHolderName" [name]="'Account Holder Name'"></show-errors>
 
 
+            <show-errors [control]="IfscCode" [name]="'**IFSC Code'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="ifscCode" name="ifscCode" placeholder="IFSC Code**" class="form-control" #IfscCode="ngModel" [(ngModel)]="user.ifscCode" />
+                <input type="text" id="ifscCode" name="ifscCode" placeholder="IFSC Code**" class="form-control"
+                    #IfscCode="ngModel" [(ngModel)]="user.ifscCode" required />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-            <show-errors [control]="IfscCode" [name]="'IFSC Code'"></show-errors>
+
 
             <div class="form-group has-feedback">
                 <label>Upload cancelled cheque**</label>
@@ -115,15 +152,31 @@
                 <input type="file" (change)="uploadId($event)">
             </div>
 
+            
+            <div class="form-group has-feedback">
+                <ng-container *ngIf="previewUrl1">
+                    <img id="blah" [src]="previewUrl1" alt="img"
+                        style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
+                </ng-container>
+
+                <ng-container *ngIf="previewUrl2">
+                    <img id="blah" [src]="previewUrl2" alt="img"
+                        style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
+                </ng-container>
+            </div>
+
 
             <div class="form-group has-feedback">
-                <input type="password" name="password" placeholder="Password" class="form-control" id="Password" required #Password="ngModel" [pattern]="passwordPattern" [(ngModel)]="user.password" />
+                <input type="password" name="password" placeholder="Password" class="form-control" id="Password"
+                    required #Password="ngModel" [pattern]="passwordPattern" [(ngModel)]="user.password" />
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
 
 
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" #ConfirmPassword="ngModel" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Retype password" required [pattern]="passwordPattern" />
+                <input type="password" class="form-control" #ConfirmPassword="ngModel" name="confirmPassword"
+                    [(ngModel)]="user.confirmPassword" placeholder="Retype password" required
+                    [pattern]="passwordPattern" />
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
 
@@ -134,7 +187,8 @@
                 </li>
             </ul>
 
-            <ul *ngIf="Password.errors && Password.errors.pattern && Password.value?.length < 8" style="text-align: left; color: red; margin-top:5px;">
+            <ul *ngIf="Password.errors && Password.errors.pattern && Password.value?.length < 8"
+                style="text-align: left; color: red; margin-top:5px;">
                 <li>At least <i>8</i> characters</li>
                 <li>
                     Combination of upper- and lower-case characters and Special Character(*)
@@ -146,7 +200,7 @@
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-              </label>
+                        </label>
                     </div>
                 </div>
                 <div class="col-xs-4">
@@ -154,8 +208,8 @@
                 ||(isEmailExists)
                     ||(ConfirmPassword.value != Password.value || user.password == '' ||
                     user.confirmPassword == '')" (click)="register(registerForm)">
-                    Register
-                  </button>
+                        Register
+                    </button>
                 </div>
             </div>
         </form>

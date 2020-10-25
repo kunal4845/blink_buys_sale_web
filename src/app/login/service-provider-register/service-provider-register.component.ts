@@ -6,12 +6,12 @@ import { SweetAlertService } from "../../shared/alert/sweetalert.service";
 import { User } from '../login.interface';
 import { SharedService } from 'src/app/shared/shared.service';
 import { roleType, SiteKey } from 'src/app/shared/globalConstants';
-import { ProductCategory } from 'src/app/admin/products/productCategory.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { State } from 'src/app/user/location/state.model';
 import { City } from 'src/app/user/location/city.model';
 import { LocationService } from 'src/app/user/location/location.service';
 import { ServiceModel } from 'src/app/admin/services/admin-services.model';
+import { CategoryModel } from 'src/app/admin/category/category.model';
 
 @Component({
   selector: 'app-service-provider-register',
@@ -20,8 +20,10 @@ import { ServiceModel } from 'src/app/admin/services/admin-services.model';
 })
 export class ServiceProviderRegisterComponent implements OnInit {
   @ViewChild('registerForm') public registerForm: NgForm;
+
   passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{9,})/;
   emailPattern = /\S+@\S+\.\S+/;
+  mobNumberPattern = "^((\\+91-?)|0)?[0-9]{10}$";
 
   role: roleType;
   SITE_KEY = SiteKey;
@@ -30,12 +32,10 @@ export class ServiceProviderRegisterComponent implements OnInit {
   selectedIdFile: File = null;
   previewUrl1: any = null;
   previewUrl2: any = null;
-
   spinner: boolean = false;
   isEmailExists: boolean = false;
   user: User;
-
-  categorList: ProductCategory[] = [];
+  categorList: CategoryModel[] = [];
   states: State[];
   cities: City[];
   serviceList: ServiceModel[];
@@ -159,10 +159,9 @@ export class ServiceProviderRegisterComponent implements OnInit {
 
   register(registerForm: NgForm) {
     debugger
-    if (!this.isEmailExists) {
+    if (!this.isEmailExists && this.selectedIdFile != null && this.selectedIdFile != undefined && this.selectedImageFile != null && this.selectedImageFile != undefined) {
       this.ngxService.start();
       this.user.roleId = roleType.ServiceProvider;
-
       this.loginService.register(this.user, this.selectedIdFile, this.selectedImageFile).subscribe(
         (userResponse: any) => {
           if (userResponse.status === 200) {
@@ -181,8 +180,7 @@ export class ServiceProviderRegisterComponent implements OnInit {
       );
     } else {
       this.ngxService.stop();
-
-      this.sweetAlertService.sweetAlert('Warning', "Fill up the mandatory fields!!", 'warn', false);
+      this.sweetAlertService.sweetAlert('Warning', "Invalid inputs, please check again!!", 'warn', false);
     }
   }
 }

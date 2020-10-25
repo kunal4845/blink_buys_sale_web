@@ -17,14 +17,14 @@
                         class="table table-bordered table-striped table-level">
                         <thead>
                             <tr>
-                                <th>S.No.</th>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let service of serviceList let i = index;">
+                            <tr *ngFor="let service of serviceList; let i = index;">
                                 <td>{{i+1}}</td>
                                 <td>
                                     <a (click)="edit(service)" href="javascript:;">{{service.serviceName}}</a>

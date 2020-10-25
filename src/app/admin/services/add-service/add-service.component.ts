@@ -59,8 +59,6 @@ export class AddServiceComponent implements OnInit {
     }, error => {
       this.ngxService.stop();
     })
-
-
   }
 
   upload(fileInput: any) {
@@ -111,7 +109,6 @@ export class AddServiceComponent implements OnInit {
         this.adminService.delete(serviceModel.id).subscribe(status => {
           this.sweetAlertService.sweetAlert('Success', 'Deleted Successfully', 'success', false);
           this.getServices();
-          this.ngxService.stop();
         }, error => {
           this.ngxService.stop();
         })
@@ -136,7 +133,8 @@ export class AddServiceComponent implements OnInit {
       formData.append('Id', this.serviceId);
       formData.append('ServiceName', this.serviceName);
       formData.append('Description', this.description);
-      this.ngxService.start(); this.isEdit = true;
+      this.ngxService.start(); 
+      this.isEdit = true;
 
       this.adminService.post(formData).subscribe(j => {
         this.getServices();
@@ -151,7 +149,8 @@ export class AddServiceComponent implements OnInit {
       this.service.serviceName = this.serviceName;
       this.service.description = this.description;
       this.service.serviceIcon = this.previewUrl;
-      this.ngxService.start(); this.isEdit = true;
+      this.ngxService.start(); 
+      this.isEdit = true;
 
       this.adminService.postService(this.service).subscribe(j => {
         this.sweetAlertService.sweetAlert('Success', 'Updated Successfully', 'success', false);

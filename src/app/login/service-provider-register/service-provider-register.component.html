@@ -35,7 +35,7 @@
             </div>
 
 
-            <show-errors [control]="FatherName" [name]="'**Company/shop Name'"></show-errors>
+            <show-errors [control]="FatherName" [name]="'**Father name'"></show-errors>
             <div class="form-group has-feedback">
                 <input type="text" id="fatherName" name="fatherName" placeholder="Father name**" class="form-control"
                     required #FatherName="ngModel" [(ngModel)]="user.fatherName" />
@@ -55,7 +55,8 @@
             <show-errors [control]="ContactNumber" [name]="'**Contact Number'"></show-errors>
             <div class="form-group has-feedback">
                 <input type="text" id="contactNumber" name="contactNumber" placeholder="Contact Number**"
-                    class="form-control" required #ContactNumber="ngModel" [(ngModel)]="user.contactNumber" />
+                    [pattern]="mobNumberPattern" class="form-control" required #ContactNumber="ngModel"
+                    [(ngModel)]="user.contactNumber" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 

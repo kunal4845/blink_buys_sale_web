@@ -2,8 +2,8 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { APIURL } from "../../shared/globalConstants";
+import { CategoryModel } from '../category/category.model';
 import { Product } from './product.model';
-import { ProductCategory } from './productCategory.model';
 
 @Injectable({
     providedIn: "root"
@@ -46,8 +46,14 @@ export class ProductService {
     }
 
 
-    getProductCategory(): Observable<HttpResponse<ProductCategory[]>> {
-        return this.http.get<ProductCategory[]>(`${this.APIURL}/category`, {
+    // getProductCategory(): Observable<HttpResponse<CategoryModel[]>> {
+    //     return this.http.get<CategoryModel[]>(`${this.APIURL}/category`, {
+    //         observe: "response"
+    //     });
+    // }
+
+    getProductCategory(categoryId: string): Observable<HttpResponse<CategoryModel[]>> {
+        return this.http.get<CategoryModel[]>(`${APIURL}/category/${categoryId}`, {
             observe: "response"
         });
     }

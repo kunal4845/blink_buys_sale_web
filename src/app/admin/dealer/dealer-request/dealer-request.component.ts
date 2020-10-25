@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, SecurityContext } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { Subject, Observable, Observer } from 'rxjs';
+import { Subject } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from 'src/app/login/login.interface';
 import { roleType } from 'src/app/shared/globalConstants';
 import { DealerService } from '../dealer.service';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
 import { ProductService } from '../../products/product.service';
-import { ProductCategory } from '../../products/productCategory.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CategoryModel } from '../../category/category.model';
 
 @Component({
   selector: 'app-dealer-request',
@@ -22,7 +22,7 @@ export class DealerRequestComponent implements OnInit {
   display = 'none';
   dealers: User[] = [];
   isEdit: boolean = false;
-  categoryList: ProductCategory[] = [];
+  categoryList: CategoryModel[] = [];
   previewUrl: any = null;
   title: string;
 
@@ -48,6 +48,12 @@ export class DealerRequestComponent implements OnInit {
   getDealers() {
     this.ngxService.start();
     this.dealerService.getDealers().subscribe(list => {
+      if (!this.isEdit) {
+        this.dtTrigger.next();
+      } else {
+        this.reRender();
+      }
+
       this.ngxService.stop();
       console.log(this.dealers);
       this.dealers = list.body.filter(i => i.roleId === roleType.Dealer && !i.isDeleted);
@@ -55,16 +61,11 @@ export class DealerRequestComponent implements OnInit {
       this.ngxService.stop(); this.sweetAlertService.sweetAlert('Error', error, 'error', false);
 
     });
-    if (!this.isEdit) {
-      this.dtTrigger.next();
-    } else {
-      this.reRender();
-    }
   }
 
   getProductCategory(): void {
     this.ngxService.start();
-    this.productService.getProductCategory().subscribe(
+    this.productService.getProductCategory('').subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.categoryList = response.body;
@@ -136,7 +137,7 @@ export class DealerRequestComponent implements OnInit {
       responsive: true,
       lengthMenu: [5, 10, 15, 20, 25],
       columnDefs: [
-        { orderable: false, targets: 3 }
+        { orderable: false, targets: 9 }
       ]
     };
   }

@@ -6,7 +6,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../product.service';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { ProductCategory } from '../productCategory.model';
+import { CategoryModel } from '../../category/category.model';
 
 @Component({
   selector: 'app-add-product',
@@ -19,7 +19,7 @@ export class AddProductComponent implements OnInit {
   myFiles: File[] = [];
   previewUrl: any = null;
   product: Product;
-  categorList: ProductCategory[] = [];
+  categorList: CategoryModel[] = [];
 
   constructor(private productService: ProductService,
     private _DomSanitizationService: DomSanitizer,
@@ -50,16 +50,17 @@ export class AddProductComponent implements OnInit {
   }
 
 
-  getProductCategory(): void {    this.ngxService.start();
-
-    this.productService.getProductCategory().subscribe(
+  getProductCategory(): void {
+    this.ngxService.start();
+    this.productService.getProductCategory('').subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.categorList = response.body;
-        }        this.ngxService.stop();
+          this.categorList = response.body.filter(x => x.isDeleted == false);
+        } this.ngxService.stop();
 
       },
-      (error) => {        this.ngxService.stop();
+      (error) => {
+        this.ngxService.stop();
 
         this.sweetAlertService.sweetAlert('Error', error, 'error', false);
       }

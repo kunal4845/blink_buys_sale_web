@@ -21,6 +21,34 @@ export class LoginService {
     formData.append('StateId', user.stateId.toString());
     formData.append('CityId', user.cityId.toString());
     formData.append('Name', user.name);
+    formData.append('CompanyName', user.companyName);
+    formData.append('ContactNumber', user.contactNumber);
+    formData.append('Email', user.email);
+    formData.append('Address', user.address);
+    formData.append('StreetAddress', user.streetAddress);
+    formData.append('ZipCode', user.zipCode);
+    formData.append('ProductCategoryId', user.productCategoryId);
+    formData.append('IsGstAvailable', user.isGstAvailable);
+    formData.append('GstNumber', user.gstNumber);
+    formData.append('AccountNumber', user.accountNumber);
+    formData.append('AccountHolderName', user.accountHolderName);
+    formData.append('IfscCode', user.ifscCode);
+    formData.append('RoleId', user.roleId.toString());
+    formData.append('Password', user.password);
+    formData.append('IdProofPath', selectedIdFile);
+    formData.append('Image', selectedImageFile);
+
+    return this.http.post<User>(`${APIURL}/account/signUp`, formData, {
+      observe: "response"
+    });
+  }
+
+  registerServiceProvider(user: User, selectedIdFile, selectedImageFile): Observable<HttpResponse<User>> {
+    debugger
+    const formData = new FormData();
+    formData.append('StateId', user.stateId.toString());
+    formData.append('CityId', user.cityId.toString());
+    formData.append('Name', user.name);
     formData.append('FatherName', user.fatherName);
     formData.append('Gender', user.gender);
     formData.append('ContactNumber', user.contactNumber);

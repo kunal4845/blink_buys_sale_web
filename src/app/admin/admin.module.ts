@@ -25,6 +25,10 @@ import { ServicesComponent } from './services/services.component';
 import { AddServiceComponent } from './services/add-service/add-service.component';
 import { AdminService } from './admin.service';
 import { CategoryComponent } from './category/category.component';
+import { DealerComponent } from './dealer/dealer.component';
+import { ServiceProviderService } from './service-provider/service-provider.service';
+import { ServiceProviderComponent } from './service-provider/service-provider.component';
+import { BookedServicesComponent } from './services/booked-services/booked-services.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -48,7 +52,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AdminProfileComponent,
     ServicesComponent,
     AddServiceComponent,
-    CategoryComponent
+    CategoryComponent,
+    DealerComponent,
+    ServiceProviderComponent,
+    BookedServicesComponent
   ],
   imports: [
     FormsModule,
@@ -61,7 +68,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SharedModule,
     NgSelectModule
   ],
-  providers: [AdminService,
+  providers: [
+    AdminService,
+    ServiceProviderService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
