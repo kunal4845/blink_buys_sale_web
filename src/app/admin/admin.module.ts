@@ -29,6 +29,8 @@ import { DealerComponent } from './dealer/dealer.component';
 import { ServiceProviderService } from './service-provider/service-provider.service';
 import { ServiceProviderComponent } from './service-provider/service-provider.component';
 import { BookedServicesComponent } from './services/booked-services/booked-services.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -66,7 +68,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     DataTablesModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     SharedModule,
-    NgSelectModule
+    NgSelectModule,
+    AngularMultiSelectModule,
+    TimepickerModule.forRoot()
   ],
   providers: [
     AdminService,

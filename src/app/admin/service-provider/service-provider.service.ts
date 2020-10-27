@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { APIURL } from '../../shared/globalConstants';
 import { User } from '../../login/login.interface';
+import { ServiceProviderAvailability } from './service-provider-availability.model';
 
 @Injectable({
     providedIn: "root"
@@ -33,4 +34,17 @@ export class ServiceProviderService {
             observe: "response"
         });
     }
+
+    submitAvailability(serviceProviderAvailability: ServiceProviderAvailability): Observable<HttpResponse<ServiceProviderAvailability>> {
+        return this.http.post<ServiceProviderAvailability>(`${APIURL}/serviceProvider/availability`, serviceProviderAvailability, {
+            observe: "response"
+        });
+    }
+
+    getServiceProviderAvailability(serviceProviderId: number): Observable<HttpResponse<ServiceProviderAvailability>> {
+        return this.http.get<ServiceProviderAvailability>(`${APIURL}/serviceProvider/availability/${serviceProviderId}`, {
+            observe: "response"
+        });
+    }
+
 }

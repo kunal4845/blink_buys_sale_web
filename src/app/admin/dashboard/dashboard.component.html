@@ -1,4 +1,4 @@
-<section class="content">
+<section class="content" *ngIf="role =='Admin'">
     <div class="row">
         <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-aqua">
@@ -44,5 +44,73 @@
             </div>
         </div>
     </div>
+</section>
+
+<section class="content" *ngIf="role =='Service Provider'">
+    <div class="callout callout-info">
+        <h4>Tip!</h4>
+
+        <p>Always update your availability timing for the smooth process and uninterrupted operation.</p>
+    </div>
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Dashboard</h3>
+
+        </div>
+        <div class="box-body">
+
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Availability</h3>
+                    </div>
+
+                    <form role="form">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="days">Days</label>
+                                <!-- <input type="text" class="form-control" id="exampleInputEmail1"
+                                    placeholder="Enter email"> -->
+
+                                <angular2-multiselect [data]="itemList" [(ngModel)]="selectedItems"
+                                    [settings]="settings" [ngModelOptions]="{standalone: true}"
+                                    (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                </angular2-multiselect>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="timings">Timings</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1"
+                                    placeholder="Password">
+                            </div> -->
+
+
+
+                            <!-- <timepicker [(ngModel)]="mytime" [ngModelOptions]="{standalone: true}"></timepicker>
+                            <pre class="alert alert-info">Time is: {{mytime}}</pre> -->
+
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" [checked]="isTodayOff" (click)="setTodayOff()"> Is Today off
+                                </label>
+                                <p class="help-block">
+                                    **Checkbox checked means you are unavailable today, keep this checkbox unchecked
+                                    otherwise We will show you offline.
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary" (click)="submitAvailability()">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </section>
 <ngx-ui-loader></ngx-ui-loader>

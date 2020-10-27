@@ -72,7 +72,7 @@ export class AdminService {
   }
 
   assignServiceProvider(bookedService: BookedServiceModel): Observable<HttpResponse<BookedServiceModel>> {
-    return this.http.post<BookedServiceModel>(`${APIURL}/service/assignServiceProvider`, bookedService, {
+    return this.http.post<BookedServiceModel>(`${APIURL}/serviceProvider/assignServiceProvider`, bookedService, {
       observe: "response"
     });
   }
