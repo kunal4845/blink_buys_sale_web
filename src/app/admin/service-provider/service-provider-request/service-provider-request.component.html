@@ -17,23 +17,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <!-- <th>Company</th> -->
                                 <th>Service Provider</th>
                                 <th>Email</th>
                                 <th>Contact</th>
-                                <!-- <th>Product Category</th>
-                                <th>Is GST Available</th>
-                                <th>GST Number</th>
-                                <th>Account Number</th>
-                                <th>Account Holder Name</th>
-                                <th>IFSC Code</th> -->
-                                <!-- <th>Is Number Verified</th> -->
-                                <!-- <th>Is Active</th> -->
-                                <!-- <th>Is Account Verified</th> -->
                                 <th>Main Service</th>
-                                <th>Product Category</th>
-                                <th>Id </th>
-                                <th>Cheque </th>
+                                <th>Service sub Category</th>
+                                <th>Id Proof </th>
                                 <th>Registration Date</th>
                                 <th>Action</th>
                             </tr>
@@ -41,7 +30,6 @@
                         <tbody>
                             <tr *ngFor="let serviceProvider of serviceProviders; let i = index;">
                                 <td>{{i+1}}</td>
-                                <!-- <td>{{serviceProvider.companyName}}</td> -->
                                 <td>
                                     <a
                                         [routerLink]="['/admin/serviceProvider-detail', serviceProvider.id]">{{serviceProvider.name}}</a>
@@ -52,38 +40,23 @@
                                 <td>
                                     <ng-container *ngFor="let service of serviceList;">
                                         <ng-container *ngIf="service.id == serviceProvider.serviceId">
-                                            {{service.name}}
+                                            {{service.serviceName}}
                                         </ng-container>
                                     </ng-container>
                                 </td>
 
                                 <td>
                                     <ng-container *ngFor="let category of categoryList;">
-                                        <ng-container *ngIf="category.id == serviceProvider.productCategoryId">
-                                            {{category.name}}
+                                        <ng-container *ngIf="category.id == serviceProvider.serviceSubCategoryId">
+                                            {{category.categoryName}}
                                         </ng-container>
                                     </ng-container>
                                 </td>
 
-
-                                <!-- <td>{{serviceProvider.isGstAvailable}}</td>
-                                <td>{{serviceProvider.gstNumber}}</td>
-                                <td>{{serviceProvider.accountNumber}}</td>
-                                <td>{{serviceProvider.accountHolderName}}</td>
-                                <td>{{serviceProvider.ifscCode}}</td> -->
-                                <!-- <td>{{serviceProvider.isNumberVerified}}</td> -->
-                                <!-- <td>{{serviceProvider.isActive}}</td> -->
-                                <!-- <td>{{serviceProvider.isAccountVerified}}</td> -->
                                 <td>
                                     <a href="javascript:;" data-toggle="modal" data-target="#modal-default"
                                         class="btn btn-info"
                                         (click)="preview(serviceProvider.idProofPath,'Id Proof Preview')"><i
-                                            class="fa fa-eye"></i></a>
-                                </td>
-                                <td>
-                                    <a href="javascript:;" data-toggle="modal" data-target="#modal-default"
-                                        class="btn btn-info"
-                                        (click)="preview(serviceProvider.image,'Cancelled Cheque Preview')"><i
                                             class="fa fa-eye"></i></a>
                                 </td>
 
@@ -96,18 +69,18 @@
                                             data-widget="Verify Service Provider" data-toggle="tooltip"
                                             title="Verify Service Provider"
                                             (click)="verifyServiceProvider(serviceProvider)"><i class="fa fa-check"></i>
-                                        </button>
+                                        </button> &nbsp;
 
                                         <button type="button" *ngIf="serviceProvider.isAccountVerified"
                                             class="btn btn-space btn-info margin-right disabled"
                                             data-widget="Verified Service Provider" data-toggle="tooltip"
                                             title="Verified Service Provider"><i class="fa fa-check"></i>
-                                        </button>
+                                        </button>&nbsp;
 
                                         <button type="button" (click)="deleteServiceProvider(serviceProvider)"
                                             class="btn btn-danger btn-space" title="Remove Service Provider"><i
                                                 class="fa fa-trash"></i>
-                                        </button>
+                                        </button>&nbsp;
 
                                         <button type="button" (click)="blockServiceProvider(serviceProvider)"
                                             class="btn btn-warning btn-space" title="Block Service Provider"><i
@@ -138,7 +111,7 @@
             </div>
             <div class="modal-body">
                 <img [src]="previewUrl" style="width: 100%;" alt="No image preview">
-                <!-- <a href="javascript:;" class="btn class" target="_self" (click)="downloadImage(previewUrl)"> Download</a> -->
+
             </div>
         </div>
     </div>

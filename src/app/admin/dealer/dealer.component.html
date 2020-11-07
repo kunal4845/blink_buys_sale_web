@@ -49,7 +49,7 @@
                     <label for="inputName" class=" control-label">
                         <ng-container *ngFor="let category of categoryList;">
                             <ng-container *ngIf="category.id == dealer.productCategoryId">
-                                {{category.name}}
+                                {{category.categoryName}}
                             </ng-container>
                         </ng-container>
                     </label>
@@ -66,7 +66,12 @@
             <div class="form-group col-md-6">
                 <span for="inputName" class="col-sm-2 control-label">GST Number:</span>
                 <div class="col-sm-10">
-                    <label for="inputName" class=" control-label">{{dealer.gstNumber}}</label>
+                    <ng-container *ngIf="!dealer.gstNumber">
+                        <label for="inputName" class=" control-label">N/A</label>
+                    </ng-container>
+                    <ng-container *ngIf="dealer.gstNumber">
+                        <label for="inputName" class=" control-label">{{dealer.gstNumber}}</label>
+                    </ng-container>
                 </div>
             </div>
 

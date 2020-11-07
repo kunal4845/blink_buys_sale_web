@@ -29,30 +29,29 @@ export class ServiceProviderRequestComponent implements OnInit {
   previewUrl: any = null;
   title: string;
   serviceList: ServiceModel[];
-  
-  constructor(private ngxService: NgxUiLoaderService,
+
+  constructor(
+    private ngxService: NgxUiLoaderService,
     private serviceProviderService: ServiceProviderService,
     private sweetAlertService: SweetAlertService,
     private productService: ProductService,
     public _DomSanitizationService: DomSanitizer,
-    private sharedService: SharedService) {
+    private sharedService: SharedService
+  ) {
     this.dtTrigger = new Subject();
+    this.getServices();
     this.getProductCategory();
   }
-
 
   ngOnInit(): void {
     this.initDataTable();
     this.getServiceProviders();
-    this.getServices();
   }
 
   preview(file: any, title: string) {
-    debugger
     this.title = title;
     this.previewUrl = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(file) as any).changingThisBreaksApplicationSecurity;
   }
-
 
   getServiceProviders() {
     this.ngxService.start();
@@ -62,47 +61,35 @@ export class ServiceProviderRequestComponent implements OnInit {
       } else {
         this.reRender();
       }
+      debugger
       this.ngxService.stop();
       this.serviceProviders = list.body.filter(i => i.roleId === roleType.ServiceProvider && !i.isDeleted);
     }, error => {
-      this.ngxService.stop(); this.sweetAlertService.sweetAlert('Error', error, 'error', false);
-
+      this.ngxService.stop();
+      this.sweetAlertService.sweetAlert('Error', error, 'error', false);
     });
   }
 
   getProductCategory(): void {
-    this.ngxService.start();
     this.productService.getProductCategory('').subscribe(
-      (response: any) => {
-        if (response.status === 200) {
-          this.categoryList = response.body;
-        }
-        this.ngxService.stop();
-      },
-      (error) => {
-        this.ngxService.stop();
-        this.sweetAlertService.sweetAlert('Error', error, 'error', false);
+      response => {
+        debugger
+        this.categoryList = response.body.filter(x => x.isDeleted == false);
       }
     );
   }
-
 
   getServices(): void {
-    this.ngxService.start();
     this.sharedService.getServices('').subscribe(
-      (response: any) => {
+      response => {
+        debugger
         this.serviceList = response.body.filter(x => x.isDeleted == false);
-        this.ngxService.stop();
-      },
-      (error) => {
-        this.ngxService.stop();
-        this.sweetAlertService.sweetAlert('', error, 'error', false);
       }
     );
   }
 
-
   verifyServiceProvider(serviceProvider: User) {
+    this.isEdit = true;
     this.ngxService.start();
     this.serviceProviderService.verifyServiceProvider(serviceProvider.id).subscribe(res => {
       this.getServiceProviders();
@@ -119,34 +106,44 @@ export class ServiceProviderRequestComponent implements OnInit {
   }
 
   deleteServiceProvider(serviceProvider: User) {
-    this.ngxService.start();
-    this.serviceProviderService.deleteServiceProvider(serviceProvider.id).subscribe(res => {
-      this.getServiceProviders();
-      if (res.body) {
-        this.sweetAlertService.sweetAlert('Success', "Deleted Successfully!", 'success', false);
-      } else {
-        this.sweetAlertService.sweetAlert('Error', "Some error occured, not deleted!", 'error', false);
+    this.sweetAlertService.sweetAlertConfirm('Delete Confirm!', 'Are you sure you want to Delete?', 'warning', true).then(confirm => {
+      if (confirm.value === true) {
+        this.isEdit = true;
+        this.ngxService.start();
+        this.serviceProviderService.deleteServiceProvider(serviceProvider.id).subscribe(res => {
+          this.getServiceProviders();
+          if (res.body) {
+            this.sweetAlertService.sweetAlert('Success', "Deleted Successfully!", 'success', false);
+          } else {
+            this.sweetAlertService.sweetAlert('Error', "Some error occured, not deleted!", 'error', false);
+          }
+          this.ngxService.stop();
+        }, error => {
+          this.ngxService.stop();
+          this.sweetAlertService.sweetAlert('Error', error, 'error', false);
+        });
       }
-      this.ngxService.stop();
-    }, error => {
-      this.ngxService.stop(); this.sweetAlertService.sweetAlert('Error', error, 'error', false);
-
     });
   }
 
   blockServiceProvider(serviceProvider: User) {
-    this.ngxService.start();
-    this.serviceProviderService.blockServiceProvider(serviceProvider.id).subscribe(res => {
-      this.getServiceProviders();
-      if (res.body) {
-        this.sweetAlertService.sweetAlert('Success', "Blocked Successfully!", 'success', false);
-      } else {
-        this.sweetAlertService.sweetAlert('Error', "Some error occured, not blocked!", 'error', false);
+    this.sweetAlertService.sweetAlertConfirm('Block Confirm!', 'Are you sure you want to block?', 'warning', true).then(confirm => {
+      if (confirm.value === true) {
+        this.isEdit = true;
+        this.ngxService.start();
+        this.serviceProviderService.blockServiceProvider(serviceProvider.id).subscribe(res => {
+          this.getServiceProviders();
+          if (res.body) {
+            this.sweetAlertService.sweetAlert('Success', "Blocked Successfully!", 'success', false);
+          } else {
+            this.sweetAlertService.sweetAlert('Error', "Some error occured, not blocked!", 'error', false);
+          }
+          this.ngxService.stop();
+        }, error => {
+          this.ngxService.stop();
+          this.sweetAlertService.sweetAlert('Error', error, 'error', false);
+        });
       }
-      this.ngxService.stop();
-    }, error => {
-      this.ngxService.stop(); this.sweetAlertService.sweetAlert('Error', error, 'error', false);
-
     });
   }
 
@@ -159,7 +156,7 @@ export class ServiceProviderRequestComponent implements OnInit {
       responsive: true,
       lengthMenu: [5, 10, 15, 20, 25],
       columnDefs: [
-        { orderable: false, targets: 9 }
+        { orderable: false, targets: 8 }
       ]
     };
   }

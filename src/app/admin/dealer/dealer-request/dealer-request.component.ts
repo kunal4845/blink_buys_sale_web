@@ -97,34 +97,43 @@ export class DealerRequestComponent implements OnInit {
   }
 
   deleteDealer(dealer: User) {
-    this.ngxService.start();
-    this.dealerService.deleteDealer(dealer.id).subscribe(res => {
-      this.getDealers();
-      if (res.body) {
-        this.sweetAlertService.sweetAlert('Success', "Deleted Successfully!", 'success', false);
-      } else {
-        this.sweetAlertService.sweetAlert('Error', "Some error occured, not deleted!", 'error', false);
+    this.sweetAlertService.sweetAlertConfirm('Delete Confirm!', 'Are you sure you want to Delete?', 'warning', true).then(confirm => {
+      if (confirm.value === true) {
+        this.isEdit = true;
+        this.ngxService.start();
+        this.dealerService.deleteDealer(dealer.id).subscribe(res => {
+          this.getDealers();
+          if (res.body) {
+            this.sweetAlertService.sweetAlert('Success', "Deleted Successfully!", 'success', false);
+          } else {
+            this.sweetAlertService.sweetAlert('Error', "Some error occured, not deleted!", 'error', false);
+          }
+          this.ngxService.stop();
+        }, error => {
+          this.ngxService.stop(); this.sweetAlertService.sweetAlert('Error', error, 'error', false);
+        });
       }
-      this.ngxService.stop();
-    }, error => {
-      this.ngxService.stop(); this.sweetAlertService.sweetAlert('Error', error, 'error', false);
-
     });
   }
 
   blockDealer(dealer: User) {
-    this.ngxService.start();
-    this.dealerService.blockDealer(dealer.id).subscribe(res => {
-      this.getDealers();
-      if (res.body) {
-        this.sweetAlertService.sweetAlert('Success', "Blocked Successfully!", 'success', false);
-      } else {
-        this.sweetAlertService.sweetAlert('Error', "Some error occured, not blocked!", 'error', false);
-      }
-      this.ngxService.stop();
-    }, error => {
-      this.ngxService.stop(); this.sweetAlertService.sweetAlert('Error', error, 'error', false);
+    this.sweetAlertService.sweetAlertConfirm('Block Confirm!', 'Are you sure you want to block?', 'warning', true).then(confirm => {
+      if (confirm.value === true) {
+        this.isEdit = true;
+        this.ngxService.start();
+        this.dealerService.blockDealer(dealer.id).subscribe(res => {
+          this.getDealers();
+          if (res.body) {
+            this.sweetAlertService.sweetAlert('Success', "Dealer Blocked Successfully!", 'success', false);
+          } else {
+            this.sweetAlertService.sweetAlert('Error', "Some error occured, not blocked!", 'error', false);
+          }
+          this.ngxService.stop();
+        }, error => {
+          this.ngxService.stop(); this.sweetAlertService.sweetAlert('Error', error, 'error', false);
 
+        });
+      }
     });
   }
 
@@ -137,7 +146,7 @@ export class DealerRequestComponent implements OnInit {
       responsive: true,
       lengthMenu: [5, 10, 15, 20, 25],
       columnDefs: [
-        { orderable: false, targets: 9 }
+        { orderable: false, targets: 8 }
       ]
     };
   }

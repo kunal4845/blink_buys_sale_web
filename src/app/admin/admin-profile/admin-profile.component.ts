@@ -17,6 +17,7 @@ export class AdminProfileComponent implements OnInit {
   categoryList: CategoryModel[] = [];
   previewUrl_image: any = null;
   previewUrl_idProof: any = null;
+  previewUrl_CancelledCheque: any = null;
   passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{9,})/;
   password: string = '';
   newPassword: string = '';
@@ -58,7 +59,11 @@ export class AdminProfileComponent implements OnInit {
         debugger
         this.user = userResponse.body;
         this.previewUrl_image = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.user.image) as any).changingThisBreaksApplicationSecurity;
+
         this.previewUrl_idProof = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.user.idProofPath) as any).changingThisBreaksApplicationSecurity;
+
+        this.previewUrl_CancelledCheque = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.user.cancelledChequePath) as any).changingThisBreaksApplicationSecurity;
+
         this.ngxService.stop();
       },
       error => {
@@ -66,6 +71,32 @@ export class AdminProfileComponent implements OnInit {
         this.sweetAlertService.sweetAlert('', error.statusText, 'error', false);
       }
     );
+  }
+
+  changeProfile(fileInput: any) {
+
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const file = fileInput.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.previewUrl_image = reader.result;
+      reader.readAsDataURL(file);
+    }
+
+    this.ngxService.start();
+
+    this.adminService.updateProfileImage(<File>fileInput.target.files[0]).subscribe(
+      userResponse => {
+
+        this.sweetAlertService.sweetAlert('Success', "Updated successfully!", 'success', false);
+
+        this.ngxService.stop();
+      },
+      error => {
+        this.ngxService.stop();
+        this.sweetAlertService.sweetAlert('', error.statusText, 'error', false);
+      }
+    );
+
   }
 
   onSubmit(): void {

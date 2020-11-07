@@ -26,13 +26,13 @@ export class DashboardComponent implements OnInit {
 
   mytime: Date = new Date();
   isTodayOff: boolean = false;
-  serviceProviderAvailability = new ServiceProviderAvailability();
+  serviceProviderAvailability: ServiceProviderAvailability;
   constructor(private ngxService: NgxUiLoaderService,
     private dealerService: DealerService,
     private loginService: LoginService,
     private providerService: ServiceProviderService,
     private sweetAlertService: SweetAlertService) {
-
+    this.serviceProviderAvailability = new ServiceProviderAvailability()
   }
 
   ngOnInit(): void {
@@ -138,8 +138,12 @@ export class DashboardComponent implements OnInit {
       userResponse => {
         debugger;
         this.serviceProviderAvailability = userResponse.body;
-        this.selectedItems = JSON.parse(this.serviceProviderAvailability.days);
-        this.isTodayOff = this.serviceProviderAvailability.isActive;
+        if (this.serviceProviderAvailability) {
+          this.selectedItems = JSON.parse(this.serviceProviderAvailability.days);
+          this.isTodayOff = this.serviceProviderAvailability.isActive;
+        } else {
+          this.serviceProviderAvailability = new ServiceProviderAvailability();
+        }
       },
       error => {
         this.sweetAlertService.sweetAlert('', error.statusText, 'error', false);

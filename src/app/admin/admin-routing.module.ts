@@ -14,6 +14,7 @@ import { CategoryComponent } from './category/category.component';
 import { DealerComponent } from './dealer/dealer.component';
 import { ServiceProviderComponent } from './service-provider/service-provider.component';
 import { BookedServicesComponent } from './services/booked-services/booked-services.component';
+import { MyServicesComponent } from './services/my-services/my-services.component';
 
 
 
@@ -35,6 +36,7 @@ const routes: Routes = [
             { path: 'dealer-detail/:id', component: DealerComponent },
             { path: 'serviceProvider-detail/:id', component: ServiceProviderComponent },
             { path: 'booked-services', component: BookedServicesComponent },
+            { path: 'my-services/:id', component: MyServicesComponent },
 
         ]
     }

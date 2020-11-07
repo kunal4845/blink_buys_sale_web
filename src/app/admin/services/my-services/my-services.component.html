@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Booked Services
+        My Services
     </h1>
 </section>
 
@@ -17,15 +17,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Service Provider</th>
-                                <th>Service Name</th>
                                 <th>Customer</th>
                                 <th>Location</th>
-                                <!-- <th>Active</th> -->
-                                <th>Rejected by Admin</th>
-                                <th>Rejected by Service Provider</th>
-                                <th>Approved by Service Provider</th>
-                                <th>Cancelled by User</th>
+                                <th>Is Approved</th>
+                                <th>Is Rejected</th>
+                                <th>Is Cancelled by User</th>
                                 <th>Created on</th>
                                 <th>Action</th>
                             </tr>
@@ -33,21 +29,6 @@
                         <tbody>
                             <tr *ngFor="let service of bookedServices; let i = index;">
                                 <td>{{i+1}}</td>
-                                <td>
-                                    <ng-container *ngFor="let serviceProvider of userList;">
-                                        <ng-container *ngIf="serviceProvider.id == service.serviceProviderId">
-                                            {{serviceProvider.name}}
-                                        </ng-container>
-                                    </ng-container>
-                                </td>
-
-                                <td>
-                                    <ng-container *ngFor="let mainService of serviceList;">
-                                        <ng-container *ngIf="mainService.id == service.serviceId">
-                                            {{mainService.serviceName}}
-                                        </ng-container>
-                                    </ng-container>
-                                </td>
 
                                 <td>
                                     <ng-container *ngFor="let user of userList;">
@@ -64,17 +45,10 @@
                                         </ng-container>
                                     </ng-container>
                                 </td>
-
-                                <!-- <td>{{service.isActive}}</td> -->
-                                <!-- <td>{{service.isRejected}}</td>
-                                <td>{{service.isCancelled}}</td> -->
-                                <td>{{service.isRejectedByAdmin}}</td>
                                 <td>{{service.isApprovedByServiceProvider}}</td>
                                 <td>{{service.isRejectedByServiceProvider}}</td>
                                 <td>{{service.isCancelledByUser}}</td>
-
                                 <td>{{service.createdDt | date: 'dd-MMM-yyyy'}}</td>
-
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" (click)="reject(service)" class="btn btn-danger btn-space"
@@ -85,11 +59,16 @@
                                             class="btn btn-warning btn-space" title="Approve"><i
                                                 class="fa fa-check"></i>
                                         </button>
+
+                                        <button type="button" (click)="customerDetails(service)"
+                                            class="btn btn-info btn-space" title="Customer Details"><i
+                                                class="fa fa-info-circle"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
                             <tr *ngIf="bookedServices?.length < 1">
-                                <td colspan="11">No record found</td>
+                                <td colspan="8">No record found</td>
                             </tr>
                         </tbody>
                     </table>
@@ -103,40 +82,40 @@
 <div class="modal" role="dialog" [ngStyle]="{'display':display}">
     <div class="modal-dialog">
         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="onCloseHandled()">&times;</button>
+                <h4 class="modal-title">Customer Details</h4>
+            </div>
             <div class="modal-body">
-                <form #form="ngForm" (ngSubmit)="create();" novalidate>
-
+                <form #form="ngForm" novalidate>
                     <div class="form-group">
-                        <label for="">Assign Service Provider:<span>*</span></label>
+                        <label for="">Customer Name: {{user.name}}</label><br />
+                        <label for="">State:
+                            <ng-container *ngFor="let state of states;">
+                                <ng-container *ngIf="state.id == user.stateId">
+                                    {{state.stateName}}
+                                </ng-container>
+                            </ng-container>
+                        </label><br />
 
-                        <select class='form-control' disabled [value]='selectedState.id'>
-                            <option *ngFor="let state of states;" value="{{state.id}}">
-                                {{state.stateName}}
-                            </option>
-                        </select>
+                        <label for="">City:
+                            <ng-container *ngFor="let city of cities;">
+                                <ng-container *ngIf="city.id == user.cityId">
+                                    {{city.cityName}}
+                                </ng-container>
+                            </ng-container>
+                        </label>
                         <br />
 
-                        <select class='form-control' disabled [value]='selectedCity.id'>
-                            <option *ngFor="let city of cities;" value="{{city.id}}">
-                                {{city.cityName}}
-                            </option>
-                        </select>
-
+                        <label for="">Address: {{user.address}}</label><br />
+                        <label for="">Street Address: {{user.streetAddress}}</label><br />
+                        <label for="">Mobile: {{user.contactNumber}}</label><br />
+                        <label for="">Payment mode: N/A</label><br />
+                        <label for="">Service Completed on: N/A</label>
                         <br />
-                        <select class="form-control" id="user" name="userId" required #SelectedUser="ngModel"
-                            [(ngModel)]="selectedUserId">
-                            <option selected value="">-- Select Service Provider --</option>
-                            <option *ngFor="let user of serviceProviderList;" value="{{user.id}}">
-                                {{user.name}}
-                            </option>
-                        </select>
-
                     </div>
-
-                    <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Assign</button>
-                     <button type="button" class="btn btn-primary" (click)="onCloseHandled()">Cancel</button>
+                     <button type="button" class="btn btn-primary" (click)="onCloseHandled()">Close</button>
                 </form>
-                     
             </div>
         </div>
     </div>

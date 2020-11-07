@@ -179,7 +179,6 @@ export class RegisterComponent implements OnInit {
       }
     } else {
       this.ngxService.stop();
-
       this.sweetAlertService.sweetAlert('Warning', "Fill up the mandatory fields!!", 'warn', false);
     }
   }

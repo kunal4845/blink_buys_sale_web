@@ -2,12 +2,10 @@ export class ServiceModel {
     id: number;
     serviceName: string;
     description: string;
-
     isActive: boolean;
     isDeleted: boolean;
     createdDt: Date;
     serviceIcon: string;
-
     constructor() {
         this.id = 0;
         this.serviceName = ''; this.serviceIcon = '';
@@ -28,8 +26,12 @@ export class BookedServiceModel {
     isDeleted: boolean;
     createdDt: Date;
     cityId: number;
-    isRejected: boolean;
-    isCancelled: boolean;
+    isRejectedByAdmin: boolean;
+    isApprovedByAdmin: boolean;
+    isRejectedByServiceProvider: boolean;
+    isApprovedByServiceProvider: boolean;
+    isCancelledByUser: boolean;
+
     constructor() {
         this.bookedServiceId = 0;
         this.serviceProviderId = 0;
@@ -39,5 +41,10 @@ export class BookedServiceModel {
         this.isDeleted = false;
         this.createdDt = new Date();
         this.cityId = 0;
+        this.isApprovedByAdmin = false;
+        this.isApprovedByServiceProvider = false;
+        this.isCancelledByUser = false;
+        this.isRejectedByAdmin = false;
+        this.isRejectedByServiceProvider = false;
     }
 }

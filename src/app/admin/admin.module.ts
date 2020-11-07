@@ -31,6 +31,7 @@ import { ServiceProviderComponent } from './service-provider/service-provider.co
 import { BookedServicesComponent } from './services/booked-services/booked-services.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { MyServicesComponent } from './services/my-services/my-services.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -57,7 +58,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     CategoryComponent,
     DealerComponent,
     ServiceProviderComponent,
-    BookedServicesComponent
+    BookedServicesComponent,
+    MyServicesComponent
   ],
   imports: [
     FormsModule,

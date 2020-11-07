@@ -1,1 +1,142 @@
-<p>service-provider works!</p>
+<section class="content-header">
+    <h1>
+        Service Provider
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="javascript:;"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Service Provider Detail</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Service Provider Detail</h3>
+        </div>
+
+        <div class="box-body">
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">State:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">
+                        <ng-container *ngFor="let state of states;">
+                            <ng-container *ngIf="state.id == serviceProvider.stateId">
+                                {{state.stateName}}
+                            </ng-container>
+                        </ng-container>
+
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">City:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">
+                        <ng-container *ngFor="let city of cities;">
+                            <ng-container *ngIf="city.id == serviceProvider.cityId">
+                                {{city.cityName}}
+                            </ng-container>
+                        </ng-container>
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Name:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">{{serviceProvider.name}}</label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Father Name:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">{{serviceProvider.fatherName}}</label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Gender:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">{{serviceProvider.gender}}</label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Contact Number:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">{{serviceProvider.contactNumber}}</label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Email:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">{{serviceProvider.email}}</label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Address:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">{{serviceProvider.address}}</label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Qualification:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">{{serviceProvider.qualification}}</label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Service Name:</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">
+                        <ng-container *ngFor="let service of serviceList;">
+                            <ng-container *ngIf="service.id == serviceProvider.serviceId">
+                                {{service.serviceName}}
+                            </ng-container>
+                        </ng-container>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Service Sub Category :</span>
+                <div class="col-sm-10">
+                    <label for="inputName" class="control-label">
+                        <ng-container *ngFor="let category of categoryList;">
+                            <ng-container *ngIf="category.id == serviceProvider.serviceSubCategoryId">
+                                {{category.categoryName}}
+                            </ng-container>
+                        </ng-container>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Id Proof:</span>
+                <div class="col-sm-10">
+                    <img id="blah" [src]="previewUrl_idProofPath" alt="No img"
+                        style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <span for="inputName" class="col-sm-2 control-label">Registration Date:</span>
+                <div class="col-sm-10">
+                    <label for="inputName"
+                        class=" control-label">{{serviceProvider.createdDt | date: 'dd-MMM-yyyy'}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ngx-ui-loader></ngx-ui-loader>

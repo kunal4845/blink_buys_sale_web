@@ -36,7 +36,7 @@ export class LoginService {
     formData.append('RoleId', user.roleId.toString());
     formData.append('Password', user.password);
     formData.append('IdProofPath', selectedIdFile);
-    formData.append('Image', selectedImageFile);
+    formData.append('CancelledCheque', selectedImageFile);
 
     return this.http.post<User>(`${APIURL}/account/signUp`, formData, {
       observe: "response"

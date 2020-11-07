@@ -30,8 +30,8 @@ export class ServiceProviderRegisterComponent implements OnInit {
   isGst: boolean = false;
   selectedImageFile: File = null;
   selectedIdFile: File = null;
-  previewUrl1: any = null;
-  previewUrl2: any = null;
+  previewUrlImage: any = null;
+  previewUrlId: any = null;
   spinner: boolean = false;
   isEmailExists: boolean = false;
   user: User;
@@ -115,21 +115,23 @@ export class ServiceProviderRegisterComponent implements OnInit {
   }
 
   uploadImage(fileInput: any) {
+    this.previewUrlImage = '';
     this.selectedImageFile = <File>fileInput.target.files[0];
     if (fileInput.target.files && fileInput.target.files[0]) {
       const file = fileInput.target.files[0];
       const reader = new FileReader();
-      reader.onload = e => this.previewUrl1 = reader.result;
+      reader.onload = e => this.previewUrlImage = reader.result;
       reader.readAsDataURL(file);
     }
   }
 
   uploadId(fileInput: any) {
+    this.previewUrlId = '';
     this.selectedIdFile = <File>fileInput.target.files[0];
     if (fileInput.target.files && fileInput.target.files[0]) {
       const file = fileInput.target.files[0];
       const reader = new FileReader();
-      reader.onload = e => this.previewUrl2 = reader.result;
+      reader.onload = e => this.previewUrlId = reader.result;
       reader.readAsDataURL(file);
     }
   }
@@ -162,7 +164,7 @@ export class ServiceProviderRegisterComponent implements OnInit {
     if (!this.isEmailExists && this.selectedIdFile != null && this.selectedIdFile != undefined && this.selectedImageFile != null && this.selectedImageFile != undefined) {
       this.ngxService.start();
       this.user.roleId = roleType.ServiceProvider;
-      this.loginService.register(this.user, this.selectedIdFile, this.selectedImageFile).subscribe(
+      this.loginService.registerServiceProvider(this.user, this.selectedIdFile, this.selectedImageFile).subscribe(
         (userResponse: any) => {
           if (userResponse.status === 200) {
             localStorage.setItem("token", userResponse.body.token);

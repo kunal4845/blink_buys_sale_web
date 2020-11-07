@@ -29,7 +29,8 @@ export class ServiceProviderLoginComponent implements OnInit {
     this.user = new User();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   signIn(): void {
     if (this.user.email != "" && this.user.password != "") {

@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from '../../../login/login.interface';
 import { SweetAlertService } from '../../../shared/alert/sweetalert.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryModel } from '../../category/category.model';
 import { AdminService } from '../../admin.service';
 import { BookedServiceModel, ServiceModel } from '../admin-services.model';
@@ -14,13 +13,15 @@ import { LocationService } from 'src/app/user/location/location.service';
 import { City } from 'src/app/user/location/city.model';
 import { State } from 'src/app/user/location/state.model';
 import { roleType } from 'src/app/shared/globalConstants';
+import { LoginService } from 'src/app/login/loginservice';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-booked-services',
-  templateUrl: './booked-services.component.html',
-  styleUrls: ['./booked-services.component.scss']
+  selector: 'app-my-services',
+  templateUrl: './my-services.component.html',
+  styleUrls: ['./my-services.component.scss']
 })
-export class BookedServicesComponent implements OnInit {
+export class MyServicesComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<User> = new Subject();
@@ -34,18 +35,21 @@ export class BookedServicesComponent implements OnInit {
   serviceProviderList: User[];
   cities: City[];
   states: State[];
-  selectedUserId: number;
   selectedCity: City;
   selectedState: State;
-  bookedService = new BookedServiceModel();
+  userId: number;
+  user = new User();
+  serviceProviderId: number;
 
   constructor(
     private ngxService: NgxUiLoaderService,
     private sweetAlertService: SweetAlertService,
     private adminService: AdminService,
     private _dataService: LocationService,
+    private sharedService: SharedService,
     private providerService: ServiceProviderService,
-    public _DomSanitizationService: DomSanitizer
+    private loginService: LoginService,
+    private route: ActivatedRoute,
   ) {
     this.dtTrigger = new Subject();
     this.selectedCity = new City(0, 0, '');
@@ -55,24 +59,29 @@ export class BookedServicesComponent implements OnInit {
     this.getUsers();
     this.getCities();
     this.getStates();
+
+    this.route.params.subscribe(params => {
+      this.serviceProviderId = params['id'];
+      this.getBookedServices();
+    });
   }
 
   ngOnInit(): void {
     this.initDataTable();
-    this.getBookedServices();
   }
 
   getBookedServices() {
     this.ngxService.start();
     this.adminService.getBookedServices('').subscribe(list => {
-      this.bookedServices = list.body.filter(i => i.isDeleted == false);
-
+      debugger
       if (!this.isEdit) {
         this.dtTrigger.next();
       } else {
         this.reRender();
       }
       this.ngxService.stop();
+      this.bookedServices = list.body.filter(i => !i.isDeleted && i.serviceProviderId == +this.serviceProviderId);
+
     }, error => {
       this.ngxService.stop();
       this.sweetAlertService.sweetAlert('Error', error, 'error', false);
@@ -81,14 +90,14 @@ export class BookedServicesComponent implements OnInit {
 
   getServices() {
     this.adminService.get('').subscribe(res => {
-      this.serviceList = res.body.filter(x => x.isDeleted == false);
+      this.serviceList = res.body.filter(x => !x.isDeleted);
     });
   }
 
   getUsers() {
     this.providerService.getServiceProviders().subscribe(list => {
-      this.serviceProviderList = list.body.filter(i => i.isDeleted == false && i.roleId === roleType.ServiceProvider);
-      this.userList = list.body.filter(i => i.isDeleted == false);
+      this.serviceProviderList = list.body.filter(i => !i.isDeleted && i.roleId === roleType.ServiceProvider);
+      this.userList = list.body.filter(i => !i.isDeleted);
     });
   }
 
@@ -113,7 +122,7 @@ export class BookedServicesComponent implements OnInit {
       if (confirm.value === true) {
         this.isEdit = true;
         this.ngxService.start();
-        this.adminService.rejectService(service.bookedServiceId).subscribe(res => {
+        this.adminService.rejectedByServiceProvider(service.bookedServiceId).subscribe(res => {
           this.sweetAlertService.sweetAlert('Success', 'Service rejected successfully!', 'success', false);
           this.getBookedServices();
           this.display = 'none';
@@ -126,25 +135,29 @@ export class BookedServicesComponent implements OnInit {
   }
 
   approve(service: BookedServiceModel) {
-    this.selectedCity = this.cities.filter(x => x.id == service.cityId)[0];
-    if (this.selectedCity) {
-      this.selectedState = this.states.filter(x => x.id == this.selectedCity.stateId)[0];
-    }
-    this.bookedService.bookedServiceId = service.bookedServiceId;
-    this.bookedService.serviceId = service.serviceId;
-    this.bookedService.cityId = service.cityId;
-    this.bookedService.isApprovedByAdmin = true;
-    this.display = 'block';
+    this.sweetAlertService.sweetAlertConfirm('Approve Confirm!', 'Are you sure you want to approve?', 'warning', true).then(confirm => {
+      if (confirm.value === true) {
+        this.isEdit = true;
+        this.ngxService.start();
+        this.adminService.approvedByServiceProvider(service.bookedServiceId).subscribe(res => {
+          this.sweetAlertService.sweetAlert('Success', 'Service accepted successfully!', 'success', false);
+          this.getBookedServices();
+          this.display = 'none';
+        }, error => {
+          this.ngxService.stop();
+          this.sweetAlertService.sweetAlert('Error', 'Something went wrong!', 'error', false);
+        });
+      }
+    });
   }
 
-  create(): void {
+  customerDetails(service: BookedServiceModel) {
+    this.display = 'block';
     this.ngxService.start();
-    this.bookedService.serviceProviderId = this.selectedUserId;
-    this.isEdit = true;
-    this.adminService.assignServiceProvider(this.bookedService).subscribe(res => {
-      this.sweetAlertService.sweetAlert('Success', 'Service provider assigned successfully!', 'success', false);
-      this.getBookedServices();
-      this.display = 'none';
+    this.sharedService.getUserById(service.userId).subscribe(res => {
+      this.ngxService.stop();
+      this.user = res.body;
+
     }, error => {
       this.ngxService.stop();
       this.sweetAlertService.sweetAlert('Error', 'Something went wrong!', 'error', false);
@@ -164,7 +177,7 @@ export class BookedServicesComponent implements OnInit {
       responsive: true,
       lengthMenu: [5, 10, 15, 20, 25],
       columnDefs: [
-        { orderable: false, targets: 10 }
+        { orderable: false, targets: 7 }
       ]
     };
   }

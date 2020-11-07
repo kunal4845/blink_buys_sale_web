@@ -54,6 +54,14 @@ export class SharedService {
         });
     }
 
+
+    getUserById(userId: number): Observable<HttpResponse<User>> {
+        return this.http.get<User>(`${APIURL}/shared/getUserById/${userId}`, {
+            observe: "response"
+        });
+    }
+
+
     getServices(serviceId: string): Observable<HttpResponse<ServiceModel[]>> {
         return this.http.get<ServiceModel[]>(`${APIURL}/service/${serviceId}`, {
             observe: "response"

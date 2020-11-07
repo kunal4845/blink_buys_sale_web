@@ -65,6 +65,18 @@ export class AdminService {
     });
   }
 
+
+  updateProfileImage(file: File): Observable<HttpResponse<boolean>> {
+    const formData = new FormData();
+
+    formData.append('image', file, file.name);
+
+    return this.http.post<boolean>(`${APIURL}/user/update-profile-image`, formData, {
+      observe: "response"
+    });
+  }
+
+
   getBookedServices(bookedServiceId: string): Observable<HttpResponse<BookedServiceModel[]>> {
     return this.http.get<BookedServiceModel[]>(`${APIURL}/service/booked/${bookedServiceId}`, {
       observe: "response"
@@ -83,4 +95,15 @@ export class AdminService {
     });
   }
 
+  rejectedByServiceProvider(bookedServiceId: number): Observable<HttpResponse<BookedServiceModel[]>> {
+    return this.http.get<BookedServiceModel[]>(`${APIURL}/service/rejectedByServiceProvider/${bookedServiceId}`, {
+      observe: "response"
+    });
+  }
+
+  approvedByServiceProvider(bookedServiceId: number): Observable<HttpResponse<BookedServiceModel[]>> {
+    return this.http.get<BookedServiceModel[]>(`${APIURL}/service/approvedByServiceProvider/${bookedServiceId}`, {
+      observe: "response"
+    });
+  }
 }
