@@ -1,0 +1,97 @@
+<!-- <section class="content-header">
+    <h1>
+        Booked Services
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Booked Services</h3>
+                </div>
+                <div class="box-body table-responsive">
+                    <table id="tblBuilding" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                        class="table table-bordered table-striped table-level">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Dealer</th>
+                                <th>Service Name</th>
+                                <th>Customer</th>
+                                <th>Cancelled by User</th>
+                                <th>Created on</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let service of bookedServices; let i = index;">
+                                <tr>
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <ng-container *ngIf="service.serviceProviderId == null;else other_content">
+                                            Not assigned
+                                        </ng-container>
+                                        <ng-template #other_content>
+                                            <ng-container *ngFor="let serviceProvider of userList;">
+                                                <ng-container *ngIf="serviceProvider.id == service.serviceProviderId">
+                                                    {{serviceProvider.name}}
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-template>
+                                    </td>
+
+                                    <td>
+                                        <ng-container *ngFor="let mainService of serviceList;">
+                                            <ng-container *ngIf="mainService.id == service.serviceId">
+                                                {{mainService.serviceName}}
+                                            </ng-container>
+                                        </ng-container>
+                                    </td>
+
+                                    <td>
+                                        <ng-container *ngFor="let user of userList;">
+                                            <ng-container *ngIf="user.id == service.userId">
+                                                {{user.name}}
+                                            </ng-container>
+                                        </ng-container>
+                                    </td>
+
+                                    <td>{{service.isCancelledByUser?'Yes':'No'}}</td>
+                                    <td>{{service.createdDt | date: 'dd-MMM-yyyy'}}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" (click)="reject(service)"
+                                                class="btn btn-danger btn-space" title="Reject Request"><i
+                                                    class="fa fa-remove"></i>
+                                            </button>
+
+                                            <button type="button" (click)="approve(service)"
+                                                class="btn btn-warning btn-space" title="Assign Service Provider"><i
+                                                    class="fa fa-check"></i>
+                                            </button>
+
+                                            <button type="button" (click)="viewDetails(service)"
+                                                class="btn btn-info btn-space" title="View Customer Details"><i
+                                                    class="fa fa-info"></i>
+                                            </button>
+
+                                            <button type="button" (click)="openStatusUpdateModel(service)"
+                                                class="btn btn-info btn-space"
+                                                title="Update Delivery & Payment Status"><i class="fa fa-check"></i>
+                                            </button>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ngx-ui-loader></ngx-ui-loader> -->

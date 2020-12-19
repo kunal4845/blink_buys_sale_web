@@ -32,6 +32,7 @@ export class AddServiceComponent implements OnInit {
   serviceName: string = '';
   description: string = '';
   previewUrl: any = null;
+  price: number;
 
   constructor(private adminService: AdminService,
     private sweetAlertService: SweetAlertService,
@@ -54,7 +55,7 @@ export class AddServiceComponent implements OnInit {
       } else {
         this.reRender();
       }
-      this.serviceList = res.body.filter(x => x.isDeleted == false);
+      this.serviceList = res.body.filter(x => !x.isDeleted && x.isActive);
       this.ngxService.stop();
     }, error => {
       this.ngxService.stop();
@@ -81,6 +82,7 @@ export class AddServiceComponent implements OnInit {
   }
 
   clear() {
+    this.price = 0;
     this.serviceName = '';
     this.description = '';
     this.myInputVariable.nativeElement.value = "";
@@ -96,7 +98,9 @@ export class AddServiceComponent implements OnInit {
   edit(service: ServiceModel) {
     this.serviceName = service.serviceName;
     this.description = service.description;
-    this.previewUrl = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(service.serviceIcon) as any).changingThisBreaksApplicationSecurity;
+    this.previewUrl = service.serviceIcon;
+    this.price = service.price;
+    // 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(service.serviceIcon) as any).changingThisBreaksApplicationSecurity;
     this.serviceId = service.id.toString();
     this.openModal();
   }
@@ -133,7 +137,8 @@ export class AddServiceComponent implements OnInit {
       formData.append('Id', this.serviceId);
       formData.append('ServiceName', this.serviceName);
       formData.append('Description', this.description);
-      this.ngxService.start(); 
+      formData.append('Price', this.price.toString());
+      this.ngxService.start();
       this.isEdit = true;
 
       this.adminService.post(formData).subscribe(j => {
@@ -149,7 +154,9 @@ export class AddServiceComponent implements OnInit {
       this.service.serviceName = this.serviceName;
       this.service.description = this.description;
       this.service.serviceIcon = this.previewUrl;
-      this.ngxService.start(); 
+      this.service.price = this.price;
+
+      this.ngxService.start();
       this.isEdit = true;
 
       this.adminService.postService(this.service).subscribe(j => {
@@ -171,7 +178,7 @@ export class AddServiceComponent implements OnInit {
       responsive: true,
       lengthMenu: [5, 10, 15, 20, 25],
       columnDefs: [
-        { orderable: false, targets: 3 }
+        { orderable: false, targets: 4 }
       ]
     };
   }

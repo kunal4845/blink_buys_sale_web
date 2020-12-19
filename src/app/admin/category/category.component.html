@@ -29,7 +29,7 @@
                                 <td>
                                     <a (click)="edit(category)" href="javascript:;">{{category.categoryName}}</a>
                                 </td>
-                                <td>{{category.description}}</td>
+                                <td style="width: 75%;">{{category.description}}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-info margin-right"
@@ -40,9 +40,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="categoryList?.length < 1">
-                                <td colspan="4">No record found</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>

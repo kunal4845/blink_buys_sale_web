@@ -6,9 +6,9 @@ import { User } from 'src/app/login/login.interface';
 import { roleType } from 'src/app/shared/globalConstants';
 import { DealerService } from '../dealer.service';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
-import { ProductService } from '../../products/product.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryModel } from '../../category/category.model';
+import { CategoryService } from '../../category/category.service';
 
 @Component({
   selector: 'app-dealer-request',
@@ -26,8 +26,13 @@ export class DealerRequestComponent implements OnInit {
   previewUrl: any = null;
   title: string;
 
-  constructor(private ngxService: NgxUiLoaderService, private dealerService: DealerService, private sweetAlertService: SweetAlertService, private productService: ProductService,
-    public _DomSanitizationService: DomSanitizer) {
+  constructor(
+    private ngxService: NgxUiLoaderService,
+    private dealerService: DealerService,
+    private sweetAlertService: SweetAlertService,
+    public _DomSanitizationService: DomSanitizer,
+    private categoryService: CategoryService
+  ) {
     this.dtTrigger = new Subject();
     this.getProductCategory();
   }
@@ -39,11 +44,11 @@ export class DealerRequestComponent implements OnInit {
   }
 
   preview(file: any, title: string) {
-    debugger
-    this.title = title;
-    this.previewUrl = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(file) as any).changingThisBreaksApplicationSecurity;
-  }
 
+    this.title = title;
+    this.previewUrl = file;
+    // 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(file) as any).changingThisBreaksApplicationSecurity;
+  }
 
   getDealers() {
     this.ngxService.start();
@@ -55,17 +60,16 @@ export class DealerRequestComponent implements OnInit {
       }
 
       this.ngxService.stop();
-      console.log(this.dealers);
       this.dealers = list.body.filter(i => i.roleId === roleType.Dealer && !i.isDeleted);
     }, error => {
-      this.ngxService.stop(); this.sweetAlertService.sweetAlert('Error', error, 'error', false);
-
+      this.ngxService.stop();
+      this.sweetAlertService.sweetAlert('Error', error, 'error', false);
     });
   }
 
   getProductCategory(): void {
     this.ngxService.start();
-    this.productService.getProductCategory('').subscribe(
+    this.categoryService.getProductCategory('').subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.categoryList = response.body;

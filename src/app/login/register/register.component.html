@@ -1,13 +1,11 @@
 <div class="register-box">
     <div class="register-logo">
-        <a href="javascript:;"><b>Blink and Buys</b></a>
+        <a href="javascript:;"><b>Blink and Buy</b></a>
     </div>
 
     <div class="register-box-body">
         <p class="login-box-msg">Register a new membership</p>
-
         <form #registerForm="ngForm" id="registerForm" novalidate>
-
             <show-errors [control]="State" [name]="'**State'"></show-errors>
             <div class="form-group has-feedback">
                 <select class="form-control" data-country="IN" id="state" name="state" required #State="ngModel"
@@ -17,7 +15,6 @@
                 </select>
             </div>
 
-
             <show-errors [control]="City" [name]="'**City'"></show-errors>
             <div class="form-group has-feedback">
                 <select class="form-control" [(ngModel)]="user.cityId" id="city" name="city" required #City="ngModel">
@@ -25,7 +22,7 @@
                     <option *ngFor="let city of cities " value={{city.id}}>{{city.cityName}}</option>
                 </select>
             </div>
-            
+
             <show-errors [control]="Name" [name]="'**Owner Name'"></show-errors>
             <div class="form-group has-feedback">
                 <input type="text" id="name" name="name" placeholder="Business Owner Full name**" class="form-control"
@@ -61,20 +58,12 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
-            <!-- <ng-container *ngIf="isEmailExists">
-                <b class="text-danger">
-                    Email already registered with the system.
-                </b>
-            </ng-container>
- -->
-
             <show-errors [control]="Address" [name]="'**Address'"></show-errors>
             <div class="form-group has-feedback">
                 <input type="text" id="address" name="address" placeholder="Address**" class="form-control" required
                     #Address="ngModel" [(ngModel)]="user.address" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-
 
             <div class="form-group has-feedback">
                 <input type="text" id="streetAddress" name="streetAddress" placeholder="Street Address"
@@ -89,7 +78,6 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
-
             <show-errors [control]="ProductCategory" [name]="'**Product Category'"></show-errors>
             <div class="form-group has-feedback">
                 <select class="form-control" id="productCategory" name="productCategory" required
@@ -99,7 +87,6 @@
                     </option>
                 </select>
             </div>
-
 
             <label>Is GST number available?</label><br />
             <input type="radio" [(ngModel)]="user.isGstAvailable" (click)="isGstAvailable()" required name="gst"
@@ -118,26 +105,23 @@
                 </ng-container>
             </div>
 
-            <show-errors [control]="AccountNumber" [name]="'**Account Number'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="accountNumber" name="accountNumber" placeholder="Account Number**"
-                    class="form-control" #AccountNumber="ngModel" [(ngModel)]="user.accountNumber" required />
+                <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number"
+                    class="form-control" [(ngModel)]="user.accountNumber" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
 
-            <show-errors [control]="AccountHolderName" [name]="'**Account Holder Name'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="accountHolderName" name="accountHolderName" placeholder="Account Holder Name**"
-                    class="form-control" #AccountHolderName="ngModel" [(ngModel)]="user.accountHolderName" required />
+                <input type="text" id="accountHolderName" name="accountHolderName"
+                    placeholder="Enter account holder name" class="form-control" [(ngModel)]="user.accountHolderName" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
 
-            <show-errors [control]="IfscCode" [name]="'**IFSC Code'"></show-errors>
             <div class="form-group has-feedback">
-                <input type="text" id="ifscCode" name="ifscCode" placeholder="IFSC Code**" class="form-control"
-                    #IfscCode="ngModel" [(ngModel)]="user.ifscCode" required />
+                <input type="text" id="ifscCode" name="ifscCode" placeholder="Enter IFSC Code" class="form-control"
+                    [(ngModel)]="user.ifscCode" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
@@ -152,7 +136,7 @@
                 <input type="file" (change)="uploadId($event)">
             </div>
 
-            
+
             <div class="form-group has-feedback">
                 <ng-container *ngIf="previewUrl1">
                     <img id="blah" [src]="previewUrl1" alt="img"

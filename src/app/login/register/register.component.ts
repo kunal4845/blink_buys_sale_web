@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
     this.ngxService.start();
     this.sharedService.getCategoryList('').subscribe(
       (response: any) => {
-        debugger
+        
         if (response.status === 200) {
           this.categoryList = response.body.filter(x => x.isDeleted == false);
         }
@@ -160,10 +160,10 @@ export class RegisterComponent implements OnInit {
         this.loginService.register(this.user, this.selectedIdFile, this.selectedChequeFile).subscribe(
           (userResponse: any) => {
             if (userResponse.status === 200) {
-              localStorage.setItem("token", userResponse.body.token);
-              this.sharedService.setLocalStorage("userInfo", userResponse.body);
+              // localStorage.setItem("token", userResponse.body.token);
+              // this.sharedService.setLocalStorage("userInfo", userResponse.body);
               registerForm.reset();
-              this.router.navigateByUrl("/admin/dashboard");
+              this.router.navigateByUrl("/dealer-login");
               this.sweetAlertService.sweetAlert('Success', "Registered successfully", 'success', false);
             }
             this.ngxService.stop();

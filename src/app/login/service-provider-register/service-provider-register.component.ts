@@ -11,7 +11,8 @@ import { State } from 'src/app/user/location/state.model';
 import { City } from 'src/app/user/location/city.model';
 import { LocationService } from 'src/app/user/location/location.service';
 import { ServiceModel } from 'src/app/admin/services/admin-services.model';
-import { CategoryModel } from 'src/app/admin/category/category.model';
+import { CategoryService } from 'src/app/admin/category/category.service';
+import { SubCategoryModel } from 'src/app/admin/category/sub-category/sub-category.model';
 
 @Component({
   selector: 'app-service-provider-register',
@@ -35,10 +36,14 @@ export class ServiceProviderRegisterComponent implements OnInit {
   spinner: boolean = false;
   isEmailExists: boolean = false;
   user: User;
-  categorList: CategoryModel[] = [];
+  subCategoryList: SubCategoryModel[] = [];
   states: State[];
   cities: City[];
   serviceList: ServiceModel[];
+
+  itemList = [];
+  selectedItems = [];
+  settings = {};
 
   genderList: Array<Object> = [
     { text: 'Male', value: 'Male' },
@@ -51,7 +56,8 @@ export class ServiceProviderRegisterComponent implements OnInit {
     private sweetAlertService: SweetAlertService,
     private sharedService: SharedService,
     private ngxService: NgxUiLoaderService,
-    private _dataService: LocationService
+    private _dataService: LocationService,
+    private categoryService: CategoryService
   ) {
     this.user = new User();
     this.getStates();
@@ -66,36 +72,62 @@ export class ServiceProviderRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProductCategory();
+    // this.itemList = [
+    // ];
+    this.selectedItems = [
+    ];
+
+    this.settings = {
+      text: "Select Service Sub Categories",
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      classes: "",
+      primaryKey: "id",
+      labelKey: "subCategoryName",
+      singleSelection: false,
+      badgeShowLimit: 4,
+      lazyLoading: true
+    };
+
     this.getServices();
+  }
+
+  onItemSelect(item: any) {
+  }
+
+  OnItemDeSelect(item: any) {
+  }
+
+  onSelectAll(items: any) {
+    this.selectedItems = items;
+  }
+
+  onDeSelectAll(items: any) {
   }
 
   getServices(): void {
     this.ngxService.start();
     this.sharedService.getServices('').subscribe(
-      (response: any) => {
+      response => {
         this.serviceList = response.body.filter(x => x.isDeleted == false);
         this.ngxService.stop();
       },
-      (error) => {
+      error => {
         this.ngxService.stop();
-        this.sweetAlertService.sweetAlert('', error, 'error', false);
       }
     );
   }
 
-  getProductCategory(): void {
+  onSelectService(id: number): void {
     this.ngxService.start();
-    this.sharedService.getCategoryList('').subscribe(
-      (response: any) => {
-        this.categorList = response.body.filter(x => x.isDeleted == false);
+    this.categoryService.getSubCategoryByService(id).subscribe(
+      response => {
         this.ngxService.stop();
-      },
-      (error) => {
-        this.ngxService.stop();
-        this.sweetAlertService.sweetAlert('', error, 'error', false);
+        this.itemList = response.body.filter(x => !x.isDeleted);
       }
-    );
+    ), error => {
+      this.ngxService.stop();
+    };
   }
 
   onSelect(countryId: number): void {
@@ -138,7 +170,6 @@ export class ServiceProviderRegisterComponent implements OnInit {
 
 
   checkEmailExists(email: string): void {
-    debugger
     if (email != "" && this.registerForm.controls.email.status == "VALID") {
       this.ngxService.start();
       this.loginService.checkEmailExists(email, roleType.ServiceProvider).subscribe(
@@ -160,17 +191,18 @@ export class ServiceProviderRegisterComponent implements OnInit {
 
 
   register(registerForm: NgForm) {
-    debugger
+
     if (!this.isEmailExists && this.selectedIdFile != null && this.selectedIdFile != undefined && this.selectedImageFile != null && this.selectedImageFile != undefined) {
       this.ngxService.start();
       this.user.roleId = roleType.ServiceProvider;
+      this.user.serviceSubCategoryId = JSON.stringify(this.selectedItems);
       this.loginService.registerServiceProvider(this.user, this.selectedIdFile, this.selectedImageFile).subscribe(
         (userResponse: any) => {
           if (userResponse.status === 200) {
-            localStorage.setItem("token", userResponse.body.token);
-            this.sharedService.setLocalStorage("userInfo", userResponse.body);
+            // localStorage.setItem("token", userResponse.body.token);
+            // this.sharedService.setLocalStorage("userInfo", userResponse.body);
             registerForm.reset();
-            this.router.navigateByUrl("/admin/dashboard");
+            this.router.navigateByUrl("/service-provider-login");
             this.sweetAlertService.sweetAlert('Success', "Registered successfully", 'success', false);
           }
           this.ngxService.stop();

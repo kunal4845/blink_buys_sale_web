@@ -1,0 +1,81 @@
+<div class="products">
+    <div class="container">
+        <div class="col-md-9 product-w3ls-right">
+            <ol class="breadcrumb breadcrumb1">
+                <li><a href="javascript:;" [routerLink]="['/user/dashboard']">Home</a></li>
+                <li class="active">Services</li>
+            </ol>
+            <div class="clearfix"> </div>
+            <div class="product-top">
+                <h4>Services</h4>
+                <ul>
+                    <li class="dropdown head-dpdn" [ngClass]="isOpen ? 'open' : ''" (click)="clickEvent()">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">Filter By<span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:;" (click)="sortByPrice('low')">Low price</a></li>
+                            <li><a href="javascript:;" (click)="sortByPrice('high')">High price</a></li>
+                            <li><a href="javascript:;" (click)="sortByPrice('latest')">Latest</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="products-row">
+                <div class="col-md-3 product-grids" *ngFor="let service of serviceList;let i = index;">
+                    <div class="agile-products">
+                        <a href="javascript:;" [routerLink]="['/user/service-detail',service.id]">
+                            <a href="javascript:;">
+                                <img [src]="service.serviceIcon" class="img-responsive" alt="">
+                            </a>
+                        </a>
+                        <div class="agile-product-text">
+                            <h5>
+                                <a href="javascript:;">{{service.serviceName}}</a>
+                            </h5>
+                            <h6>
+                                {{service.price | currency:"&#8377;"}}
+                            </h6>
+                            <form>
+                                <button class="w3ls-cart pw3ls-cart" (click)="addToCart(service)">
+                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                    Add to cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="col-md-3 rsidebar">
+            <div class="rsidebar-top">
+                <div class="slider-left">
+                    <h4>Filter By Price</h4>
+                    <div class="row row1 ">
+                        <label class="checkbox"><input type="checkbox" name="checkbox"
+                                (click)="sortByPrice('100')"><i></i>0
+                            - 100 </label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"
+                                (click)="sortByPrice('200')"><i></i>100 - 200 </label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"
+                                (click)="sortByPrice('250')"><i></i>200 - 250 </label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"
+                                (click)="sortByPrice('300')"><i></i>250 - 300 </label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"
+                                (click)="sortByPrice('400')"><i></i>350 - 400 </label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"
+                                (click)="sortByPrice('500')"><i></i>450 - 500 </label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"
+                                (click)="sortByPrice('more')"><i></i>More</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast position="top-right" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'20ms'"></p-toast>

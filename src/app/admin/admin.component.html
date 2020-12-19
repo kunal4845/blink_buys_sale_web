@@ -2,8 +2,8 @@
     <div class="wrapper" style="height: 100vh; min-height: 100%;">
         <header class="main-header">
             <a href="javascript:;" routerLink="/admin/dashboard" class="logo">
-                <span class="logo-mini"><b>Blink and Buys</b></span>
-                <span class="logo-lg"><b>Blink and Buys </b></span>
+                <span class="logo-mini"><b>Blink and Buy</b></span>
+                <span class="logo-lg"><b>Blink and Buy </b></span>
             </a>
             <nav class="navbar navbar-static-top">
                 <div class="nav-top-custom">
@@ -29,7 +29,7 @@
         <aside class="main-sidebar">
             <section class="sidebar">
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">Blink and Buys Section</li>
+                    <li class="header">Blink and Buy Section</li>
                     <li class="treeview" routerLinkActive="active">
                         <a [routerLink]="['/admin/dashboard']">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -37,88 +37,93 @@
                     </li>
 
                     <li class="treeview" routerLinkActive="active">
-                        <a href="javascript:;" [routerLink]="['./booked-services']">
-                            <i class="fa fa-th"></i> <span>Booked Service </span>
+                        <a href="javascript:;" [routerLink]="['./profile']">
+                            <i class="fa fa-user"></i> <span>My Profile</span>
                         </a>
                     </li>
 
-
-                    <li class="treeview" routerLinkActive="active">
-                        <a href="javascript:;" [routerLink]="['./my-services',user.id]">
-                            <i class="fa fa-th"></i> <span>My Service </span>
-                        </a>
-                    </li>
-
-                    <li class="treeview" routerLinkActive="active">
-                        <a href="javascript:;" [routerLink]="['./dealer-requests']">
-                            <i class="fa fa-th"></i> <span>Dealer Requests</span>
-                        </a>
-                    </li>
-
-                    <li class="treeview" routerLinkActive="active">
-                        <a href="javascript:;" [routerLink]="['./provider-requests']">
-                            <i class="fa fa-th"></i> <span>Service Provider Requests</span>
-                        </a>
-                    </li>
-
-                    <!-- <li class="treeview" routerLinkActive="active">
-                        <a href="javascript:;" [routerLink]="['./dealers']">
-                            <i class="fa fa-th"></i> <span>Dealer List</span>
-                        </a>
-                    </li> -->
-
-                    <li class="treeview" routerLinkActive="active">
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Admin'">
                         <a href="javascript:;" [routerLink]="['./services']">
                             <i class="fa fa-th"></i> <span>Add Service </span>
                         </a>
                     </li>
 
-                    <li class="treeview" routerLinkActive="active">
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Admin'">
                         <a href="javascript:;" [routerLink]="['./category']">
                             <i class="fa fa-th"></i> <span>Add Category </span>
                         </a>
                     </li>
 
-                    <li class="treeview" routerLinkActive="active">
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Admin'">
+                        <a href="javascript:;" [routerLink]="['./sub-category']">
+                            <i class="fa fa-th"></i> <span>Add Sub Category </span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active" *ngIf="user.roleId != 4">
+                        <a href="javascript:;" [routerLink]="['./add-product', 0]">
+                            <i class="fa fa-th"></i> <span>Add Product</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Admin'">
+                        <a href="javascript:;" [routerLink]="['./service-providers']">
+                            <i class="fa fa-th"></i> <span>Service Provider List</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Admin'">
+                        <a href="javascript:;" [routerLink]="['./provider-requests']">
+                            <i class="fa fa-th"></i> <span>Service Provider Requests</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Admin'">
+                        <a href="javascript:;" [routerLink]="['./dealers']">
+                            <i class="fa fa-th"></i> <span>Dealer List</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Admin'">
+                        <a href="javascript:;" [routerLink]="['./dealer-requests']">
+                            <i class="fa fa-th"></i> <span>Dealer Requests</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Admin'">
+                        <a href="javascript:;" [routerLink]="['./booked-services']">
+                            <i class="fa fa-th"></i> <span>Booked Services </span>
+                        </a>
+                    </li>
+
+
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Service Provider'">
+                        <a href="javascript:;" [routerLink]="['./my-services',user.id]">
+                            <i class="fa fa-th"></i> <span>My Services </span>
+                        </a>
+                    </li>
+
+
+
+                    <li class="treeview" routerLinkActive="active" *ngIf="user.roleId != 4">
                         <a href="javascript:;" [routerLink]="['./products']">
                             <i class="fa fa-th"></i> <span>Products</span>
                         </a>
                     </li>
 
-                    <li class="treeview" routerLinkActive="active">
-                        <a href="javascript:;" [routerLink]="['./add-product']">
-                            <i class="fa fa-th"></i> <span>Add Product</span>
-                        </a>
-                    </li>
 
-                    <li class="treeview" routerLinkActive="active">
-                        <a href="javascript:;" [routerLink]="['./product-detail']">
-                            <i class="fa fa-th"></i> <span>Product sale detail</span>
-                        </a>
-                    </li>
-
-                    <li class="treeview" routerLinkActive="active">
-                        <a href="javascript:;" [routerLink]="['/admin/product-invoice']">
-                            <i class="fa fa-th"></i> <span>Product invoices</span>
-                        </a>
-                    </li>
-
-                    <li class="treeview" routerLinkActive="active">
+                    <li class="treeview" routerLinkActive="active" *ngIf="role == 'Admin'">
                         <a href="javascript:;" [routerLink]="['/admin/report']">
-                            <i class="fa fa-th"></i> <span>Users</span>
+                            <i class="fa fa-th"></i> <span>User List</span>
                         </a>
                     </li>
 
-                    <li class="treeview" routerLinkActive="active">
+                    <li class="treeview" routerLinkActive="active" *ngIf="user.roleId != 4">
                         <a href="javascript:;" [routerLink]="['/admin/jobs']">
                             <i class="fa fa-building-o"></i> <span>Orders</span>
                         </a>
                     </li>
-                    <li class="treeview" routerLinkActive="active">
-                        <a href="javascript:;" [routerLink]="['./profile']">
-                            <i class="fa fa-user"></i> <span>Profile</span>
-                        </a>
-                    </li>
+
                 </ul>
             </section>
         </aside>
@@ -130,7 +135,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0.0
             </div>
-            <a href="javascript:;" target="_blank">Blink and Buys Web</a> All rights reserved.
+            <a href="javascript:;">Blink and Buy Web</a> All rights reserved.
         </footer>
     </div>
 </div>

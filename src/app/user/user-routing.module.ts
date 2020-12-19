@@ -15,6 +15,12 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { UserLoginComponent } from './login/user-login.component';
 import { UserResetPasswordComponent } from './login/reset-password/user-reset-password.component';
 import { UserRegisterComponent } from './login/register/user-register.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentComponent } from './cart/payment/payment.component';
+import { ServiceDetailComponent } from './services/service-detail/service-detail.component';
+import { ServiceListComponent } from './services/service-list/service-list.component';
+import { UserAuthGuard } from '../shared/authguard/UserAuthGuard';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 const routes: Routes = [
   {
@@ -40,6 +46,11 @@ const routes: Routes = [
       { path: "marketplace", component: MarketplaceComponent },
       { path: "sitemap", component: SitemapComponent },
       { path: "privacy-policy", component: PrivacyPolicyComponent },
+      { canActivate: [UserAuthGuard], path: "checkout", component: CheckoutComponent },
+      { canActivate: [UserAuthGuard], path: "payment", component: PaymentComponent },
+      { path: "service-detail/:id", component: ServiceDetailComponent },
+      { path: "services", component: ServiceListComponent },
+      { canActivate: [UserAuthGuard], path: "my-orders", component: MyOrdersComponent },
     ]
   }];
 

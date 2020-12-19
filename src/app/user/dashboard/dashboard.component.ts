@@ -1,11 +1,17 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AfterContentInit, Component } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { CategoryModel } from 'src/app/admin/category/category.model';
-import { Product } from 'src/app/admin/products/product.model';
-import { ProductService } from 'src/app/admin/products/product.service';
-import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
+import { ServiceModel } from '../../admin/services/admin-services.model';
+import { CategoryModel } from '../../admin/category/category.model';
+import { Product } from '../../admin/products/product.model';
+import { ProductService } from '../../admin/products/product.service';
+import { SweetAlertService } from '../../shared/alert/sweetalert.service';
+import { CartService } from '../cart/cart.service';
+import { UserCart } from '../cart/userCart.model';
+import { UserService } from '../services/user-service.service';
+import { SharedService } from '../../shared/shared.service';
+import { MessageService } from 'primeng/api';
+import { CartType } from '../../shared/globalConstants';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -13,21 +19,28 @@ declare var $: any;
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterContentInit {
+export class DashboardComponent implements AfterContentInit {
   productList: Product[] = [];
   categoryList: CategoryModel[] = [];
+  userCart: UserCart;
+  serviceList: ServiceModel[] = [];
 
-  constructor(private productService: ProductService,
-    private route: ActivatedRoute,
-    private router: Router,
+  constructor(
+    private productService: ProductService,
     private ngxService: NgxUiLoaderService,
     private sweetAlertService: SweetAlertService,
-    private sanitizer: DomSanitizer) {
-    this.getProductCategory();
+    private cartService: CartService,
+    private userService: UserService,
+    private sharedService: SharedService,
+    private messageService: MessageService,
+    private router: Router,
+  ) {
+    this.getProductList();
+    this.getServices();
+    this.userCart = new UserCart();
   }
 
   ngAfterContentInit() {
-    //set timeout for owlCarousel to load.
     setTimeout(function () {
       $("#owl-demo1").owlCarousel({
         autoPlay: 3000, //Set AutoPlay to 3 seconds
@@ -36,7 +49,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         itemsDesktopSmall: [414, 4],
         navigation: true,
         loop: true,
-        rewind: false
+        rewind: true
       });
 
       $("#owl-demo2").owlCarousel({
@@ -46,37 +59,30 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         itemsDesktopSmall: [414, 4],
         navigation: true,
         loop: true,
-        rewind: false
+        rewind: true
       });
-      $('#myModal88').modal('show');
+      // $('#myModal88').modal('show');
     }, 2000);
   }
 
-  ngOnInit(): void {
-    this.getProductList();
+  // transform(path: any) {
+  //   //Call this method in the image source, it will sanitize it.
+  //   return 'data:image/jpg;base64,' + (this.sanitizer.bypassSecurityTrustResourceUrl(path) as any).          changingThisBreaksApplicationSecurity;
+  // }
+  routeProducts() {
+    this.router.navigateByUrl("/user/products");
   }
 
-  transform(path: any) {
-    //Call this method in the image source, it will sanitize it.
-    return 'data:image/jpg;base64,' + (this.sanitizer.bypassSecurityTrustResourceUrl(path) as any).changingThisBreaksApplicationSecurity;
-  }
-
-  getProductCategory(): void {
-    this.productService.getProductCategory('').subscribe(
-      (response: any) => {
-        if (response.status === 200) {
-          this.categoryList = response.body;
-        }
-      }
-    );
+  routeServices() {
+    this.router.navigateByUrl("/user/services");
   }
 
   getProductList() {
     this.ngxService.start();
-    this.productService.getProductList().subscribe(
+    this.productService.getDashoboardProductList().subscribe(
       res => {
-        debugger;
-        this.productList = res.body.filter(x => x.isDeleted == false);
+        debugger
+        this.productList = res.body.filter(x => !x.isDeleted && x.isActive && x.isVerified);
         this.ngxService.stop();
       },
       error => {
@@ -85,8 +91,45 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     );
   }
 
-  addToCart(product: Product) {
+  getServices() {
+    this.userService.get('').subscribe(res => {
+      this.serviceList = res.body.filter(x => !x.isDeleted && x.isActive);
+    }, error => {
+    })
+  }
 
+  addToCart(product: any, type: string) {
+    debugger
+    if (this.sharedService.getLocalStorage("customerInfo") != null && this.sharedService.getLocalStorage("customerInfo") !== undefined) {
 
+      this.userCart.isDeleted = false;
+      this.userCart.bookedItemId = product.id;
+
+      if (type == CartType.Product) {
+        this.userCart.type = CartType.Product;
+        this.userCart.quantity = product.quantity + 1;
+      } else {
+        this.userCart.quantity = 1;
+        this.userCart.type = CartType.Service;
+      }
+
+      this.ngxService.start();
+      this.cartService.addToCart(this.userCart).subscribe(
+        res => {
+          this.ngxService.stop();
+          this.sharedService.setCartValue(1);
+          if (type == CartType.Service) {
+            this.router.navigateByUrl("/user/checkout");
+          }
+          this.messageService.add({ severity: 'success', summary: 'Cart', detail: 'Added to cart successfully!' });
+        },
+        error => {
+          this.ngxService.stop();
+        }
+      );
+
+    } else {
+      this.sweetAlertService.sweetAlert('', "Login required for performing this action!", 'info', false);
+    }
   }
 }

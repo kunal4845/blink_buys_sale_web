@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { User } from 'src/app/login/login.interface';
-import { roleType } from 'src/app/shared/globalConstants';
-import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
+import { User } from '../../login/login.interface';
+import { roleType } from '../../shared/globalConstants';
+import { SweetAlertService } from '../../shared/alert/sweetalert.service';
 import { DealerService } from '../dealer/dealer.service';
-import { LoginService } from 'src/app/login/loginservice';
+import { LoginService } from '../../login/loginservice';
 import { ServiceProviderService } from '../service-provider/service-provider.service';
 import { ServiceProviderAvailability } from '../service-provider/service-provider-availability.model';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -27,11 +28,13 @@ export class DashboardComponent implements OnInit {
   mytime: Date = new Date();
   isTodayOff: boolean = false;
   serviceProviderAvailability: ServiceProviderAvailability;
-  constructor(private ngxService: NgxUiLoaderService,
+  constructor(
+    private ngxService: NgxUiLoaderService,
     private dealerService: DealerService,
     private loginService: LoginService,
     private providerService: ServiceProviderService,
-    private sweetAlertService: SweetAlertService) {
+    private sweetAlertService: SweetAlertService
+  ) {
     this.serviceProviderAvailability = new ServiceProviderAvailability()
   }
 
@@ -49,7 +52,7 @@ export class DashboardComponent implements OnInit {
     ];
 
     this.settings = {
-      text: "Select Countries",
+      text: "Select Days",
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       classes: "",
@@ -68,7 +71,6 @@ export class DashboardComponent implements OnInit {
   }
 
   onSelectAll(items: any) {
-    debugger
     this.selectedItems = items;
   }
 
@@ -92,7 +94,7 @@ export class DashboardComponent implements OnInit {
   getLoggedInUser(): void {
     this.loginService.getUser().subscribe(
       userResponse => {
-        debugger
+        
         this.user = userResponse.body;
         if (this.user.roleId === roleType.Dealer) {
           this.role = 'Dealer';
@@ -110,9 +112,9 @@ export class DashboardComponent implements OnInit {
   }
 
   submitAvailability(): void {
-    debugger
+    
 
-    this.serviceProviderAvailability.days = JSON.stringify(this.selectedItems);
+    // this.serviceProviderAvailability.days = JSON.stringify(this.selectedItems);
     this.serviceProviderAvailability.isActive = this.isTodayOff;
     this.serviceProviderAvailability.isDeleted = false;
     this.serviceProviderAvailability.serviceProviderId = this.user.id;
@@ -136,10 +138,10 @@ export class DashboardComponent implements OnInit {
   getServiceProviderAvailability(): void {
     this.providerService.getServiceProviderAvailability(this.user.id).subscribe(
       userResponse => {
-        debugger;
+        
         this.serviceProviderAvailability = userResponse.body;
         if (this.serviceProviderAvailability) {
-          this.selectedItems = JSON.parse(this.serviceProviderAvailability.days);
+          // this.selectedItems = JSON.parse(this.serviceProviderAvailability.days);
           this.isTodayOff = this.serviceProviderAvailability.isActive;
         } else {
           this.serviceProviderAvailability = new ServiceProviderAvailability();

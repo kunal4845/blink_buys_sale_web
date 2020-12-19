@@ -1,0 +1,115 @@
+<section class="checkout py-lg-4 py-md-3 py-sm-3 py-3">
+    <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+        <div class="ads-grid_shop">
+            <div class="shop_inner_inf">
+                <div class="privacy about">
+                    <h3>Pay<span>ment</span></h3>
+                    <div class="responsive_tabs">
+                        <div id="horizontalTab">
+                            <ul class="resp-tabs-list">
+                                <li>Cash on delivery (COD)</li>
+                                <li>Paypal Account</li>
+                            </ul>
+                            <div class="resp-tabs-container">
+                                <div class="tab1">
+                                    <div class="pay_info">
+                                        <div class="vertical_post check_box_agile">
+                                            <h5>COD</h5>
+                                            <div class="checkbox">
+                                                <div class="check_box_one cashon_delivery">
+                                                    <label class="anim">
+                                                        <input type="checkbox" [checked]="isCashOnDelivery"
+                                                            (click)="cashOnDelivery()" class="checkbox" style="    position: initial;
+                                                        ">
+                                                        <span> We also accept Credit/Debit card on delivery. Please
+                                                            Check with the agent.</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <input class="btn btn-primary submit" type="submit" value="Proceed Payment"
+                                                (click)="makePayment('cashon_delivery')">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab4">
+                                    <div class="row pay_info">
+                                        <div class="col-md-6 tab-grid">
+                                            <img class="pp-img" src="../../../../assets/user/images/paypal.png"
+                                                alt="paypal" title="Image Title" style="    width: 55%;
+                                                ">
+                                            <p>Important: You will be redirected to PayPal's website to securely
+                                                complete your payment.</p>
+                                            <a class="btn btn-primary">Checkout via Paypal</a>
+                                        </div>
+
+                                        <!-- <div class="row col-md-12 align-items-center justify-content-center">
+                                            <div class="col">
+                                                <select id="ddlplan" [(ngModel)]="planId">
+                                                    <option value="">Select Plan </option>
+                                                    <option value="P-20D52460DL479523BLV56M5Y">SINGLE DEVICE MONTHLY
+                                                    </option>
+                                                    <option value="P-69V0714408520914GLVT2OWY">SINGLE DEVICE QUARTERLY
+                                                    </option>
+                                                    <option value="P-05879618SP259004GLVT2RQY">SINGLE DEVICE HALFYEARLY
+                                                    </option>
+                                                    <option value="P-4GG19360L3165531MLVT2T3Q">SINGLE DEVICE YEARLY
+                                                    </option>
+                                                    <option value="P-7EY82590S1568242RLVT2WCI">MULTIPLE DEVICE MONTHLY
+                                                    </option>
+                                                    <option value="P-41W43904VD877272YLVT2X4I">MULTIPLE DEVICE QUARTERLY
+                                                    </option>
+                                                    <option value="P-56995822K5295852ELVT2ZMA">MULTIPLE DEVICE
+                                                        HALFYEARLY</option>
+                                                    <option value="P-6LF21374AM914681BLVT22OY">MULTIPLE DEVICE YEARLY
+                                                    </option>
+                                                    <option value="P-3NS34795KB814132ALVTDMKI">Test Daily Plan</option>
+                                                </select></div>
+                                            <div class="col">
+                                                <div #paypal></div>
+                                            </div>
+                                        </div> -->
+
+                                        <!-- <div class="col-md-6">
+                                            <form class="cc-form">
+                                                <div class="clearfix">
+                                                    <div class="form-group form-group-cc-number">
+                                                        <label>Card Number</label>
+                                                        <input class="form-control" placeholder="xxxx xxxx xxxx xxxx"
+                                                            type="text"><span class="cc-card-icon"></span>
+                                                    </div>
+                                                    <div class="form-group form-group-cc-cvc">
+                                                        <label>CVV</label>
+                                                        <input class="form-control" placeholder="xxxx" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <div class="form-group form-group-cc-name">
+                                                        <label>Card Holder Name</label>
+                                                        <input class="form-control" type="text">
+                                                    </div>
+                                                    <div class="form-group form-group-cc-date">
+                                                        <label>Valid Thru</label>
+                                                        <input class="form-control" placeholder="mm/yy" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="checkbox checkbox-small">
+                                                    <label>
+                                                        <input class="i-check" type="checkbox" checked="">Add to My
+                                                        Cards</label>
+                                                </div>
+                                                <input class="btn btn-primary submit" type="submit"
+                                                    value="Proceed Payment">
+                                            </form>
+                                        </div> -->
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</section>

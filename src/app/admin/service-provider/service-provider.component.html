@@ -110,10 +110,8 @@
                 <span for="inputName" class="col-sm-2 control-label">Service Sub Category :</span>
                 <div class="col-sm-10">
                     <label for="inputName" class="control-label">
-                        <ng-container *ngFor="let category of categoryList;">
-                            <ng-container *ngIf="category.id == serviceProvider.serviceSubCategoryId">
-                                {{category.categoryName}}
-                            </ng-container>
+                        <ng-container *ngFor="let subCategoryId of subCategoryIdList; let i = index;">
+                            {{subCategoryId.subCategoryName}}{{i === subCategoryIdList.length - 1 ? '' : ', '}}
                         </ng-container>
                     </label>
                 </div>
@@ -122,7 +120,7 @@
             <div class="form-group col-md-6">
                 <span for="inputName" class="col-sm-2 control-label">Id Proof:</span>
                 <div class="col-sm-10">
-                    <img id="blah" [src]="previewUrl_idProofPath" alt="No img"
+                    <img id="blah" [src]="serviceProvider.idProofPath" alt="No img"
                         style="max-width: 160px;max-height: 150px;min-width: 160px;min-height: 150px;" />
                 </div>
             </div>

@@ -1,18 +1,17 @@
 <div class="register-box">
     <div class="register-logo">
-        <a href="javascript:;"><b>Blink and Buys</b></a>
+        <a href="javascript:;"><b>Blink and Buy</b></a>
     </div>
 
     <div class="register-box-body">
         <p class="login-box-msg">Register a new membership</p>
-
         <form #registerForm="ngForm" id="registerForm" novalidate>
 
             <show-errors [control]="State" [name]="'**State'"></show-errors>
             <div class="form-group has-feedback">
                 <select class="form-control" data-country="IN" id="state" name="state" required #State="ngModel"
                     [(ngModel)]="user.stateId" (change)="select($event.target.value)">
-                    <option selected value="0">-- Please select state --</option>
+                    <option selected value="0">-- Please Select State --</option>
                     <option *ngFor="let state of states" value={{state.id}}>{{state.stateName}}</option>
                 </select>
             </div>
@@ -21,7 +20,7 @@
             <show-errors [control]="City" [name]="'**City'"></show-errors>
             <div class="form-group has-feedback">
                 <select class="form-control" [(ngModel)]="user.cityId" id="city" name="city" required #City="ngModel">
-                    <option selected value="0">-- Please select city --</option>
+                    <option selected value="0">-- Please Select City --</option>
                     <option *ngFor="let city of cities " value={{city.id}}>{{city.cityName}}</option>
                 </select>
             </div>
@@ -46,7 +45,7 @@
             <div class="form-group has-feedback">
                 <select class="form-control" id="gender" name="gender" required #Gender="ngModel"
                     [(ngModel)]="user.gender">
-                    <option selected value="">-- Please select --</option>
+                    <option selected value="">-- Please Select Gender --</option>
                     <option *ngFor="let gender of genderList" value={{gender.value}}>{{gender.text}}</option>
                 </select>
             </div>
@@ -61,19 +60,17 @@
             </div>
 
             <show-errors [control]="Email" [name]="'**Email'"></show-errors>
+            <ul *ngIf="isEmailExists" style="text-align: left; color: red;">
+                <li>
+                    Email already registered with the system.
+                </li>
+            </ul>
             <div class="form-group has-feedback">
                 <input type="email" id="email" name="email" placeholder="Email**" class="form-control" required
                     #Email="ngModel" [(ngModel)]="user.email" [pattern]="emailPattern"
                     (blur)="checkEmailExists(user.email)" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-
-            <ng-container *ngIf="isEmailExists">
-                <b class="text-danger">
-                    Email already registered with the system.
-                </b>
-            </ng-container>
-
 
             <show-errors [control]="Address" [name]="'**Permanent Full Address'"></show-errors>
             <div class="form-group has-feedback">
@@ -82,31 +79,38 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
-
-            <show-errors [control]="Qualification" [name]="'**Qualification'"></show-errors>
             <div class="form-group has-feedback">
-                <textarea type="text" id="qualification" name="qualification" required placeholder="Qualification**"
-                    class="form-control" #Qualification="ngModel" [(ngModel)]="user.qualification"></textarea>
+                <textarea type="text" id="qualification" name="qualification" placeholder="Qualification**"
+                    class="form-control" [(ngModel)]="user.qualification"></textarea>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
             <show-errors [control]="Service" [name]="'**Service'"></show-errors>
             <div class="form-group has-feedback">
                 <select class="form-control" id="service" name="service" required #Service="ngModel"
-                    [(ngModel)]="user.serviceId">
-                    <option selected value="">-- Select Main Service** --</option>
+                    (change)="onSelectService(user.serviceId)" [(ngModel)]="user.serviceId">
+                    <option selected value="0">--Please Select Your Main Service** --</option>
                     <option *ngFor="let service of serviceList;" value="{{service.id}}">{{service.serviceName}}</option>
                 </select>
             </div>
 
             <show-errors [control]="ServiceSubCategory" [name]="'**Service Sub Category'"></show-errors>
             <div class="form-group has-feedback">
-                <select class="form-control" id="serviceSubCategory" name="serviceSubCategory" required
+
+                <angular2-multiselect [data]="itemList" [(ngModel)]="selectedItems" [settings]="settings" required
+                    id="serviceSubCategory" name="serviceSubCategory" #ServiceSubCategory="ngModel"
+                    (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                </angular2-multiselect>
+
+
+                <!-- <select class="form-control" id="serviceSubCategory" name="serviceSubCategory" required
                     #ServiceSubCategory="ngModel" [(ngModel)]="user.serviceSubCategoryId">
-                    <option selected value="">-- Select Service Sub Category** --</option>
-                    <option *ngFor="let category of categorList;" value="{{category.id}}">{{category.categoryName}}
+                    <option selected value="0">-- Select Service Sub Category** --</option>
+                    <option *ngFor="let category of subCategoryList;" value="{{category.id}}">
+                        {{category.subCategoryName}}
                     </option>
-                </select>
+                </select> -->
             </div>
 
 

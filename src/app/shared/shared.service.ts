@@ -11,7 +11,28 @@ import { APIURL } from './globalConstants';
 })
 export class SharedService {
     private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(null);
+    private isAddedToCart$: BehaviorSubject<number> = new BehaviorSubject(null);
+    private isDeletedFromCart$: BehaviorSubject<boolean> = new BehaviorSubject(null);
+    private setCarttoZero$: BehaviorSubject<number> = new BehaviorSubject(null);
+
     constructor(private http: HttpClient) { }
+
+
+    getCarttoZero(): Observable<number> {
+        return this.setCarttoZero$.asObservable();
+    }
+
+    setCarttoZero() {
+        this.setCarttoZero$.next(0);
+    }
+
+    isChangeDetected(): Observable<boolean> {
+        return this.isDeletedFromCart$.asObservable();
+    }
+
+    loadCheckoutInit(isDeletedFromCart: boolean) {
+        this.isDeletedFromCart$.next(isDeletedFromCart);
+    }
 
     getValue(): Observable<boolean> {
         return this.isLoggedIn$.asObservable();
@@ -21,6 +42,13 @@ export class SharedService {
         this.isLoggedIn$.next(isLoggedIn);
     }
 
+    getCartValue(): Observable<number> {
+        return this.isAddedToCart$.asObservable();
+    }
+
+    setCartValue(isAddedToCart: number) {
+        this.isAddedToCart$.next(isAddedToCart);
+    }
 
     setLocalStorage(key: string, data: any): void {
         localStorage.setItem(key, JSON.stringify(data));
@@ -35,12 +63,6 @@ export class SharedService {
             return media.split(":")[1].split("/")[0];
         }
     }
-
-    // getProductCategory(): Observable<HttpResponse<ProductCategory[]>> {
-    //     return this.http.get<ProductCategory[]>(`${APIURL}/category`, {
-    //         observe: "response"
-    //     });
-    // }
 
     getCategoryList(categoryId: string): Observable<HttpResponse<CategoryModel[]>> {
         return this.http.get<CategoryModel[]>(`${APIURL}/category/${categoryId}`, {

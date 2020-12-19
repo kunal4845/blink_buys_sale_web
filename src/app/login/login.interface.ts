@@ -34,7 +34,7 @@ export class User {
     gender: string;
     qualification: string;
     serviceId: number;
-    serviceSubCategoryId: number;
+    serviceSubCategoryId: string;
     image: string;
     
     constructor() {
@@ -64,6 +64,6 @@ export class User {
         this.gender = '';
         this.qualification = '';
         this.serviceId = 0;
-        this.serviceSubCategoryId = 0;
+        this.serviceSubCategoryId = '';
     }
 }

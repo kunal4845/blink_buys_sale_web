@@ -1,0 +1,104 @@
+<section class="content-header">
+    <h1>
+        Sub Category
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-primary" (click)="add()">Add Sub-Category</button>
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Sub Category</h3>
+                </div>
+                <div class="box-body table-responsive">
+                    <table id="tblBuilding" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                        class="table table-bordered table-striped table-level">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Main Service</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let category of categoryList; let i = index;">
+                                <tr>
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <a (click)="edit(category)" href="javascript:;">{{category.subCategoryName}}</a>
+                                    </td>
+
+                                    <td>
+                                        <ng-container *ngFor="let mainService of serviceList;">
+                                            <ng-container *ngIf="mainService.id == category.serviceId">
+                                                {{mainService.serviceName}}
+                                            </ng-container>
+                                        </ng-container>
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-space btn-info margin-right"
+                                                data-widget="Edit sub category" (click)="edit(category)"
+                                                data-toggle="tooltip" title="Edit sub category"><i
+                                                    class="fa fa-pencil"></i>
+                                            </button>
+
+                                            <button type="button" (click)="delete(category)" data-toggle="tooltip"
+                                                data-widget="Delete sub category" class="btn btn-danger btn-space"
+                                                title="Delete sub category"><i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                     <form #form="ngForm" (ngSubmit)="create();" novalidate>
+                    <div class="form-group">
+                        <label for="">Sub Category Name:<span>*</span></label>
+                        <input class="form-control" type="text" name="name" #Name="ngModel" placeholder="Enter Name"
+                            [(ngModel)]="subCategoryName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Description:<span>*</span></label>
+                        <textarea class="form-control" type="text" name="description" #Description="ngModel"
+                            placeholder="Enter description" [(ngModel)]="description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" id="serviceId" name="serviceId" required [(ngModel)]="serviceId">
+                            <option selected value="0">-- Select Associated Service --</option>
+                            <!-- <option *ngFor="let service of serviceList;" value="{{service.id}}">
+                                {{service.serviceName}}
+                            </option> -->
+
+                            <option *ngFor="let service of serviceList" [value]="service.id">
+                                {{service.serviceName}}
+                            </option>
+
+
+                        </select>
+                    </div>
+                    <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Submit</button>
+                     <button type="button" class="btn btn-primary" (click)="onCloseHandled(form)">Close</button>
+                </form>
+                     </div>
+        </div>
+    </div>
+</div>
+<ngx-ui-loader></ngx-ui-loader>

@@ -18,7 +18,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Customer</th>
-                                <th>Location</th>
+                                <!-- <th>Location</th> -->
                                 <th>Is Approved</th>
                                 <th>Is Rejected</th>
                                 <th>Is Cancelled by User</th>
@@ -27,49 +27,49 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let service of bookedServices; let i = index;">
-                                <td>{{i+1}}</td>
+                            <ng-container *ngFor="let service of bookedServices; let i = index;">
+                                <tr>
+                                    <td>{{i+1}}</td>
 
-                                <td>
-                                    <ng-container *ngFor="let user of userList;">
-                                        <ng-container *ngIf="user.id == service.userId">
-                                            {{user.name}}
+                                    <td>
+                                        <ng-container *ngFor="let user of userList;">
+                                            <ng-container *ngIf="user.id == service.userId">
+                                                {{user.name}}
+                                            </ng-container>
                                         </ng-container>
-                                    </ng-container>
-                                </td>
+                                    </td>
 
-                                <td>
-                                    <ng-container *ngFor="let city of cities;">
-                                        <ng-container *ngIf="city.id == service.cityId">
-                                            {{city.cityName}}
+                                    <!-- <td>
+                                        <ng-container *ngFor="let city of cities;">
+                                            <ng-container *ngIf="city.id == service.cityId">
+                                                {{city.cityName}}
+                                            </ng-container>
                                         </ng-container>
-                                    </ng-container>
-                                </td>
-                                <td>{{service.isApprovedByServiceProvider}}</td>
-                                <td>{{service.isRejectedByServiceProvider}}</td>
-                                <td>{{service.isCancelledByUser}}</td>
-                                <td>{{service.createdDt | date: 'dd-MMM-yyyy'}}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" (click)="reject(service)" class="btn btn-danger btn-space"
-                                            title="Reject"><i class="fa fa-remove"></i>
-                                        </button>
+                                    </td> -->
+                                    <td>{{service.isApprovedByServiceProvider}}</td>
+                                    <td>{{service.isRejectedByServiceProvider}}</td>
+                                    <td>{{service.isCancelledByUser}}</td>
+                                    <td>{{service.createdDt | date: 'dd-MMM-yyyy'}}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" (click)="reject(service)"
+                                                class="btn btn-danger btn-space" title="Reject"><i
+                                                    class="fa fa-remove"></i>
+                                            </button>
 
-                                        <button type="button" (click)="approve(service)"
-                                            class="btn btn-warning btn-space" title="Approve"><i
-                                                class="fa fa-check"></i>
-                                        </button>
+                                            <button type="button" (click)="approve(service)"
+                                                class="btn btn-warning btn-space" title="Approve"><i
+                                                    class="fa fa-check"></i>
+                                            </button>
 
-                                        <button type="button" (click)="customerDetails(service)"
-                                            class="btn btn-info btn-space" title="Customer Details"><i
-                                                class="fa fa-info-circle"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr *ngIf="bookedServices?.length < 1">
-                                <td colspan="8">No record found</td>
-                            </tr>
+                                            <button type="button" (click)="customerDetails(service)"
+                                                class="btn btn-info btn-space" title="Customer Details"><i
+                                                    class="fa fa-info-circle"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
                         </tbody>
                     </table>
                 </div>

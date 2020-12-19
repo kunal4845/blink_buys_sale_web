@@ -5,12 +5,12 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from 'src/app/login/login.interface';
 import { roleType } from 'src/app/shared/globalConstants';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
-import { ProductService } from '../../products/product.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ServiceProviderService } from '../service-provider.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { ServiceModel } from '../../services/admin-services.model';
 import { CategoryModel } from '../../category/category.model';
+import { CategoryService } from '../../category/category.service';
 
 @Component({
   selector: 'app-service-provider-request',
@@ -34,9 +34,9 @@ export class ServiceProviderRequestComponent implements OnInit {
     private ngxService: NgxUiLoaderService,
     private serviceProviderService: ServiceProviderService,
     private sweetAlertService: SweetAlertService,
-    private productService: ProductService,
     public _DomSanitizationService: DomSanitizer,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private categoryService: CategoryService
   ) {
     this.dtTrigger = new Subject();
     this.getServices();
@@ -50,7 +50,8 @@ export class ServiceProviderRequestComponent implements OnInit {
 
   preview(file: any, title: string) {
     this.title = title;
-    this.previewUrl = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(file) as any).changingThisBreaksApplicationSecurity;
+    this.previewUrl = file;
+    //  'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(file) as any).changingThisBreaksApplicationSecurity;
   }
 
   getServiceProviders() {
@@ -61,7 +62,6 @@ export class ServiceProviderRequestComponent implements OnInit {
       } else {
         this.reRender();
       }
-      debugger
       this.ngxService.stop();
       this.serviceProviders = list.body.filter(i => i.roleId === roleType.ServiceProvider && !i.isDeleted);
     }, error => {
@@ -71,9 +71,9 @@ export class ServiceProviderRequestComponent implements OnInit {
   }
 
   getProductCategory(): void {
-    this.productService.getProductCategory('').subscribe(
+    this.categoryService.getProductCategory('').subscribe(
       response => {
-        debugger
+
         this.categoryList = response.body.filter(x => x.isDeleted == false);
       }
     );
@@ -82,7 +82,7 @@ export class ServiceProviderRequestComponent implements OnInit {
   getServices(): void {
     this.sharedService.getServices('').subscribe(
       response => {
-        debugger
+
         this.serviceList = response.body.filter(x => x.isDeleted == false);
       }
     );
@@ -156,7 +156,7 @@ export class ServiceProviderRequestComponent implements OnInit {
       responsive: true,
       lengthMenu: [5, 10, 15, 20, 25],
       columnDefs: [
-        { orderable: false, targets: 8 }
+        { orderable: false, targets: 7 }
       ]
     };
   }

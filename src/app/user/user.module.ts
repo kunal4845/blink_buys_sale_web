@@ -15,7 +15,7 @@ import { DealsComponent } from './deals/deals.component';
 import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 import { BannerComponent } from './banner/banner.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FooterTopComponent } from './footer/footer-top/footer-top.component';
 import { ProductsComponent } from './products/products.component';
 import { RecommendationsComponent } from './products/recommendations/recommendations.component';
@@ -37,6 +37,15 @@ import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER }
 import { SharedModule } from '../shared/shared.module';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { PaymentComponent } from './cart/payment/payment.component';
+import { CartService } from './cart/cart.service';
+import { PaymentService } from './cart/payment/payment.service';
+import { ServiceDetailComponent } from './services/service-detail/service-detail.component';
+import { ServiceListComponent } from './services/service-list/service-list.component';
+import { UserInterceptor } from '../shared/interceptor/user-http.intercepter';
+import { UserHttpErrorInterceptor } from '../shared/interceptor/user-http-error.interceptor';
+import { UserAuthGuard } from '../shared/authguard/UserAuthGuard';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -75,7 +84,12 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     CartComponent,
     WishlistComponent,
     CheckoutComponent,
-    LocationComponent],
+    LocationComponent,
+    PaymentComponent,
+    ServiceDetailComponent,
+    ServiceListComponent,
+    MyOrdersComponent
+  ],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -84,9 +98,24 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     CommonComponentModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     SharedModule,
-    ToastModule,
+    ToastModule
   ],
   exports: [],
-  providers: [MessageService]
+  providers: [
+    MessageService,
+    CartService,
+    PaymentService,
+    UserAuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserHttpErrorInterceptor,
+      multi: true
+    }
+  ]
 })
 export class UserModule { }

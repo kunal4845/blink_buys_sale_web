@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
   user: User;
   invalidUser: boolean = false;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private loginService: LoginService,
     private sweetAlertService: SweetAlertService,
     private sharedService: SharedService,
@@ -29,10 +30,11 @@ export class LoginComponent implements OnInit {
     this.user = new User();
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
   }
 
   signIn(): void {
+    
     if (this.user.email != "" && this.user.password != "") {
       this.ngxService.start();
       this.user.roleId = roleType.Admin;
@@ -50,7 +52,7 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl("/admin/dashboard");
           }
         },
-        error => {
+        (error: any) => {
           this.ngxService.stop();
           this.sweetAlertService.sweetAlert('Error', 'Something went wrong, please try again!!', 'error', false);
         }

@@ -11,11 +11,6 @@ import { ServiceProviderResetPasswordComponent } from './login/service-provider-
 
 const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'login'
-  },
-  {
     path: 'admin-login',
     component: LoginComponent
   },
@@ -53,7 +48,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

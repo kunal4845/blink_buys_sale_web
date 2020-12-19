@@ -118,11 +118,16 @@ ul.cd-dropdown-content li {
 	position: relative;
 }
 .header-logo {
-    float: left; 
+    float: left;
+    background-image: url('../../../assets/img/Logo_BnB-2.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 82px;
+    width: 267px;
 }
 .header-search {
     float: left;
-    width: 55%;
+    width: 44%;
     text-align: center;
     margin: 1.6em 5em;
 }
@@ -959,6 +964,7 @@ p {
 .footer-logo.header-logo {
     float: none;
     text-align: center;
+    margin-left: 12%;
 }
 .address-left {
     background: #fff;
@@ -970,7 +976,7 @@ p {
 }
 .address-right:before {
     content: '';
-    background: url(../images/a1.png)no-repeat 0px 0px;
+    /* background: url(../images/a1.png)no-repeat 0px 0px; */
     background-size: 100%;
     display: block;
     position: absolute;

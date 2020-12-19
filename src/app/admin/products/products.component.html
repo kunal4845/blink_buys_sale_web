@@ -12,7 +12,8 @@
                     <h3 class="box-title">Product List</h3>
                 </div>
                 <div class="box-body table-responsive">
-                    <table id="tblBuilding" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="table table-bordered table-striped table-level">
+                    <table id="tblBuilding" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+                        class="table table-bordered table-striped table-level">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -28,32 +29,51 @@
                         <tbody>
                             <tr *ngFor="let product of productList; let i = index;">
                                 <td>{{i+1}}</td>
-                                <td>{{product.productTitle}}</td>
+                                <td>
+                                    <a [routerLink]="['/admin/add-product', product.id]">{{product.productTitle}}
+                                    </a>
+                                </td>
                                 <td>{{product.productName}}</td>
                                 <td>{{product.size}}</td>
+
                                 <td>
                                     <ng-container *ngFor="let category of categoryList;">
                                         <ng-container *ngIf="category.id == product.productCategoryId">
-                                            {{category.name}}
+                                            {{category.categoryName}}
                                         </ng-container>
                                     </ng-container>
                                 </td>
-                                <td>{{product.price}}</td>
+
+                                <td>{{product.price | currency:"&#8377;"}}</td>
                                 <td>{{product.createdDt | date: 'dd-MMM-yyyy'}}</td>
+
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" *ngIf="!product.isVerified" class="btn btn-space btn-info margin-right " data-widget="Verify and publish to website" data-toggle="tooltip" title="Verify and publish to website" (click)="verifyProduct(product)"><i class="fa fa-check"></i></button>                                        &nbsp;
+                                        <button type="button" *ngIf="!product.isVerified && user.roleId === 1"
+                                            class="btn btn-space btn-info margin-right "
+                                            title="Verify and publish to website" (click)="verifyProduct(product)"><i
+                                                class="fa fa-check"></i></button>
 
-                                        <button type="button" *ngIf="product.isVerified" class="btn btn-space btn-info margin-right disabled" data-widget="Verified and published to website" data-toggle="tooltip" title="Verified and published to website" (click)="verifyProduct(product)"><i class="fa fa-check"></i></button>                                        &nbsp;
+                                        <button type="button"
+                                            *ngIf="product.isActive && product.isVerified && user.roleId === 1"
+                                            class="btn btn-space btn-warning margin-right " title="Inactive Product"
+                                            (click)="blockProduct(product)"><i class="fa fa-ban"></i></button>
 
-                                        <button type="button" (click)="deleteProduct(product)" class="btn btn-danger btn-space" title="Remove product"><i class="fa fa-trash"></i></button> &nbsp;
+                                        <button type="button"
+                                            *ngIf="!product.isActive && product.isVerified && user.roleId === 1"
+                                            class="btn btn-space btn-warning margin-right " title="Active Product"
+                                            (click)="activeProduct(product)"><i class="fa fa-unlock-alt"></i></button>
 
+                                        <button type="button"
+                                            *ngIf="product.isActive && product.isVerified  && user.roleId === 1"
+                                            class="btn btn-space btn-info margin-right " title="Update Product Price"
+                                            (click)="edit(product)"><i class="fa fa-edit"></i></button>
 
+                                        <button type="button" (click)="deleteProduct(product)"
+                                            class="btn btn-danger btn-space" title="Remove product"><i
+                                                class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr *ngIf="productList?.length < 1">
-                                <td colspan="8">No record found</td>
                             </tr>
                         </tbody>
                     </table>
@@ -62,4 +82,41 @@
         </div>
     </div>
 </section>
+
+
+<div class="modal" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                     <form #form="ngForm" (ngSubmit)="updateProductPrice();" novalidate>
+
+                    <div class="form-group">
+                        <label for="">Actual Price(in Rs.):</label>
+                        <input class="form-control" readonly type="text" name="price" [(ngModel)]="price">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Commission Percentage:<span>*</span></label>
+                        <input class="form-control" type="number" name="commissionPercentage" min="0"
+                            #CommissionPercentage="ngModel" placeholder="Enter percentage"
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                            [(ngModel)]="commissionPercentage" (change)="onChangePercentage()" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Price after commission added(in Rs.):
+                            <br /><span style="color: red;">(price will be displayed to customer
+                                site)</span></label>
+                        <input class="form-control" readonly type="text" name="updatedPrice" [(ngModel)]="updatedPrice">
+                    </div>
+
+                    <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Update Commission
+                        Percentage</button>
+                     <button type="button" class="btn btn-primary" (click)="onCloseHandled(form)">Close</button>
+                </form>
+                     </div>
+        </div>
+    </div>
+</div>
+
 <ngx-ui-loader></ngx-ui-loader>

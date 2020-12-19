@@ -1,12 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Product, ProductImage } from '../product.model'
 import { NgForm } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../product.service';
 import { SweetAlertService } from 'src/app/shared/alert/sweetalert.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { CategoryModel } from '../../category/category.model';
+import { CategoryService } from '../../category/category.service';
+import { CommissionPercentage } from 'src/app/shared/globalConstants';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-add-product',
@@ -15,63 +18,65 @@ import { CategoryModel } from '../../category/category.model';
 })
 export class AddProductComponent implements OnInit {
   @ViewChild('productForm', { read: NgForm, static: false }) productForm: any;
+  @ViewChild('myInput') myInputVariable: ElementRef;
   productId: number;
   myFiles: File[] = [];
   previewUrl: any = null;
   product: Product;
   categorList: CategoryModel[] = [];
+  display: string = '';
 
-  constructor(private productService: ProductService,
-    private _DomSanitizationService: DomSanitizer,
-    private route: ActivatedRoute,
-    private router: Router,
+  constructor(
+    private productService: ProductService,
     private ngxService: NgxUiLoaderService,
-    private sweetAlertService: SweetAlertService) {
+    private sweetAlertService: SweetAlertService,
+    private categoryService: CategoryService,
+    private route: ActivatedRoute,
+    public _domSanitizationService: DomSanitizer,
+    private router: Router
+  ) {
     this.product = new Product();
     this.getProductCategory();
 
+    this.route.params.subscribe(params => {
+      this.productId = params['id'];
+      if (this.productId > 0) {
+        this.getProductById();
+      }
+    });
   }
 
   ngOnInit() {
-    // this.ngxService.start();
-
-    // this.route.params.subscribe((params: Params) => {
-    //   this.productService.getProductById(+params['id']).subscribe(
-    //     res => {
-    //       this.product = res.body;
-    //       this.ngxService.stop();
-    //     },
-    //     error => {
-    //       this.ngxService.stop();
-    //     },
-    //   );
-    // });
-
   }
 
+  getProductById() {
+    this.ngxService.start();
+    this.productService.getProductById(this.productId).subscribe(
+      res => {
+        if (res.body.length > 0) {
+          this.product = res.body[0];
+          // this.product.productImages.forEach(element => {
+          //   element.imagePath = 'data:image/jpg;base64,' + (this._domSanitizationService.bypassSecurityTrustResourceUrl(element.imagePath) as any).changingThisBreaksApplicationSecurity;
+          // });
+        }
+        this.ngxService.stop();
+      }, error => {
+        this.ngxService.stop();
+      }
+    );
+  }
 
   getProductCategory(): void {
-    this.ngxService.start();
-    this.productService.getProductCategory('').subscribe(
-      (response: any) => {
-        if (response.status === 200) {
-          this.categorList = response.body.filter(x => x.isDeleted == false);
-        } this.ngxService.stop();
-
-      },
-      (error) => {
-        this.ngxService.stop();
-
-        this.sweetAlertService.sweetAlert('Error', error, 'error', false);
+    this.categoryService.getProductCategory('').subscribe(
+      response => {
+        this.categorList = response.body.filter(x => !x.isDeleted);
       }
     );
   }
 
   onFileChange(event) {
-
     for (var i = 0; i < event.target.files.length; i++) {
       this.myFiles.push(event.target.files[i]);
-
       //img object
       let img = new ProductImage();
       img.isPrimaryImage = false;
@@ -80,19 +85,24 @@ export class AddProductComponent implements OnInit {
       img.size = event.target.files[i].size;
       img.lastModified = event.target.files[i].lastModified;
       img.lastModifiedDate = event.target.files[i].lastModifiedDate;
-
       // bind with product image array
       this.product.productImages.push(img);
     }
+    this.myInputVariable.nativeElement.value = "";
   }
 
   preview(file: any) {
+    debugger
+    this.display = 'block';
+    if (file?.imagePath != null && file?.imagePath != '') {
+      this.previewUrl = file.imagePath;
+      return;
+    }
     // Show preview
     var mimeType = file.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
-
     var obj = this.myFiles.filter(x => x.name == file.name)[0];
     var reader = new FileReader();
     reader.readAsDataURL(obj);
@@ -101,27 +111,31 @@ export class AddProductComponent implements OnInit {
     }
   }
 
+
+  onCloseHandled() {
+    this.display = 'none';
+  }
+
   submit() {
-    debugger
     if (this.productForm.invalid) {
       return;
-    }
+    };
 
     if (this.product.productImages.length === 0) {
       this.sweetAlertService.sweetAlert('Required', "Please upload product image!", 'warn', false);
       return;
-    }
+    };
 
     let isMasterImageSelected = this.product.productImages.filter(x => x.isPrimaryImage);
     if (isMasterImageSelected.length === 0) {
       this.sweetAlertService.sweetAlert('Required', "Please select the product master image!", 'warn', false);
       return;
-    }
+    };
 
+    this.product.commissionPercentage = CommissionPercentage;
     this.ngxService.start();
     this.productService.post(this.product).subscribe(
       (res: any) => {
-        debugger
         this.uploadProductImages(res.body);
       },
       error => {
@@ -135,11 +149,16 @@ export class AddProductComponent implements OnInit {
   uploadProductImages(productId: number) {
     this.productService.uploadProductImages(this.myFiles, productId, this.product.masterImage).subscribe(
       res => {
-        debugger;
         this.ngxService.stop();
-        this.sweetAlertService.sweetAlert('Success', "Product Added Successfully!", 'success', false);
+        if (this.productId > 0) {
+          this.sweetAlertService.sweetAlert('Success', "Updated Successfully!", 'success', false);
+        } else {
+          this.sweetAlertService.sweetAlert('Success', "Added Successfully!", 'success', false);
+        }
         this.product = new Product();
         this.myFiles = [];
+        this.myInputVariable.nativeElement.value = "";
+        this.router.navigateByUrl("/admin/products");
       },
       error => {
         this.ngxService.stop();
@@ -150,7 +169,6 @@ export class AddProductComponent implements OnInit {
 
 
   disableOther(image: any) {
-    debugger;
     this.product.productImages.forEach(x => {
       if (x.name === image.name) {
         x.isPrimaryImage = !x.isPrimaryImage;
@@ -161,20 +179,16 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  removeProductImage(i: number) {
-    debugger
+  removeProductImage(i: number, file: any) {
     this.sweetAlertService.sweetAlertConfirm('Comfirm removal', 'Are you sure you want to delete?', 'error', false,).then(result => {
-      debugger
+      this.product.productImages.splice(i, 1);
+      const myFile = this.myFiles.find(s => s.name === file.name);
+      const index: number = this.myFiles.indexOf(myFile);
+      if (index !== -1) {
+        this.myFiles.splice(index, 1);
+      }
     }).catch(err => {
-      debugger
+      this.sweetAlertService.sweetAlert('Error', err, 'error', false);
     });
-
-    // this.confirmationService.confirm({
-    //   message: 'Are you sure that you want to remove this image?',
-    //   accept: () => {
-    //     this.product.productImages.splice(i, 1);
-    //   }, reject: () => {
-    //   }
-    // });
   }
 }

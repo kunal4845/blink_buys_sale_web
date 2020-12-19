@@ -21,15 +21,6 @@
                                 <th>Dealer</th>
                                 <th>Email</th>
                                 <th>Contact</th>
-                                <!-- <th>Product Category</th>
-                                <th>Is GST Available</th>
-                                <th>GST Number</th>
-                                <th>Account Number</th>
-                                <th>Account Holder Name</th>
-                                <th>IFSC Code</th> -->
-                                <!-- <th>Is Number Verified</th> -->
-                                <!-- <th>Is Active</th> -->
-                                <!-- <th>Is Account Verified</th> -->
                                 <th>Id </th>
                                 <th>Cheque </th>
                                 <th>Registration Date</th>
@@ -44,24 +35,6 @@
                                     <a [routerLink]="['/admin/dealer-detail', dealer.id]">{{dealer.name}}</a> </td>
                                 <td>{{dealer.email}}</td>
                                 <td>{{dealer.contactNumber}}</td>
-
-                                <!-- <td>
-                                    <ng-container *ngFor="let category of categoryList;">
-                                        <ng-container *ngIf="category.id == dealer.productCategoryId">
-                                            {{category.name}}
-                                        </ng-container>
-                                    </ng-container>
-                                </td> -->
-
-
-                                <!-- <td>{{dealer.isGstAvailable}}</td>
-                                <td>{{dealer.gstNumber}}</td>
-                                <td>{{dealer.accountNumber}}</td>
-                                <td>{{dealer.accountHolderName}}</td>
-                                <td>{{dealer.ifscCode}}</td> -->
-                                <!-- <td>{{dealer.isNumberVerified}}</td> -->
-                                <!-- <td>{{dealer.isActive}}</td> -->
-                                <!-- <td>{{dealer.isAccountVerified}}</td> -->
                                 <td>
                                     <a href="javascript:;" data-toggle="modal" data-target="#modal-default"
                                         class="btn btn-info" (click)="preview(dealer.idProofPath,'Id Proof Preview')"><i
@@ -73,7 +46,6 @@
                                         (click)="preview(dealer.cancelledChequePath,'Cancelled Cheque Preview')"><i
                                             class="fa fa-eye"></i></a>
                                 </td>
-
                                 <td>{{dealer.createdDt | date: 'dd-MMM-yyyy'}}</td>
                                 <td>
                                     <div class="btn-group">
@@ -102,9 +74,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="dealers?.length < 1">
-                                <td colspan="8">No record found</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -124,7 +94,6 @@
             </div>
             <div class="modal-body">
                 <img [src]="previewUrl" style="width: 100%;" alt="No image preview">
-                <!-- <a href="javascript:;" class="btn class" target="_self" (click)="downloadImage(previewUrl)"> Download</a> -->
             </div>
         </div>
     </div>

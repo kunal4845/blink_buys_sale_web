@@ -1,8 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/admin/products/product.model';
-import { APIURL } from 'src/app/shared/globalConstants';
+import { APIURL } from '../../shared/globalConstants';
+import { BillingAddress } from '../checkout/billingAddress.model';
 import { UserCart } from './userCart.model';
 
 @Injectable({
@@ -10,24 +10,40 @@ import { UserCart } from './userCart.model';
 })
 
 export class CartService {
-    private APIURL: string = APIURL + "/product/";
     constructor(private http: HttpClient) { }
 
     addToCart(userCart: UserCart): Observable<HttpResponse<UserCart>> {
-        return this.http.post<UserCart>(`${this.APIURL}/cart`, userCart, {
+        return this.http.post<UserCart>(`${APIURL}/cart`, userCart, {
             observe: "response"
         });
     }
 
-
-    getCart(userId: number): Observable<HttpResponse<UserCart[]>> {
-        return this.http.get<UserCart[]>(`${this.APIURL}/cart/${userId}`, {
+    getCart(): Observable<HttpResponse<UserCart[]>> {
+        return this.http.get<UserCart[]>(`${APIURL}/cart`, {
             observe: "response"
         });
     }
 
     deleteCart(cartId: number): Observable<HttpResponse<UserCart>> {
-        return this.http.delete<UserCart>(`${this.APIURL}/cart/${cartId}`, {
+        return this.http.delete<UserCart>(`${APIURL}/cart/${cartId}`, {
+            observe: "response"
+        });
+    }
+
+    checkout(userCart: UserCart[]): Observable<HttpResponse<UserCart>> {
+        return this.http.post<UserCart>(`${APIURL}/cart/checkout`, userCart, {
+            observe: "response"
+        });
+    }
+
+    addBillingAddress(billingAddress: BillingAddress): Observable<HttpResponse<BillingAddress>> {
+        return this.http.post<BillingAddress>(`${APIURL}/cart/billingAddress`, billingAddress, {
+            observe: "response"
+        });
+    }
+
+    getBillingAddress(): Observable<HttpResponse<BillingAddress>> {
+        return this.http.get<BillingAddress>(`${APIURL}/cart/billingAddress`, {
             observe: "response"
         });
     }

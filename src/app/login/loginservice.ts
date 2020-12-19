@@ -16,7 +16,7 @@ export class LoginService {
   }
 
   register(user: User, selectedIdFile, selectedImageFile): Observable<HttpResponse<User>> {
-    debugger
+    
     const formData = new FormData();
     formData.append('StateId', user.stateId.toString());
     formData.append('CityId', user.cityId.toString());
@@ -44,7 +44,7 @@ export class LoginService {
   }
 
   registerServiceProvider(user: User, selectedIdFile, selectedImageFile): Observable<HttpResponse<User>> {
-    debugger
+    
     const formData = new FormData();
     formData.append('StateId', user.stateId.toString());
     formData.append('CityId', user.cityId.toString());
@@ -56,7 +56,7 @@ export class LoginService {
     formData.append('Address', user.address);
     formData.append('Qualification', user.qualification);
     formData.append('ServiceId', user.serviceId.toString());
-    formData.append('ServiceSubCategoryId', user.serviceSubCategoryId.toString());
+    formData.append('ServiceSubCategoryId', user.serviceSubCategoryId);
     formData.append('RoleId', user.roleId.toString());
     formData.append('Password', user.password);
     formData.append('IdProofPath', selectedIdFile);

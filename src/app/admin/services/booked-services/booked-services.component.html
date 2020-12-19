@@ -20,77 +20,73 @@
                                 <th>Service Provider</th>
                                 <th>Service Name</th>
                                 <th>Customer</th>
-                                <th>Location</th>
-                                <!-- <th>Active</th> -->
-                                <th>Rejected by Admin</th>
-                                <th>Rejected by Service Provider</th>
-                                <th>Approved by Service Provider</th>
+
                                 <th>Cancelled by User</th>
                                 <th>Created on</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let service of bookedServices; let i = index;">
-                                <td>{{i+1}}</td>
-                                <td>
-                                    <ng-container *ngFor="let serviceProvider of userList;">
-                                        <ng-container *ngIf="serviceProvider.id == service.serviceProviderId">
-                                            {{serviceProvider.name}}
+                            <ng-container *ngFor="let service of bookedServices; let i = index;">
+                                <tr>
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <ng-container *ngIf="service.serviceProviderId == null;else other_content">
+                                            Not assigned
                                         </ng-container>
-                                    </ng-container>
-                                </td>
+                                        <ng-template #other_content>
+                                            <ng-container *ngFor="let serviceProvider of userList;">
+                                                <ng-container *ngIf="serviceProvider.id == service.serviceProviderId">
+                                                    {{serviceProvider.name}}
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-template>
+                                    </td>
 
-                                <td>
-                                    <ng-container *ngFor="let mainService of serviceList;">
-                                        <ng-container *ngIf="mainService.id == service.serviceId">
-                                            {{mainService.serviceName}}
+                                    <td>
+                                        <ng-container *ngFor="let mainService of serviceList;">
+                                            <ng-container *ngIf="mainService.id == service.serviceId">
+                                                {{mainService.serviceName}}
+                                            </ng-container>
                                         </ng-container>
-                                    </ng-container>
-                                </td>
+                                    </td>
 
-                                <td>
-                                    <ng-container *ngFor="let user of userList;">
-                                        <ng-container *ngIf="user.id == service.userId">
-                                            {{user.name}}
+                                    <td>
+                                        <ng-container *ngFor="let user of userList;">
+                                            <ng-container *ngIf="user.id == service.userId">
+                                                {{user.name}}
+                                            </ng-container>
                                         </ng-container>
-                                    </ng-container>
-                                </td>
+                                    </td>
 
-                                <td>
-                                    <ng-container *ngFor="let city of cities;">
-                                        <ng-container *ngIf="city.id == service.cityId">
-                                            {{city.cityName}}
-                                        </ng-container>
-                                    </ng-container>
-                                </td>
+                                    <td>{{service.isCancelledByUser?'Yes':'No'}}</td>
+                                    <td>{{service.createdDt | date: 'dd-MMM-yyyy'}}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" (click)="reject(service)"
+                                                class="btn btn-danger btn-space" title="Reject Request"><i
+                                                    class="fa fa-remove"></i>
+                                            </button>
 
-                                <!-- <td>{{service.isActive}}</td> -->
-                                <!-- <td>{{service.isRejected}}</td>
-                                <td>{{service.isCancelled}}</td> -->
-                                <td>{{service.isRejectedByAdmin}}</td>
-                                <td>{{service.isApprovedByServiceProvider}}</td>
-                                <td>{{service.isRejectedByServiceProvider}}</td>
-                                <td>{{service.isCancelledByUser}}</td>
+                                            <button type="button" (click)="approve(service)"
+                                                class="btn btn-warning btn-space" title="Assign Service Provider"><i
+                                                    class="fa fa-check"></i>
+                                            </button>
 
-                                <td>{{service.createdDt | date: 'dd-MMM-yyyy'}}</td>
+                                            <button type="button" (click)="viewDetails(service)"
+                                                class="btn btn-info btn-space" title="View Customer Details"><i
+                                                    class="fa fa-info"></i>
+                                            </button>
 
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" (click)="reject(service)" class="btn btn-danger btn-space"
-                                            title="Reject"><i class="fa fa-remove"></i>
-                                        </button>
+                                            <button type="button" (click)="openStatusUpdateModel(service)"
+                                                class="btn btn-info btn-space"
+                                                title="Update Delivery & Payment Status"><i class="fa fa-check"></i>
+                                            </button>
 
-                                        <button type="button" (click)="approve(service)"
-                                            class="btn btn-warning btn-space" title="Approve"><i
-                                                class="fa fa-check"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr *ngIf="bookedServices?.length < 1">
-                                <td colspan="11">No record found</td>
-                            </tr>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
                         </tbody>
                     </table>
                 </div>
@@ -104,28 +100,135 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Customer Name : </label>
+                    <span>
+                        <ng-container *ngFor="let user of userList;">
+                            <ng-container *ngIf="user.id == bookedService.userId">
+                                {{user.name}}
+                            </ng-container>
+                        </ng-container>
+                    </span>
+                    <br />
+
+                    <label for="">Service Name : </label>
+                    <span>
+                        <ng-container *ngFor="let mainService of serviceList;">
+                            <ng-container *ngIf="mainService.id == bookedService.serviceId">
+                                {{mainService.serviceName}}
+                            </ng-container>
+                        </ng-container>
+                    </span>
+                    <br />
+
+                    <label for="">Payment Mode : </label>
+                    <span>{{bookedService.paymentMode}}</span>
+                    <br />
+
+                    <label for="">Amount : </label>
+                    <span>{{payment.amount | currency:"&#8377;"}}</span>
+                    <br />
+
+                    <label for="">Payment Status : </label>
+                    <span>{{payment.paymentStatus}}</span>
+                    <br />
+
+
+                    <label for="">Billing Address : </label>
+                    <span *ngIf="bookedService.billingAddressId == billingAddress.id">
+                        <br />
+                        <label for=""> -- Full Name : </label>
+                        <span>{{billingAddress.fullName}}</span>
+                        <br />
+
+                        <label for=""> -- Mobile : </label>
+                        <span>{{billingAddress.mobile}}</span>
+                        <br />
+
+                        <label for=""> -- LandMark : </label>
+                        <span>{{billingAddress.landMark}}</span>
+                        <br />
+
+                        <label for=""> -- City : </label>
+                        <span>{{billingAddress.city}}</span>
+                        <br />
+
+                        <label for=""> -- State : </label>
+                        <span>{{billingAddress.state}}</span>
+                        <br />
+
+                        <label for=""> -- Address : </label>
+                        <span>{{billingAddress.address}}</span>
+                        <br />
+
+                        <label for=""> -- Zip Code : </label>
+                        <span>{{billingAddress.zipCode}}</span>
+                        <br />
+
+                    </span>
+
+                    <label for="">Delivery Status : </label>
+                    <span>{{bookedService.deliveryStatus}}</span>
+                    <br />
+
+                    <label for="">Quantity : </label>
+                    <span>{{bookedService.quantity}}</span>
+                    <br />
+
+                    <label for="">Is Active : </label>
+                    <span>{{bookedService.isActive?'Yes':'No'}}</span>
+                    <br />
+
+                    <label for="">Is Rejected By Admin : </label>
+                    <span>{{bookedService.isRejectedByAdmin?'Yes':'No'}}</span>
+                    <br />
+
+
+                    <label for="">Is Approved By Admin : </label>
+                    <span>{{bookedService.isApprovedByAdmin?'Yes':'No'}}</span>
+                    <br />
+
+                    <label for="">Is Rejected By Service Provider : </label>
+                    <span>{{bookedService.isRejectedByServiceProvider?'Yes':'No'}}</span>
+                    <br />
+
+                    <label for="">Is Approved By Service Provider : </label>
+                    <span>{{bookedService.isApprovedByServiceProvider?'Yes':'No'}}</span>
+                    <br />
+
+                    <label for="">Is Cancelled By User : </label>
+                    <span>{{bookedService.isCancelledByUser?'Yes':'No'}}</span>
+                    <br />
+                </div>
+                 <button type="button" class="btn btn-primary" (click)="onCloseHandled()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" role="dialog" [ngStyle]="{'display':display_assigne_service_provider}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
                 <form #form="ngForm" (ngSubmit)="create();" novalidate>
-
                     <div class="form-group">
-                        <label for="">Assign Service Provider:<span>*</span></label>
-
-                        <select class='form-control' disabled [value]='selectedState.id'>
+                        <!-- <select class='form-control' disabled [value]='selectedState.id'>
                             <option *ngFor="let state of states;" value="{{state.id}}">
                                 {{state.stateName}}
                             </option>
                         </select>
                         <br />
-
                         <select class='form-control' disabled [value]='selectedCity.id'>
                             <option *ngFor="let city of cities;" value="{{city.id}}">
                                 {{city.cityName}}
                             </option>
                         </select>
-
-                        <br />
+                         -->
+                        <label for="">Assign Service Provider :</label>
                         <select class="form-control" id="user" name="userId" required #SelectedUser="ngModel"
                             [(ngModel)]="selectedUserId">
-                            <option selected value="">-- Select Service Provider --</option>
+                            <option selected value="0">-- Select Service Provider --</option>
                             <option *ngFor="let user of serviceProviderList;" value="{{user.id}}">
                                 {{user.name}}
                             </option>
@@ -134,12 +237,46 @@
                     </div>
 
                     <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Assign</button>
-                     <button type="button" class="btn btn-primary" (click)="onCloseHandled()">Cancel</button>
+                     <button type="button" class="btn btn-primary" (click)="close()">Cancel</button>
                 </form>
-                     
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="modal" role="dialog" [ngStyle]="{'display':display_status_model}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form #form="ngForm" (ngSubmit)="updateStatus();" novalidate>
+                    <div class="form-group">
+                        <label for="">Payment Status :</label>
+                        <select class="form-control" id="user" name="userId" required #SelectedPaymentStatus="ngModel"
+                            [(ngModel)]="selectedPaymentStatus">
+                            <option selected value="0">-- Select Payment Status --</option>
+                            <option selected value="Processing">Processing</option>
+                            <option selected value="Completed"> Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Delivery Status :</label>
+                        <select class="form-control" id="user" name="userId" required #SelectedDeliveryStatus="ngModel"
+                            [(ngModel)]="selectedDeliveryStatus">
+                            <option selected value="0">-- Select Delivery Status --</option>
+                            <option selected value="None">None</option>
+                            <option selected value="Delivered"> Delivered</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Update</button>
+                     <button type="button" class="btn btn-primary" (click)="closeStatus()">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <ngx-ui-loader></ngx-ui-loader>

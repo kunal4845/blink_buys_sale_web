@@ -1,1 +1,175 @@
-<p>checkout works!</p>
+<section class="checkout py-lg-4 py-md-3 py-sm-3 py-3">
+    <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+        <div class="shop_inner_inf">
+            <div class="privacy about">
+                <h3>Chec<span>kout</span></h3>
+                <div class="checkout-right">
+                    <h4>Your shopping cart contains: <span>{{cartCount}} Products</span></h4>
+                    <table class="timetable_sub">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product/Service</th>
+                                <th>Quantity</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr class="rem1" *ngFor="let cart of userCarts;let i = index;">
+                                <td class="invert">{{i+1}}</td>
+                                <ng-container *ngIf="cart.type == 'product';else service_type">
+                                    <td class="invert-image">
+                                        <a href="javascript:;"
+                                            [routerLink]="['/user/product-detail',cart.bookedItemId]">
+                                            {{cart.product.productTitle}}</a>
+                                    </td>
+                                    <td class="invert">
+                                        <div class="quantity">
+                                            <div class="quantity-select">
+                                                <div class="entry value-minus" (click)="addLess(cart,i)">&nbsp;</div>
+                                                <div class="entry value"><span>{{cart.quantity}}</span></div>
+                                                <div class="entry value-plus active" (click)="addMore(cart)">&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="invert"> {{cart.product.productName}}</td>
+                                    <td class="invert">{{cart.product.price | currency:"&#8377;"}}</td>
+                                    <td class="invert">
+                                        <div class="rem">
+                                            <div class="close1" (click)="delete(cart,i)"> X </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <ng-template #service_type>
+                                    <td class="invert-image">
+                                        <a href="javascript:;"
+                                            [routerLink]="['/user/service-detail',cart.bookedItemId]">
+                                            {{cart.service.serviceName}}</a>
+                                    </td>
+                                    <td class="invert">
+                                        <div class="quantity">
+                                            <div class="quantity-select">
+                                                <div class="entry value"><span>{{cart.quantity}}</span></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>N/A</td>
+                                    <td class="invert">{{cart.service.price | currency:"&#8377;"}}</td>
+                                    <td class="invert">
+                                        <div class="rem">
+                                            <div class="close1" (click)="delete(cart,i)"> X </div>
+                                        </div>
+                                    </td>
+                                </ng-template>
+                            </tr>
+                            <tr *ngIf="userCarts?.length == 0">No records found!</tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="checkout-left">
+                    <div class="col-md-4 checkout-left-basket">
+                        <h4>
+                            <a href="javascript:;" [routerLink]="['/user/dashboard']">Continue to basket</a>
+                        </h4>
+                        <ul>
+                            <ng-container *ngFor="let cart of userCarts;let i = index;">
+                                <ng-container *ngIf="cart.type == 'product'; else service_type_total">
+                                    <li>{{cart.product.productTitle}} <i>-</i>
+                                        <span>{{cart.product.price | currency:"&#8377;"}}</span>
+                                    </li>
+                                </ng-container>
+                                <ng-template #service_type_total>
+                                    <li>{{cart.service.serviceName}} <i>-</i>
+                                        <span>{{cart.service.price | currency:"&#8377;"}}</span>
+                                    </li>
+                                </ng-template>
+                            </ng-container>
+
+                            <li>Total <i>-</i> <span>{{totalCost | currency:"&#8377;"}} </span></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8 address_form">
+                        <h4>Add a new Details</h4>
+                        <form #addressForm="ngForm" id="addressForm" novalidate
+                            class="creditly-card-form agileinfo_form">
+                            <section class="creditly-wrapper wrapper">
+                                <div class="information-wrapper">
+                                    <div class="first-row form-group">
+                                        <div class="controls">
+                                            <label class="control-label">Full name: </label>
+
+                                            <input class="billing-address-name form-control" type="text" name="name"
+                                                placeholder="Full name" id="name" required #fullName="ngModel"
+                                                [(ngModel)]="billingAddress.fullName">
+
+                                        </div>
+                                        <div class="card_number_grids">
+                                            <div class="card_number_grid_left">
+                                                <div class="controls">
+                                                    <label class="control-label">Mobile number:</label>
+                                                    <input class="form-control" name="mobile" type="text"
+                                                        placeholder="Mobile number" id="mobile" required
+                                                        #mobile="ngModel" [(ngModel)]="billingAddress.mobile">
+                                                </div>
+                                            </div>
+                                            <div class="card_number_grid_right">
+                                                <div class="controls">
+                                                    <label class="control-label">Landmark: </label>
+                                                    <input class="form-control" name="landMark" type="text"
+                                                        placeholder="landMark" id="landMark" required
+                                                        #landMark="ngModel" [(ngModel)]="billingAddress.landMark">
+                                                </div>
+                                            </div>
+                                            <div class="clear"> </div>
+                                        </div>
+                                        <div class="controls">
+                                            <label class="control-label">Town/City: </label>
+                                            <input class="form-control" type="text" name="city" placeholder="Town/City"
+                                                id="city" required #city="ngModel" [(ngModel)]="billingAddress.city">
+                                        </div>
+
+                                        <div class="controls">
+                                            <label class="control-label">State: </label>
+                                            <input class="form-control" name="state" type="text" placeholder="State"
+                                                id="state" required #state="ngModel" [(ngModel)]="billingAddress.state">
+                                        </div>
+
+                                        <div class="controls">
+                                            <label class="control-label">Address: </label>
+                                            <input class="form-control" name="address" type="text" placeholder="Address"
+                                                id="city" required #address="ngModel"
+                                                [(ngModel)]="billingAddress.address">
+                                        </div>
+
+                                        <div class="controls">
+                                            <label class="control-label">Zip: </label>
+                                            <input class="form-control" name="zipCode" type="text" placeholder="Zip"
+                                                id="zipCode" required #zipCode="ngModel"
+                                                [(ngModel)]="billingAddress.zipCode">
+                                        </div>
+                                    </div>
+                                    <button class="submit check_out" [disabled]="addressForm.invalid"
+                                        (click)="addBillingAddress()">Delivery to this Address</button>
+                                </div>
+                            </section>
+                        </form>
+                        <div class="checkout-right-basket">
+                            <a href="javascript:;" style="color: #fff" (click)="makePayment(addressForm)">Make a Payment
+                            </a>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ngx-ui-loader></ngx-ui-loader>
+<p-toast position="top-right" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'20ms'"></p-toast>

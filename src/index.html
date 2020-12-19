@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Blink and Buys</title>
+    <title>Blink and Buy</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="./assets/img/logo.png">
+    <link rel="icon" type="image/x-icon" href="./assets/img/Logo_BnB-2.jpg">
 
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -14,11 +14,16 @@
     SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
 
-    <link rel="stylesheet" id="admin-bootstrap" href="./assets/css/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" id="admin-font-awesome" href="./assets/css/bower_components/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" id="admin-primeicons" type="text/css" href="./assets/css/bower_components/ng-prime/primeicons.css" />
-    <link rel="stylesheet" id="admin-primeng" type="text/css" href="./assets/css/bower_components/ng-prime/primeng.min.css" />
-    <link rel="stylesheet" id="admin-dataTables" href="./assets/css/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" id="admin-bootstrap"
+        href="./assets/css/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" id="admin-font-awesome"
+        href="./assets/css/bower_components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" id="admin-primeicons" type="text/css"
+        href="./assets/css/bower_components/ng-prime/primeicons.css" />
+    <link rel="stylesheet" id="admin-primeng" type="text/css"
+        href="./assets/css/bower_components/ng-prime/primeng.min.css" />
+    <link rel="stylesheet" id="admin-dataTables"
+        href="./assets/css/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" />
     <link rel="stylesheet" id="admin-AdminLTE" href="./assets/css/AdminLTE.css" />
     <link rel="stylesheet" id="admin-_all-skins" href="./assets/css/skins/_all-skins.min.css" />
     <link rel="stylesheet" id="admin-skin-blue" href="./assets/css/skins/skin-blue.min.css" />
@@ -28,6 +33,7 @@
 
 
     <link href="./assets/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+
     <link href="./assets/user/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="./assets/user/css/animate.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="./assets/user/css/menu.css" rel="stylesheet" type="text/css" media="all" />
@@ -35,11 +41,12 @@
     <link href="./assets/user/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
     <link href="./assets/user/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/user/css/flexslider.css" type="text/css" media="screen" />
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+        rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Lovers+Quarrel' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Offside' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'>
-
+    <link href="./assets/user/css/easy-responsive-tabs.css" rel="stylesheet" type="text/css" media="all" />
     <!-- admin -->
     <script src="./assets/css/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./assets/css/bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -47,7 +54,11 @@
     <script src="./assets/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="./assets/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="./assets/js/adminlte.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyDDSXvz3snrJ1VMfWCwlNW-iMYmEmNxImg&libraries=places"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyDDSXvz3snrJ1VMfWCwlNW-iMYmEmNxImg&libraries=places"></script>
+
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=ARFQJFtPLb7bdmXfGNOKystrrn97293_Qot8aMXu-aXp8AX3ZQkZ4xWw0GpTe1c5ZddtsLjHEbYeY20J&vault=true"></script>
 
 </head>
 
@@ -64,19 +75,19 @@
     </script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
-            $('.header-two').scrollToFixed();
+            // $('.header-two').scrollToFixed();
             // previous summary up the page.
-            var summaries = $('.summary');
-            summaries.each(function(i) {
-                var summary = $(summaries[i]);
-                var next = summaries[i + 1];
-                summary.scrollToFixed({
-                    marginTop: $('.header-two').outerHeight(true) + 10,
-                    zIndex: 999
-                });
-            });
+            // var summaries = $('.summary');
+            // summaries.each(function (i) {
+            //     var summary = $(summaries[i]);
+            //     var next = summaries[i + 1];
+            //     summary.scrollToFixed({
+            //         marginTop: $('.header-two').outerHeight(true) + 10,
+            //         zIndex: 999
+            //     });
+            // });
 
             var defaults = {
                 containerID: 'toTop', // fading element id
@@ -88,14 +99,7 @@
                 easingType: 'easeOutQuart'
             });
 
-            $('.marquee').marquee({
-                speed: 13000,
-                gap: 0,
-                delayBeforeStart: 0,
-                direction: 'left',
-                duplicated: true,
-                pauseOnHover: true
-            });
+
 
             // Add scrollspy to <body>
             $('body').scrollspy({
@@ -104,7 +108,7 @@
             });
 
             // Add smooth scrolling on all links inside the navbar
-            $("#myNavbar a").on('click', function(event) {
+            $("#myNavbar a").on('click', function (event) {
                 // Make sure this.hash has a value before overriding default behaviour
                 if (this.hash !== "") {
                     // Prevent default anchor click behaviour
@@ -117,7 +121,7 @@
                     // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
                     $('html, body').animate({
                         scrollTop: $(hash).offset().top
-                    }, 800, function() {
+                    }, 800, function () {
 
                         // Add hash (#) to URL when done scrolling (default click behaviour)
                         window.location.hash = hash;
@@ -128,8 +132,8 @@
     </script>
 
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event) {
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
                 event.preventDefault();
                 $('html,body').animate({
                     scrollTop: $(this.hash).offset().top
@@ -152,17 +156,17 @@
     </script> -->
 
     <script type="text/javascript" id="sourcecode">
-        $(function() {
+        $(function () {
             $('.scroll-pane').jScrollPane();
         });
     </script>
 
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             var menu_ul = $('.faq > li > ul'),
                 menu_a = $('.faq > li > a');
             menu_ul.hide();
-            menu_a.click(function(e) {
+            menu_a.click(function (e) {
                 e.preventDefault();
                 if (!$(this).hasClass('active')) {
                     menu_a.removeClass('active');

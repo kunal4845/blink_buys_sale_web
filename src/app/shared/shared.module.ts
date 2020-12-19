@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SweetAlertService } from './alert/sweetalert.service';
 import { LoginService } from '../login/loginservice';
 import { ArrayChangeDetectorPipe } from './arrayChangeDetector.pipe';
+import { CategoryService } from '../admin/category/category.service';
 
 @NgModule({
   declarations: [],
@@ -17,7 +18,8 @@ import { ArrayChangeDetectorPipe } from './arrayChangeDetector.pipe';
     SweetAlertService,
     LoginService,
     DatePipe,
-    ArrayChangeDetectorPipe
+    ArrayChangeDetectorPipe,
+    CategoryService
   ]
 })
 export class SharedModule { }

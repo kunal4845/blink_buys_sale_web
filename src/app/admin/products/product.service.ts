@@ -33,41 +33,48 @@ export class ProductService {
         });
     }
 
+    getDashoboardProductList(): Observable<HttpResponse<Product[]>> {
+        return this.http.get<Product[]>(`${this.APIURL}/dashboard/list`, {
+            observe: "response"
+        });
+    }
+
     getRecommendedProducts(): Observable<HttpResponse<Product[]>> {
         return this.http.get<Product[]>(`${this.APIURL}/list/recommended`, {
             observe: "response"
         });
     }
 
-    getProductById(productId: number): Observable<HttpResponse<Product>> {
-        return this.http.get<Product>(`${this.APIURL}/list/${productId}`, {
-            observe: "response"
-        });
-    }
-
-
-    // getProductCategory(): Observable<HttpResponse<CategoryModel[]>> {
-    //     return this.http.get<CategoryModel[]>(`${this.APIURL}/category`, {
-    //         observe: "response"
-    //     });
-    // }
-
-    getProductCategory(categoryId: string): Observable<HttpResponse<CategoryModel[]>> {
-        return this.http.get<CategoryModel[]>(`${APIURL}/category/${categoryId}`, {
+    getProductById(productId: number): Observable<HttpResponse<Product[]>> {
+        return this.http.get<Product[]>(`${this.APIURL}/list/${productId}`, {
             observe: "response"
         });
     }
 
     verifyProduct(productId: number): Observable<HttpResponse<Product>> {
-        debugger;
+        
         return this.http.get<Product>(`${this.APIURL}/verify/${productId}`, {
             observe: "response"
         });
     }
 
+    blockProduct(productId: number): Observable<HttpResponse<Product>> {
+        
+        return this.http.get<Product>(`${this.APIURL}/block/${productId}`, {
+            observe: "response"
+        });
+    }
+
     deleteProduct(productId: number): Observable<HttpResponse<Product>> {
-        debugger;
+        
         return this.http.delete<Product>(`${this.APIURL}/delete/${productId}`, {
+            observe: "response"
+        });
+    }
+
+    deleteProductImage(productImageId: number): Observable<HttpResponse<Product>> {
+        
+        return this.http.delete<Product>(`${this.APIURL}/delete/Image/${productImageId}`, {
             observe: "response"
         });
     }

@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from '../../login/login.interface';
-import { SweetAlertService } from '../../shared/alert/sweetalert.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { CategoryModel } from '../category/category.model';
-import { ProductService } from '../products/product.service';
 import { roleType } from '../../shared/globalConstants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceProviderService } from './service-provider.service';
@@ -13,6 +10,8 @@ import { ServiceModel } from '../services/admin-services.model';
 import { LocationService } from 'src/app/user/location/location.service';
 import { State } from 'src/app/user/location/state.model';
 import { City } from 'src/app/user/location/city.model';
+import { CategoryService } from '../category/category.service';
+import { SubCategoryModel } from '../category/sub-category/sub-category.model';
 
 @Component({
   selector: 'app-service-provider',
@@ -22,25 +21,24 @@ import { City } from 'src/app/user/location/city.model';
 export class ServiceProviderComponent implements OnInit {
   serviceProviders: User[] = [];
   serviceProvider = new User()
-  categoryList: CategoryModel[] = [];
+  categoryList: SubCategoryModel[] = [];
   previewUrl_idProofPath: any = null;
   serviceProviderId: number;
   serviceList: ServiceModel[];
   states: State[];
   cities: City[];
+  subCategoryIdList : SubCategoryModel[] = [];
 
   constructor(
     private ngxService: NgxUiLoaderService,
     private providerService: ServiceProviderService,
-    private sweetAlertService: SweetAlertService,
-    private productService: ProductService,
     public _DomSanitizationService: DomSanitizer,
     private route: ActivatedRoute,
-    private router: Router,
     private sharedService: SharedService,
-    private _dataService: LocationService
+    private _dataService: LocationService,
+    private categoryService: CategoryService
   ) {
-    this.getProductCategory();
+    this.getSubCategoryList();
     this.getServices();
     this.getCities();
     this.getStates();
@@ -53,10 +51,10 @@ export class ServiceProviderComponent implements OnInit {
     this.getServiceProviders();
   }
 
-  getProductCategory(): void {
-    this.productService.getProductCategory('').subscribe(
+  getSubCategoryList(): void {
+    this.categoryService.getSubCategoryList('').subscribe(
       response => {
-        this.categoryList = response.body.filter(x => x.isDeleted == false);
+        this.categoryList = response.body.filter(x => !x.isDeleted);
       }
     );
   }
@@ -92,11 +90,13 @@ export class ServiceProviderComponent implements OnInit {
       this.ngxService.stop();
       this.serviceProviders = list.body
         .filter(i => i.roleId === roleType.ServiceProvider && !i.isDeleted && i.id === +this.serviceProviderId);
+      
+      this.subCategoryIdList = JSON.parse(this.serviceProviders[0].serviceSubCategoryId);
 
       if (this.serviceProviders.length > 0) {
         this.serviceProvider = this.serviceProviders[0];
 
-        this.previewUrl_idProofPath = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.serviceProvider.idProofPath) as any).changingThisBreaksApplicationSecurity;
+        // this.previewUrl_idProofPath = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.serviceProvider.idProofPath) as any).changingThisBreaksApplicationSecurity;
       };
     }, error => {
       this.ngxService.stop();

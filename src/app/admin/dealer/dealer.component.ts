@@ -5,9 +5,9 @@ import { SweetAlertService } from '../../shared/alert/sweetalert.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryModel } from '../category/category.model';
 import { DealerService } from './dealer.service';
-import { ProductService } from '../products/product.service';
 import { roleType } from '../../shared/globalConstants';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { CategoryService } from '../category/category.service';
 
 @Component({
   selector: 'app-dealer',
@@ -22,17 +22,17 @@ export class DealerComponent implements OnInit {
   previewUrl_cancelledChequePath: any = null;
   dealerId: number;
 
-  constructor(private ngxService: NgxUiLoaderService,
+  constructor(
+    private ngxService: NgxUiLoaderService,
     private dealerService: DealerService,
     private sweetAlertService: SweetAlertService,
-    private productService: ProductService,
     public _DomSanitizationService: DomSanitizer,
     private route: ActivatedRoute,
-    private router: Router) {
+    private categoryService: CategoryService
+  ) {
     this.getProductCategory();
 
     this.route.params.subscribe(params => {
-      debugger
       this.dealerId = params['id'];
     });
   }
@@ -43,7 +43,7 @@ export class DealerComponent implements OnInit {
 
   getProductCategory(): void {
     this.ngxService.start();
-    this.productService.getProductCategory('').subscribe(
+    this.categoryService.getProductCategory('').subscribe(
       (response: any) => {
         this.categoryList = response.body;
         this.ngxService.stop();
@@ -62,10 +62,10 @@ export class DealerComponent implements OnInit {
       if (this.dealers.length > 0) {
         this.dealer = this.dealers[0];
 
-        debugger
-        this.previewUrl_cancelledChequePath = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.dealer.cancelledChequePath) as any).changingThisBreaksApplicationSecurity;
 
-        this.previewUrl_idProofPath = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.dealer.idProofPath) as any).changingThisBreaksApplicationSecurity;
+        // this.previewUrl_cancelledChequePath = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.dealer.cancelledChequePath) as any).changingThisBreaksApplicationSecurity;
+
+        // this.previewUrl_idProofPath = 'data:image/jpg;base64,' + (this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.dealer.idProofPath) as any).changingThisBreaksApplicationSecurity;
 
 
       };

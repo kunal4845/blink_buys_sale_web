@@ -21,7 +21,7 @@
                                 <th>Email</th>
                                 <th>Contact</th>
                                 <th>Main Service</th>
-                                <th>Service sub Category</th>
+                                <!-- <th>Service sub Category</th> -->
                                 <th>Id Proof </th>
                                 <th>Registration Date</th>
                                 <th>Action</th>
@@ -45,13 +45,13 @@
                                     </ng-container>
                                 </td>
 
-                                <td>
+                                <!-- <td>
                                     <ng-container *ngFor="let category of categoryList;">
                                         <ng-container *ngIf="category.id == serviceProvider.serviceSubCategoryId">
                                             {{category.categoryName}}
                                         </ng-container>
                                     </ng-container>
-                                </td>
+                                </td> -->
 
                                 <td>
                                     <a href="javascript:;" data-toggle="modal" data-target="#modal-default"
@@ -89,9 +89,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="serviceProviders?.length < 1">
-                                <td colspan="9">No record found</td>
-                            </tr>
+                          
                         </tbody>
                     </table>
                 </div>

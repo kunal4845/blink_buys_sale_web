@@ -4,27 +4,35 @@
         </div>
         <div class="w3ls-header-right">
             <ul>
-                <li class="dropdown head-dpdn" [ngClass]="isOpen ? 'open' : ''" (click)="clickEvent()" *ngIf="!isLoggedIn">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> My Account<span class="caret"></span></a>
+                <li class="dropdown head-dpdn" [ngClass]="isOpen ? 'open' : ''" (click)="clickEvent()"
+                    *ngIf="!isLoggedIn">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"
+                            aria-hidden="true"></i> My Account<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="javascript:;" [routerLink]="['/user/login']">Login </a></li>
                         <li><a href="javascript:;" [routerLink]="['/user/register']">Sign Up</a></li>
+                        <li><a href="javascript:;" (click)="redirectTo('admin')">Admin Login </a></li>
+                        <li><a href="javascript:;" (click)="redirectTo('dealer')">Dealer Login </a></li>
+                        <li><a href="javascript:;" (click)="redirectTo('serviceProvider')">Service Provider Login </a>
+                        </li>
                     </ul>
                 </li>
 
-                <li class="dropdown head-dpdn" class="dropdown head-dpdn" [ngClass]="isOpen ? 'open' : ''" (click)="clickEvent()" *ngIf="isLoggedIn">
+                <li class="dropdown head-dpdn" class="dropdown head-dpdn" [ngClass]="isOpen ? 'open' : ''"
+                    (click)="clickEvent()" *ngIf="isLoggedIn">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-user" aria-hidden="true"></i> {{user.name}}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:;">My Orders</a></li>
+                        <li><a href="javascript:;" [routerLink]="['/user/my-orders']">My Orders</a></li>
                     </ul>
                 </li>
 
-                <li class="dropdown head-dpdn">
-                    <a href="javascript:;" [routerLink]="['/user/help']" class="dropdown-toggle"><i class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
-                </li>
+                <!-- <li class="dropdown head-dpdn">
+                    <a href="javascript:;" [routerLink]="['/user/help']" class="dropdown-toggle"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
+                </li> -->
 
                 <li class="dropdown head-dpdn" *ngIf="isLoggedIn">
                     <a href="javascript:;" (click)="logOut()" class="dropdown-toggle" data-toggle="dropdown">
@@ -38,12 +46,12 @@
     </div>
     <div class="header-two">
         <div class="container">
-            <div class="header-logo">
-                <h1><a href="javascript:;" [routerLink]="['/user/dashboard']"><span>B</span>Blink<i>&Buys</i></a></h1>
-                <h6>Your stores. Your place.</h6>
+            <div class="header-logo" [routerLink]="['/']">
+
+                <!-- <h6>Your stores. Your place.</h6> -->
             </div>
             <div class="header-search">
-                <form action="#" method="post">
+                <form>
                     <input type="search" name="Search" placeholder="Search for a Product or Service..." required="">
                     <button type="submit" class="btn btn-default" aria-label="Left Align">
                         <i class="fa fa-search" aria-hidden="true"> </i>
@@ -52,7 +60,8 @@
             </div>
             <div class="header-cart">
                 <div class="my-account">
-                    <a href="javascript:;" [routerLink]="['/user/contact-us']"><i class="fa fa-map-marker" aria-hidden="true"></i> CONTACT US</a>
+                    <a href="javascript:;" [routerLink]="['/user/contact-us']"><i class="fa fa-map-marker"
+                            aria-hidden="true"></i> CONTACT US</a>
                 </div>
                 <div class="cart" *ngIf="isLoggedIn">
                     <button class="w3view-cart" (click)="openCart()">
@@ -69,231 +78,32 @@
         <div class="container">
             <div class="menu">
                 <div class="cd-dropdown-wrapper">
-                    <a class="cd-dropdown-trigger" href="javascript:;">Store Categories</a>
-                    <nav class="cd-dropdown">
+                    <a class="cd-dropdown-trigger" [ngClass]="isCategoryOpen ? 'dropdown-is-active' : ''"
+                        (click)=" openCategoryDropdown()" href="javascript:;">Store Categories</a>
+                    <nav class="cd-dropdown" [ngClass]="isCategoryOpen ? 'dropdown-is-active' : ''">
                         <a href="javascript" class="cd-close">Close</a>
                         <ul class="cd-dropdown-content">
-                            <li><a href="javascript:;">Today's Offers</a></li>
-                            <li class="has-children">
-                                <a href="javascript:;">Products</a>
-                                <ul class="cd-secondary-dropdown is-hidden">
-                                    <li class="go-back"><a href="javascript:;">Menu</a></li>
-                                    <li class="see-all"><a href="javascript:;">All Electronics</a></li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">MOBILE PHONES</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="javascript:;">All Electronics</a></li>
-                                            <li class="has-children">
-                                                <a href="#0">SmartPhones</a>
-                                                <ul class="is-hidden">
-                                                    <li class="go-back">
-                                                        <a href="javascript:;"> </a>
-                                                    </li>
-                                                    <li><a href="javascript:;">Android</a></li>
-                                                    <li><a href="javascript:;">Windows</a></li>
-                                                    <li><a href="javascript:;">Black berry</a></li>
-                                                </ul>
-                                            </li>
-                                            <li> <a href="javascript:;">IPhones</a> </li>
-                                            <li><a href="javascript:;">Tablets</a></li>
-                                            <li><a href="javascript:;">IPad</a></li>
-                                            <li><a href="javascript:;">Feature Phones</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">LARGE APPLIANCES</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="javascript:;">All Electronics </a></li>
-                                            <li><a href="javascript:;">Refrigerators</a></li>
-                                            <li><a href="javascript:;">Washing Machine</a></li>
-                                            <li><a href="javascript:;">Office Technology</a></li>
-                                            <li><a href="javascript:;">Air conditioner</a></li>
-                                            <li><a href="javascript:;">Home Automation</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">ENTERTAINMENT</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="javascript:;">All Electronics</a></li>
-                                            <li><a href="javascript:;">Tv & Accessories</a></li>
-                                            <li><a href="javascript:;">Digital Camera</a></li>
-                                            <li><a href="javascript:;">Gaming</a></li>
-                                            <li><a href="javascript:;">Home Audio & Theater</a></li>
-                                            <li class="has-children">
-                                                <a href="javascript:;">Computer</a>
-                                                <ul class="is-hidden">
-                                                    <li class="go-back">
-                                                        <a href="javascript:;"> </a>
-                                                    </li>
-                                                    <li><a href="javascript:;">Laptop </a></li>
-                                                    <li><a href="javascript:;">Gaming PC</a></li>
-                                                    <li><a href="javascript:;">Monitors</a></li>
-                                                    <li><a href="javascript:;">Networking</a></li>
-                                                    <li><a href="javascript:;">Printers & Supplies</a></li>
-                                                    <li><a href="javascript:;">Accessories</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">HOME APPLIANCES</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="#0">All Electronics </a></li>
-                                            <li class="has-children"><a href="javascript:;">Kitchen appliances</a>
-                                                <ul class="is-hidden">
-                                                    <li class="go-back">
-                                                        <a href="#0"> </a>
-                                                    </li>
-                                                    <li><a href="javascript:;">Rice Cookers</a></li>
-                                                    <li><a href="javascript:;">Mixer Juicer</a></li>
-                                                    <li><a href="javascript:;">Grinder</a></li>
-                                                    <li><a href="javascript:;">Blenders & Choppers</a></li>
-                                                    <li><a href="javascript:;">Microwave Oven</a></li>
-                                                    <li><a href="javascript:;">Food Processors</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Purifiers</a></li>
-                                            <li><a href="javascript:;">Geysers</a></li>
-                                            <li><a href="javascript:;">Gas Stove</a></li>
-                                            <li><a href="javascript:;">Vacuum Cleaner</a></li>
-                                            <li><a href="javascript:;">Sewing Machine</a></li>
-                                            <li><a href="javascript:;">Heaters & Fans</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">SMALL DEVICES</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="#0">All Electronics </a></li>
-                                            <li><a href="javascript:;">Wifi Dongle</a></li>
-                                            <li><a href="javascript:;">Router & Modem</a></li>
-                                            <li class="has-children"><a href="javascript:;">Storage Devices</a>
-                                                <ul class="is-hidden">
-                                                    <li class="go-back">
-                                                        <a href="#0"> </a>
-                                                    </li>
-                                                    <li><a href="javascript:;">Cloud Storage</a></li>
-                                                    <li><a href="javascript:;">Hard Disk</a></li>
-                                                    <li><a href="javascript:;">SSD</a></li>
-                                                    <li><a href="javascript:;">Pen Drive</a></li>
-                                                    <li><a href="javascript:;">Memory card</a></li>
-                                                    <li><a href="javascript:;">Security Devices</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Office Supplies</a></li>
-                                            <li><a href="javascript:;">Cut the Cable</a></li>
-                                            <li><a href="javascript:;">Auto Electronics</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">PERSONAL CARE</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="#0">All Electronics </a></li>
-                                            <li><a href="javascript:;">Epilator</a></li>
-                                            <li><a href="javascript:;">Hair Styler</a></li>
-                                            <li><a href="javascript:;">Trimmer & Shaver</a></li>
-                                            <li><a href="javascript:;">Health Care</a></li>
-                                            <li><a href="javascript:;">cables</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                            <!-- <li><a href="javascript:;">Today's Offers</a></li> -->
+                            <li class="">
+                                <a href="javascript:;" [routerLink]="['/products']">Products</a>
                             </li>
-                            <li class="has-children">
-                                <a href="javascript:;">Services</a>
-                                <ul class="cd-secondary-dropdown is-hidden">
-                                    <li class="go-back"><a href="javascript:;">Menu</a></li>
-                                    <li class="see-all"><a href="javascript:;">All Fashion Stores</a></li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">GIRLS' CLOTHING</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="javascript:;">All Fashion Stores</a></li>
-                                            <li><a href="javascript:;">Ethnic wear </a></li>
-                                            <li><a href="javascript:;">Maternity wear</a></li>
-                                            <li><a href="javascript:;">inner & nightwear </a></li>
-                                            <li><a href="javascript:;">casual wear </a></li>
-                                            <li><a href="javascript:;">formal wear</a></li>
-                                            <li><a href="javascript:;">Sports wear</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">BOYS' CLOTHING</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="javascript:;">All Fashion Stores</a></li>
-                                            <li><a href="javascript:;">Jeans</a></li>
-                                            <li><a href="javascript:;">Casual wear</a></li>
-                                            <li><a href="javascript:;">Shorts</a></li>
-                                            <li><a href="javascript:;">T-Shirts & Polos</a></li>
-                                            <li><a href="javascript:;">Trousers & Chinos</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">JACKETS</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="javascript:;">All Fashion Stores</a></li>
-                                            <li><a href="javascript:;">Blazers</a></li>
-                                            <li><a href="javascript:;">Bomber jackets</a></li>
-                                            <li><a href="javascript:;">Denim Jackets</a></li>
-                                            <li><a href="javascript:;">Duffle Coats</a></li>
-                                            <li><a href="javascript:;">Leather Jackets</a></li>
-                                            <li><a href="javascript:;">Parkas</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">ACCESSORIES </a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="javascript:;">All Fashion Stores</a></li>
-                                            <li><a href="javascript:;">Watches </a></li>
-                                            <li><a href="javascript:;">Eyewear </a></li>
-                                            <li><a href="javascript:;">Jewellery </a></li>
-                                            <li class="has-children">
-                                                <a href="javascript:;">Footwear </a>
-                                                <ul class="is-hidden">
-                                                    <li class="go-back">
-                                                        <a href="javascript:;"> </a>
-                                                    </li>
-                                                    <li><a href="javascript:;">Ethnic</a></li>
-                                                    <li><a href="javascript:;">Casual wear</a></li>
-                                                    <li><a href="javascript:;">Sports Shoes</a></li>
-                                                    <li><a href="javascript:;">Boots</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Stoles & Scarves</a></li>
-                                            <li><a href="javascript:;">Handbags</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">BEAUTY</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="javascript:;">All Fashion Stores</a></li>
-                                            <li><a href="javascript:;">Perfumes & Deos</a></li>
-                                            <li><a href="javascript:;">Lipsticks & Nail Polish</a></li>
-                                            <li><a href="javascript:;">Beauty Gift Hampers</a></li>
-                                            <li><a href="javascript:;">Personal Grooming</a></li>
-                                            <li><a href="javascript:;">Travel bags</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-children">
-                                        <a href="javascript:;">PERSONAL CARE</a>
-                                        <ul class="is-hidden">
-                                            <li class="go-back"><a href="javascript:;">All Fashion Stores</a></li>
-                                            <li><a href="javascript:;">Face Care</a></li>
-                                            <li><a href="javascript:;">Nail Care</a></li>
-                                            <li><a href="javascript:;">Hair Care</a></li>
-                                            <li><a href="javascript:;">Body Care</a></li>
-                                            <li><a href="javascript:;">Bath & Spa</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                            <li class="">
+                                <a href="javascript:;" [routerLink]="['/services']">Services</a>
                             </li>
-
                         </ul>
                     </nav>
                 </div>
             </div>
             <div class="move-text">
-                <div class="marquee"><a href="javascript:;"> New collections are available here...... <span>Get extra 10% off on everything | no extra taxes </span> <span> Try shipping pass free for 15 days with unlimited</span></a></div>
+                <div class="marquee"><a href="javascript:;"> New products and services are available here......
+                        <!-- <span>Get extra
+                            10% off on everything | no extra taxes </span> <span> Try shipping pass free for 15 days
+                            with unlimited</span> -->
+                    </a></div>
             </div>
         </div>
     </div>
 </div>
+<!-- <ngx-ui-loader></ngx-ui-loader> -->
 
 <app-cart [events]="eventsSubject.asObservable()"></app-cart>

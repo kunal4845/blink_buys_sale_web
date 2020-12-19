@@ -1,42 +1,67 @@
-<div class="agileits-modal modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModal" aria-hidden="true">
+<div class="agileits-modal modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModal"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel"> Cart</h4>
             </div>
-            <div class="modal-body modal-body-sub tableFixHead">
+            <div class="modal-body modal-body-sub tableFixHead" *ngIf="userCarts?.length > 0">
                 <table id="classTable" class="table table-bordered">
                     <thead>
-                        <th>Product Name</th>
+                        <th>Product/Serivce</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Action</th>
                     </thead>
                     <tbody class="table">
-                        <tr *ngFor="let cart of userCart;let i = index;">
-                            <td>{{cart.product.productName}}</td>
-                            <td>{{cart.product.price}}</td>
-                            <td>{{cart.quantity}}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" (click)="addMore(cart)" class="btn btn-danger btn-space" title="add more"><i class="fa fa-plus"></i></button> &nbsp; &nbsp;
+                        <tr *ngFor="let cart of userCarts;let i = index;">
+                            <ng-container *ngIf="cart.type =='product';else service_type">
+                                <td>{{cart.product.productName}}</td>
+                                <td>{{cart.product.price | currency:"&#8377;"}}</td>
+                                <td>{{cart.quantity}}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" (click)="addMore(cart)" class="btn btn-danger btn-space"
+                                            title="add more"><i class="fa fa-plus"></i></button> &nbsp; &nbsp;
 
-                                    <button type="button" (click)="addLess(cart)" class="btn btn-danger btn-space" title="add less"><i class="fa fa-minus"></i></button> &nbsp; &nbsp;
+                                        <button type="button" (click)="addLess(cart,i)" class="btn btn-danger btn-space"
+                                            title="add less"><i class="fa fa-minus"></i></button> &nbsp; &nbsp;
 
-                                    <button type="button" (click)="delete(cart)" class="btn btn-warning btn-space" title="Remove"><i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
+                                        <button type="button" (click)="delete(cart,i)" class="btn btn-warning btn-space"
+                                            title="Remove"><i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <ng-template #service_type>
+                                <td>{{cart.service.serviceName}}</td>
+                                <td>{{cart.service.price | currency:"&#8377;"}}</td>
+                                <td>{{cart.quantity}}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" (click)="delete(cart,i)" class="btn btn-warning btn-space"
+                                            title="Remove"><i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-template>
                         </tr>
-                        <tr *ngIf="userCart?.length < 1">
-                            <td colspan="4">No record found</td>
-                        </tr>
+
                     </tbody>
                 </table>
+
+
                 <br>
-                <button *ngIf="userCart?.length < 1" type="button" class="close2" data-dismiss="modal" aria-hidden="true" (click)="checkout()"> Checkout</button>
+                <button *ngIf="userCarts?.length !== 0" type="button" class="close2" data-dismiss="modal"
+                    aria-hidden="true" [routerLink]="['/user/checkout']"> Checkout</button>
             </div>
+            <tr *ngIf="userCarts?.length == 0">
+                <td colspan="4">No items available in cart..
+                    <!-- <a [routerLink]="['/']">shop now</a> -->
+                </td>
+            </tr>
         </div>
     </div>
 </div>
+<p-toast position="top-right" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'20ms'"></p-toast>

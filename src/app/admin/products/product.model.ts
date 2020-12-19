@@ -15,7 +15,9 @@ export class Product {
     productCategoryId: number;
     isVerified: boolean;
     quantity: number;
-    
+    commissionPercentage: number;
+    createdBy: number;
+
     constructor() {
         this.id = 0;
         this.productTitle = '';
@@ -33,6 +35,8 @@ export class Product {
         this.productCategoryId = 0;
         this.isVerified = false;
         this.quantity = 0;
+        this.commissionPercentage = 0;
+        this.createdBy = 0;
     }
 }
 

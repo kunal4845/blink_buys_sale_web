@@ -40,21 +40,21 @@ export class UserRegisterComponent implements OnInit {
   }
 
   register(registerForm: NgForm): void {
-    debugger;
+    
     if (this.user.email != "" && this.user.password != "" && this.user.confirmPassword != "" && this.user.name != "") {
       this.ngxService.start();
       this.user.roleId = roleType.User;//assign user role
       this.userService.userRegister(this.user).subscribe(
         (userResponse: any) => {
-          debugger;
+          
           this.ngxService.stop();
           if (userResponse.status === 200) {
-            localStorage.setItem("token", userResponse.body.token);
-            this.sharedService.setLocalStorage("userInfo", userResponse.body);
+            localStorage.setItem("usertoken", userResponse.body.token);
+            this.sharedService.setLocalStorage("customerInfo", userResponse.body);
             registerForm.reset();
             this.sharedService.setValue(true);
 
-            this.sweetAlertService.sweetAlert('', "Thank you for registering with us!", 'success', false);
+            this.sweetAlertService.sweetAlert('', "Registered successfully!", 'success', false);
             this.router.navigateByUrl("/user/dashboard");
           }
         },
@@ -65,7 +65,7 @@ export class UserRegisterComponent implements OnInit {
       );
     }
     else {
-      this.sweetAlertService.sweetAlert('', "Unable to register, Please check your inputs!", 'info', false);
+      this.sweetAlertService.sweetAlert('', "Unable to register, Please correct the input details!", 'info', false);
     }
   }
 }

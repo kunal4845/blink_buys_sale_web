@@ -106,4 +106,11 @@ export class AdminService {
       observe: "response"
     });
   }
+
+  updateStatus(bookedService: BookedServiceModel, selectedPaymentStatus: string, paymentId: number): Observable<HttpResponse<BookedServiceModel>> {
+    return this.http.post<BookedServiceModel>(`${APIURL}/serviceProvider/updateStatus/${selectedPaymentStatus}/${paymentId}`, bookedService, {
+      observe: "response"
+    });
+  }
+
 }

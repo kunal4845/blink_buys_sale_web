@@ -15,6 +15,7 @@ import { DealerComponent } from './dealer/dealer.component';
 import { ServiceProviderComponent } from './service-provider/service-provider.component';
 import { BookedServicesComponent } from './services/booked-services/booked-services.component';
 import { MyServicesComponent } from './services/my-services/my-services.component';
+import { SubCategoryComponent } from './category/sub-category/sub-category.component';
 
 
 
@@ -27,17 +28,16 @@ const routes: Routes = [
             { path: 'provider-requests', component: ServiceProviderRequestComponent },
             { path: 'dealers', component: DealerListComponent },
             { path: 'dealer-requests', component: DealerRequestComponent },
-            { path: 'add-product', component: AddProductComponent },
+            { path: 'add-product/:id', component: AddProductComponent },
             { path: 'products', component: ProductsComponent },
             { path: 'profile', component: AdminProfileComponent },
             { path: 'services', component: AddServiceComponent },
             { path: 'category', component: CategoryComponent },
             { path: 'dealer-detail/:id', component: DealerComponent },
-            { path: 'dealer-detail/:id', component: DealerComponent },
             { path: 'serviceProvider-detail/:id', component: ServiceProviderComponent },
             { path: 'booked-services', component: BookedServicesComponent },
             { path: 'my-services/:id', component: MyServicesComponent },
-
+            { path: 'sub-category', component: SubCategoryComponent },
         ]
     }
 ];

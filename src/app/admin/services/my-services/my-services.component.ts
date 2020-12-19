@@ -73,7 +73,7 @@ export class MyServicesComponent implements OnInit {
   getBookedServices() {
     this.ngxService.start();
     this.adminService.getBookedServices('').subscribe(list => {
-      debugger
+      
       if (!this.isEdit) {
         this.dtTrigger.next();
       } else {
@@ -177,7 +177,7 @@ export class MyServicesComponent implements OnInit {
       responsive: true,
       lengthMenu: [5, 10, 15, 20, 25],
       columnDefs: [
-        { orderable: false, targets: 7 }
+        { orderable: false, targets: 6 }
       ]
     };
   }

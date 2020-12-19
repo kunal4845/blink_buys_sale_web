@@ -31,6 +31,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   pbThickness: 5, // progress bar thickness
 };
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,9 +58,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AngularMultiSelectModule
-
   ],
-  providers: [LoginService, AuthGuard],
+  providers: [
+    LoginService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

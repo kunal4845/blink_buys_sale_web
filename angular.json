@@ -53,7 +53,8 @@
                             "src/assets/user/js/jquery.classycountdown.js",
                             "src/assets/user/js/jquery.menu-aim.js",
                             "src/assets/user/js/main.js",
-                            "src/assets/user/js/bootstrap.js"
+                            "src/assets/user/js/bootstrap.js",
+                            "src/assets/user/js/easy-responsive-tabs.js"
                         ]
                     },
                     "configurations": {

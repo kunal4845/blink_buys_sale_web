@@ -24,12 +24,26 @@
         <div class="contact-form-row">
             <h3 class="w3ls-title w3ls-title1">Drop Us a line</h3>
             <div class="col-md-7 contact-left">
-                <form action="#" method="post">
-                    <input type="text" name="Name" placeholder="Name" required="">
-                    <input class="email" type="text" name="Email" placeholder="Email" required="">
-                    <textarea placeholder="Message" name="Message" required=""></textarea>
-                    <input type="submit" value="SUBMIT">
+
+
+                <form #Contactform="ngForm" id="Contactform">
+
+                    <input type="text" id="name" name="Name" placeholder="Name" #Name="ngModel"
+                        [(ngModel)]="contactUs.name" required="" />
+
+
+                    <input type="text" id="email" name="Email" placeholder="Email" #Email="ngModel"
+                        [(ngModel)]="contactUs.email" [pattern]="emailPattern" required="" style="    float: right;" />
+
+
+                    <textarea type="text" id="message" name="Message" placeholder="Enter your message"
+                        #Message="ngModel" [(ngModel)]="contactUs.message" required=""></textarea>
+
+
+                    <input type="submit" value="SUBMIT" [disabled]="Contactform.invalid" (click)="submit(Contactform)">
+
                 </form>
+
             </div>
             <div class="col-md-4 contact-right">
                 <div class="cnt-w3agile-row">
@@ -64,3 +78,4 @@
         </div>
     </div>
 </div>
+<ngx-ui-loader></ngx-ui-loader>

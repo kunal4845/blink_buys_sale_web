@@ -127,7 +127,7 @@ export class CategoryComponent implements OnInit {
       responsive: true,
       lengthMenu: [5, 10, 15, 20, 25],
       columnDefs: [
-        { orderable: false, targets: 5 }
+        { orderable: false, targets: 3 }
       ]
     };
   }
