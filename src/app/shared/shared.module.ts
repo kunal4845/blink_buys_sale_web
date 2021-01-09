@@ -3,7 +3,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { SweetAlertService } from './alert/sweetalert.service';
 import { LoginService } from '../login/loginservice';
-import { ArrayChangeDetectorPipe } from './arrayChangeDetector.pipe';
 import { CategoryService } from '../admin/category/category.service';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { CategoryService } from '../admin/category/category.service';
     SweetAlertService,
     LoginService,
     DatePipe,
-    ArrayChangeDetectorPipe,
     CategoryService
   ]
 })

@@ -20,8 +20,8 @@ export const paypalClientId = "ARFQJFtPLb7bdmXfGNOKystrrn97293_Qot8aMXu-aXp8AX3Z
 // export const LocalHost = "http://localhost:4200/";
 export const SiteUrl = "http://blinknbuys.com/";
 
-export const APIURL = "https://localhost:44378/api/";
-// export const APIURL = "https://blinkandbuysapi.azurewebsites.net/api/";
+// export const APIURL = "https://localhost:44378/api/";
+export const APIURL = "https://blinkandbuysapi.azurewebsites.net/api/";
 
 export const ClientId =
     "ASJype4AiuDfJ47dL8VfjoQbvQF1JMMrHeiNJi18Px7ClFjLHbMblc3V7u1lx3qozRJpp7FRc-5_xFtV";

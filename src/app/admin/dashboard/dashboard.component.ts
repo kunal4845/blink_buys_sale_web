@@ -39,43 +39,43 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemList = [
-      { "id": 1, "itemName": "Sunday" },
-      { "id": 2, "itemName": "Monday" },
-      { "id": 3, "itemName": "Tuesday" },
-      { "id": 4, "itemName": "Wednesday" },
-      { "id": 5, "itemName": "Thursday" },
-      { "id": 6, "itemName": "Friday" },
-      { "id": 7, "itemName": "Saturday" }
-    ];
-    this.selectedItems = [
-    ];
+    // this.itemList = [
+    //   { "id": 1, "itemName": "Sunday" },
+    //   { "id": 2, "itemName": "Monday" },
+    //   { "id": 3, "itemName": "Tuesday" },
+    //   { "id": 4, "itemName": "Wednesday" },
+    //   { "id": 5, "itemName": "Thursday" },
+    //   { "id": 6, "itemName": "Friday" },
+    //   { "id": 7, "itemName": "Saturday" }
+    // ];
+    // this.selectedItems = [
+    // ];
 
-    this.settings = {
-      text: "Select Days",
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      classes: "",
-      singleSelection: false,
-      badgeShowLimit: 3,
-      lazyLoading: true
-    };
+    // this.settings = {
+    //   text: "Select Days",
+    //   selectAllText: 'Select All',
+    //   unSelectAllText: 'UnSelect All',
+    //   classes: "",
+    //   singleSelection: false,
+    //   badgeShowLimit: 3,
+    //   lazyLoading: true
+    // };
     this.getUsers();
     this.getLoggedInUser();
   }
 
-  onItemSelect(item: any) {
-  }
+  // onItemSelect(item: any) {
+  // }
 
-  OnItemDeSelect(item: any) {
-  }
+  // OnItemDeSelect(item: any) {
+  // }
 
-  onSelectAll(items: any) {
-    this.selectedItems = items;
-  }
+  // onSelectAll(items: any) {
+  //   this.selectedItems = items;
+  // }
 
-  onDeSelectAll(items: any) {
-  }
+  // onDeSelectAll(items: any) {
+  // }
 
 
   getUsers() {

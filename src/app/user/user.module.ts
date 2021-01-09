@@ -46,6 +46,8 @@ import { UserInterceptor } from '../shared/interceptor/user-http.intercepter';
 import { UserHttpErrorInterceptor } from '../shared/interceptor/user-http-error.interceptor';
 import { UserAuthGuard } from '../shared/authguard/UserAuthGuard';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { NgxPayPalModule } from 'ngx-paypal';
+
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -98,7 +100,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     CommonComponentModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     SharedModule,
-    ToastModule
+    ToastModule,
+    NgxPayPalModule
   ],
   exports: [],
   providers: [

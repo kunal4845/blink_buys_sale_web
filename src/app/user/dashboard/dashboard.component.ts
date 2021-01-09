@@ -1,4 +1,4 @@
-import { AfterContentInit, Component } from '@angular/core';
+import { AfterContentInit, Component, AfterViewInit, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ServiceModel } from '../../admin/services/admin-services.model';
 import { CategoryModel } from '../../admin/category/category.model';
@@ -19,7 +19,7 @@ declare var $: any;
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements AfterContentInit {
+export class DashboardComponent implements AfterContentInit, OnInit {
   productList: Product[] = [];
   categoryList: CategoryModel[] = [];
   userCart: UserCart;
@@ -35,40 +35,46 @@ export class DashboardComponent implements AfterContentInit {
     private messageService: MessageService,
     private router: Router,
   ) {
-    this.getProductList();
-    this.getServices();
+
     this.userCart = new UserCart();
   }
 
-  ngAfterContentInit() {
-    setTimeout(function () {
-      $("#owl-demo1").owlCarousel({
-        autoPlay: 3000, //Set AutoPlay to 3 seconds
-        items: 4,
-        itemsDesktop: [640, 5],
-        itemsDesktopSmall: [414, 4],
-        navigation: true,
-        loop: true,
-        rewind: true
-      });
+  ngOnInit() {
+    this.getProductList();
+    this.getServices();
+  }
 
-      $("#owl-demo2").owlCarousel({
-        autoPlay: 3000, //Set AutoPlay to 3 seconds
-        items: 4,
-        itemsDesktop: [640, 5],
-        itemsDesktopSmall: [414, 4],
-        navigation: true,
-        loop: true,
-        rewind: true
-      });
-      // $('#myModal88').modal('show');
-    }, 2000);
+  ngAfterContentInit() {
+    debugger
+    // setTimeout(function () {
+    //   $("#owl-demo1").owlCarousel({
+    //     autoPlay: 3000, //Set AutoPlay to 3 seconds
+    //     items: 4,
+    //     itemsDesktop: [640, 5],
+    //     itemsDesktopSmall: [414, 4],
+    //     navigation: true,
+    //     loop: true,
+    //     rewind: true
+    //   });
+
+    //   $("#owl-demo2").owlCarousel({
+    //     autoPlay: 3000, //Set AutoPlay to 3 seconds
+    //     items: 4,
+    //     itemsDesktop: [640, 5],
+    //     itemsDesktopSmall: [414, 4],
+    //     navigation: true,
+    //     loop: true,
+    //     rewind: true
+    //   });
+    //   // $('#myModal88').modal('show');
+    // }, 3000);
   }
 
   // transform(path: any) {
   //   //Call this method in the image source, it will sanitize it.
   //   return 'data:image/jpg;base64,' + (this.sanitizer.bypassSecurityTrustResourceUrl(path) as any).          changingThisBreaksApplicationSecurity;
   // }
+
   routeProducts() {
     this.router.navigateByUrl("/user/products");
   }
@@ -83,6 +89,20 @@ export class DashboardComponent implements AfterContentInit {
       res => {
         debugger
         this.productList = res.body.filter(x => !x.isDeleted && x.isActive && x.isVerified);
+
+        setTimeout(() => {
+          $("#owl-demo2").owlCarousel({
+            autoPlay: 3000, //Set AutoPlay to 3 seconds
+            items: 4,
+            itemsDesktop: [640, 5],
+            itemsDesktopSmall: [414, 4],
+            navigation: true,
+            loop: true,
+            rewind: true
+          });
+
+        }, 1000);
+
         this.ngxService.stop();
       },
       error => {
@@ -92,9 +112,27 @@ export class DashboardComponent implements AfterContentInit {
   }
 
   getServices() {
+    this.ngxService.start();
     this.userService.get('').subscribe(res => {
+      debugger;
       this.serviceList = res.body.filter(x => !x.isDeleted && x.isActive);
+      setTimeout(() => {
+        $("#owl-demo1").owlCarousel({
+          autoPlay: 3000, //Set AutoPlay to 3 seconds
+          items: 4,
+          itemsDesktop: [640, 5],
+          itemsDesktopSmall: [414, 4],
+          navigation: true,
+          loop: true,
+          rewind: true
+        });
+
+      }, 1000);
+      this.ngxService.stop();
+
     }, error => {
+      this.ngxService.stop();
+
     })
   }
 
